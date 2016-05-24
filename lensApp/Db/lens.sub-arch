@@ -1,0 +1,7 @@
+file archive_lens.tpl-arch
+{
+    {
+        HUTCH = $(HUTCH)
+        LENSBASE = $(LENSBASE)
+    }
+}

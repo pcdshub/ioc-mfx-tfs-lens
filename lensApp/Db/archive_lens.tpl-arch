@@ -1,0 +1,3 @@
+$(HUTCH):LENS:$(LENSBASE):RADIUS 30  monitor
+$(HUTCH):LENS:$(LENSBASE):NLENS  30  monitor
+$(HUTCH):LENS:$(LENSBASE):FOCUS  30  monitor

@@ -1,0 +1,47 @@
+
+record(bi, $(HUTCH):LENS:$(LENSBASE):LOCK_IN {
+    field(DTYP, "Raw Soft Channel")
+    field(DESC, "Lock lens in the beam.")
+    field(PINI, "NO")
+    field(ZNAM, "Unlocked")
+    field(ONAM, "Locked In")
+
+}
+
+record(bi, $(HUTCH):LENS:$(LENSBASE):LOCK_OUT){
+    field(DESC, "Lock lens out of the beam")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "NO")
+    field(ZNAM, "Unlocked")
+    field(ONAM, "Locked out")
+}
+
+record(bi, $(HUTCH):LENS:$(LENSBASE):STATE){
+    field(DESC, "Check the state of lens")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INP, "$(Y_MOT):$(IN_STATE) CPP")
+    field(ZNAM, "Not in")
+    field(ONAM, "In")
+    field(FLNK, $(HUTCH):LENS:$(LENSBASE):FOCUS)
+}
+
+record(bo, $(HUTCH):LENS:$(LENSBASE):IN:GO)
+    field(DTYP, "Raw Soft Channel")
+    field(DESC, "Put lens in the beam")
+    field(PINI, "NO")
+    field(OUT,  "$(HUTCH):LENS:$(LENSBASE):UNLOCKED.C")
+
+
+record(calcout, $(HUTCH):LENS:$(LENSBASE):UNLOCKED){
+    field(DESC, "Put lens in the beam")
+    field(PINI, "NO")
+    field(INPA, "$(HUTCH):LENS:$(LENSBASE):LOCK_OUT")
+    field(INPB, "$(HUTCH):LENS:STK:$(MOTBASE):LOCKED")
+    field(CALC, "A+B=0?C:0)
+    field(OOPT, "When Non-Zero")
+    field(DOPT, "1")
+    field(OUT,  "$(Y_MOT):$(IN_STATE):GO")
+}
+
+
