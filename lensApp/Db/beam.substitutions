@@ -1,0 +1,9 @@
+file beam.tpl-db
+{
+    {
+        LOCATION   = $(LOCATION)
+        LOW_LIMIT  = $(LOW_LIMIT)
+        HIGH_LIMIT = $(HIGH_LIMIT)
+        FOCUS      = $(FOCUS)
+    }
+} 

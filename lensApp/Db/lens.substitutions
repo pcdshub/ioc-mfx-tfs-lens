@@ -1,10 +1,12 @@
 file lens.tpl-db
 {
     {
-        HUTCH    = $(HUTCH)
-        LENSBASE = $(LENSBASE)
-        RADIUS   = $(RADIUS)
+        LOCATION = $(LOCATION)
+        LENSID   = $(LENSID)
+        Z        = $(Z)
+        Z_MOT    = $(Z_MOT)
         NLENS    = $(NLENS)
-        LENSBIT  = $(LENSBIT)
+        RADIUS   = $(RADIUS)
+        OBJECT   = $(OBJECT)
     }
 } 

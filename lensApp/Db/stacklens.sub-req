@@ -1,0 +1,7 @@
+file autosave_stack.tpl-req
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+    }
+}

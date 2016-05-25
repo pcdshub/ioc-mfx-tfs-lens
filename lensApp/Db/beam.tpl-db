@@ -1,4 +1,4 @@
-record(ao, $(HUTCH):LENS:BEAM:ENERGY) {
+record(ao, $(LOCATION):LENS:BEAM:ENERGY) {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -6,7 +6,7 @@ record(ao, $(HUTCH):LENS:BEAM:ENERGY) {
     field(EGU,  "eV")
 }
 
-record(ao, $(HUTCH):LENS:BEAM:LRANGE) {
+record(ao, $(LOCATION):LENS:BEAM:LRANGE) {
     field(DESC, "The lower boundary of the safe beam focus")
     field(DTYP, "Raw Soft Channel")
     field(PINI, "YES")
@@ -14,7 +14,7 @@ record(ao, $(HUTCH):LENS:BEAM:LRANGE) {
     field(EGU,  "m")
 }
 
-record(ao, $(HUTCH):LENS:BEAM:HRANGE) {
+record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
     field(DESC, "The higher boundary of the safe beam focus")
     field(DTYP, "Raw Soft Channel")
     field(PINI, "YES")
@@ -22,18 +22,19 @@ record(ao, $(HUTCH):LENS:BEAM:HRANGE) {
     field(EGU,  "m")
 }
 
-record(ao, $(HUTCH):LENS:BEAM:FOCUS) {
+record(ai, $(LOCATION):LENS:BEAM:FOCUS) {
     field(DESC, "Current focus of the X-ray source")
+    field(INP,  "$(FOCUS) CPP")
     field(DTYP, "Raw Soft Channel")
     field(PINI, "YES")
 }
 
-record(calc, $(HUTCH):LENS:BEAM:SAFE) {
+record(calc, $(LOCATION):LENS:BEAM:SAFE) {
     field(DESC, "Calculation of safety beam mode")
     field(CALC, "(B<E<C)?1:0"
     field(PINI, "YES")
-    field(INPB, "$(HUTCH):LENS:BEAM:LRANGE)")
-    field(INPC, "$(HUTCH):LENS:BEAM:HRANGE)")
-    field(INPE, "$(HUTCH):LENS:BEAM:FOCUS)")
+    field(INPB, "$(LOCATION):LENS:BEAM:LRANGE)")
+    field(INPC, "$(LOCATION):LENS:BEAM:HRANGE)")
+    field(INPE, "$(LOCATION):LENS:BEAM:FOCUS)")
     field(SCAN, "Passive")
 }

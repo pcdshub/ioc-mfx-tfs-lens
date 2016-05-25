@@ -1,4 +1,4 @@
-file archive_lens.tpl-arch
+file autosave_lens.tpl-req
 {
     {
         LOCATION = $(LOCATION)

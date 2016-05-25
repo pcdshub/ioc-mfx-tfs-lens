@@ -1,0 +1,15 @@
+record(longin, $(LOCATION):LENS:STK:$(MOTID):NLENS) {
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(DESC, "Number of lenses on the stack")
+    field(INP,  "1")
+}
+
+record(calc, $(LOCATION):LENS:STK:$(MOTID):LOCKED) {
+    field(DESC, "Whether a lens is locked in")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):LOCK_IN")
+    field(CALC, "A+B+C=0?1:0)
+}
+

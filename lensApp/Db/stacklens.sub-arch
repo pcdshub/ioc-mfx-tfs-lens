@@ -1,0 +1,7 @@
+file archive_stack.tpl-arch
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+    }
+}

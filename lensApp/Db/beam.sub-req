@@ -1,0 +1,6 @@
+file autosave_beam.tpl-req
+{
+    {
+        LOCATION = $(LOCATION)
+    }
+}

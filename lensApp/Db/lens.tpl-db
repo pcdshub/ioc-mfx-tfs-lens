@@ -1,89 +1,93 @@
-record(ao, $(HUTCH):LENS:$(LENSBASE):RADIUS) {
-    field(DESC, "Radius in m of Lens $(LENSBASE)")
+record(ao, $(LOCATION):LENS:$(LENSID):RADIUS) {
+    field(DESC, "Radius in m of Lens $(LENSID)")
+    field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(RADIUS)")
     field(EGU,  "m")
 }
 
-record(longout, "$(HUTCH):LENS:$(LENSBASE):NLENS) {
+record(longout, "$(LOCATION):LENS:$(LENSID):NLENS) {
     field(DESC, "Number of lens in Compound Lens Set")
+    field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(NLENS)")
 }
 
-record(ao, $(HUTCH):LENS:$(LENSBASE):FOCUS) {
+record(ao, $(LOCATION):LENS:$(LENSID):FOCUS) {
     field(DESC, "Focus of the Lens at current energy")
+    field(DTYP, "Raw Soft Channel")
     field(PINI, "YES")
-    field(FLNK, "$(HUTCH):LENS:$(LENSBASE):IMAGE")
+    field(FLNK, "$(LOCATION):LENS:$(LENSID):IMAGE")
 }
 
-record(calc, $(HUTCH):LENS:$(LENSBASE):Z) {
+record(calc, $(LOCATION):LENS:$(LENSID):Z) {
     field(DESC, "Current Z position of lens")
     field(PINI, "YES")
-    field(INPA,  "$(HUTCH):LENS:$(LENSBASE):Z_OFFSET CPP"")
-    field(INPB, "$(Z)")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):Z_OFFSET CPP")
+    field(INPB, "$(Z_MOT) CPP")
     field(CALC, "A+B")
     field(EGU,  "m")
 }
 
-record(ao, $(HUTCH):LENS:$(LENSBASE):Z_OFFSET) {
+record(ao, $(LOCATION):LENS:$(LENSID):Z_OFFSET) {
     field(DESC, "Distance Z displaced from rest")
+    field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(DOL,  "$(Z_MOT)")
+    field(DOL,  "$(Z)")
     field(EGU,  "m")
-    field(FLNK, "$(HUTCH):LENS:$(LENSBASE):Z")
+    field(FLNK, "$(LOCATION):LENS:$(LENSID):Z")
 } 
 
-record(calc, $(HUTCH):LENS:$(LENSBASE):OBJECT) {
+record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(DESC, "Object distance from lens")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(INPA, "$(OBJECT)")
-    field(INPB, "$(HUTCH):LENS:$(LENSBASE):Z")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):Z")
     field(CALC, "B-A")
     field(EGU,  "m")
-    field(FLNK, "$(HUTCH):LENS:$(LENSBASE):IMAGE")
+    field(FLNK, "$(LOCATION):LENS:$(LENSID):IMAGE")
 }
 
-record(calc, $(HUTCH):LENS:$(LENSBASE):IMAGE){
+record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){
     field(DESC, "Image created by lens")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(HUTCH):LENS:$(LENSBASE):STATE")
-    field(INPB, "$(HUTCH):LENS:$(LENSBASE):OBJECT")
-    field(INPC, "$(HUTCH):LENS:$(LENSBASE):FOCUS")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):STATE")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):OBJECT")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):FOCUS")
     field(CALC, "A=1?1/((1/B)-(1/C)):B)
     field(EGU,  "m")
 }
 
-record(genSub, $(HUTCH):LENS:$(LENSBASE):F_CALC){
+record(genSub, $(LOCATION):LENS:$(LENSID):F_CALC){
     field(DESC, "Calculation of Focus")
     field(PINI, "YES")
     field(EFLG, "ALWAYS")
     field(SCAN, "Passive")
     field(INAM, "lensFocus_gensub_init")
     field(SNAM, "lensFocus_gensub_process")
-    field(INPE, "$(HUTCH):LENS:BEAM:ENERGY NPP")
-    field(INPN, "$(HUTCH):LENS:$(LENSBASE):NLENS NPP")
-    field(INPR, "$(HUTCH):LENS:$(LENSBASE):RADIUS NPP")
+    field(INPE, "$(LOCATION):LENS:BEAM:ENERGY NPP")
+    field(INPN, "$(LOCATION):LENS:$(LENSID):NLENS NPP")
+    field(INPR, "$(LOCATION):LENS:$(LENSID):RADIUS NPP")
     field(FTE,  "DOUBLE")
     field(FTN,  "LONG")
     field(FTR,  "DOUBLE")
-    field(OUTF, "$(HUTCH):LENS:$(LENSBASE):FOCUS")
+    field(OUTF, "$(LOCATION):LENS:$(LENSID):FOCUS")
     field(FTVF, "DOUBLE")
 }
 
-record(fanout, $(HUTCH):LENS:$(LENSBASE):_F_CALC_SCAN) {
+record(fanout, $(LOCATION):LENS:$(LENSID):_F_CALC_SCAN) {
     field(DESC, "Periodic run of focus calculation")
     field(SCAN, "2 second")
     field(SELM, "All")
-    field(LNK1, "$(HUTCH):LENS:$(LENSBASE):F_CALC")
+    field(LNK1, "$(LOCATION):LENS:$(LENSID):F_CALC")
 }
 
-record(mbbo, $(HUTCH):LENS:$(LENSBASE):STATE) {
+record(mbbo, $(LOCATION):LENS:$(LENSID):STATE) {
     field(DESC, "Current state of the lens")
     field(PINI, "NO")
     field(ZRST, "Unknown")

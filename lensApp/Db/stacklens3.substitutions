@@ -1,0 +1,50 @@
+file stacklens3.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+        LENS1_ID = $(LENS1_ID)
+        LENS2_ID = $(LENS2_ID)
+        LENS3_ID = $(LENS3_ID)
+    }
+}
+
+file stacklens.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+        Y_MOT    = $(Y_MOT)
+    }
+}
+
+file lensMotion.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+        Y_MOT    = $(Y_MOT)
+        LENSID   = $(LENS1_ID)
+        IN_STATE = $(LENS1_STATE)
+    }
+}
+file lensMotion.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+        Y_MOT    = $(Y_MOT)
+        LENSID   = $(LENS2_ID)
+        IN_STATE = $(LENS2_STATE)
+    }
+}
+file lensMotion.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        MOTID    = $(MOTID)
+        Y_MOT    = $(Y_MOT)
+        LENSID   = $(LENS3_ID)
+        IN_STATE = $(LENS3_STATE)
+    }
+}
