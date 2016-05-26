@@ -1,0 +1,11 @@
+file stacklens3.tpl-db
+{
+    {
+        LOCATION  = $(LOCATION)
+        LENSID    = $(LENSID)
+        Y_MOT     = $(Y_MOT)
+        IN_STATE  = $(IN_STATE)
+        
+    }
+}
+

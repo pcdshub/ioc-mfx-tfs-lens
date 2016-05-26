@@ -1,4 +1,4 @@
-file archive_stack.tpl-arch
+file archive_stacklens.tpl-arch
 {
     {
         LOCATION = $(LOCATION)

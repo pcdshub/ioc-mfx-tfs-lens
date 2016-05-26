@@ -14,7 +14,6 @@ DB_INSTALLS += $(IOCADMIN)/db/iocSoft.db
 DB += beam.db
 DB += lensMotion.db
 DB += lens.db
-DB += stacklens.db
 DB += stacklens1.db
 DB += stacklens3.db
 
@@ -25,7 +24,8 @@ DB += stacklens3.db
 ARCHIVE += lens-ioc.archive
 ARCHIVE += lensMotion.archive
 ARCHIVE += lens.archive
-ARCHIVE += stack.archive
+ARCHIVE += stacklens.archive
+ARCHIVE += beam.archive
 
 #----------------------------------------------------
 # Create and install (or just install)
@@ -34,8 +34,8 @@ ARCHIVE += stack.archive
 REQ += lens-ioc.req
 REQ += lensMotion.req
 REQ += lens.req
-REQ += stack.req
-
+REQ += stacklens.req
+REQ += beam.req
 # Nothing to build for autosave, just install from $AUTOSAVE/db
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
 

@@ -29,8 +29,9 @@ lens_SRCS += lens_registerRecordDeviceDriver.cpp
 lens_SRCS_DEFAULT += lensMain.cpp
 
 # Add locally compiled object code
-lens_SRCS += lens_gensub.c
+lens_SRCS += lensFocus.c
 
+lens_LIBS += devIocStats
 lens_LIBS += autosave
 lens_LIBS += genSub
 lens_LIBS += $(EPICS_BASE_IOC_LIBS)

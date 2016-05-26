@@ -1,0 +1,46 @@
+file lens-ioc.req
+{
+    {IOC = "$$IOC_PV"}
+}
+
+file beam.req
+{
+    {LOCATION = "$$LOCATION"}
+}
+
+
+$$LOOP(LENS)
+file lens.req
+{   
+    {
+        LENSID   = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+file lensMotion.req
+{
+    {
+        LENSID   = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+$$IF($$Y_MOT)
+file stack.req
+{
+    {
+        MOTID    = "$$ID"
+        LOCATION = "LOCATION"
+    }
+}
+$$ENDIF($$Y_MOT)
+$$ENDLOOP(LENS)}
+
+$$LOOP(STACK)
+file stacklens.req
+{
+    {
+        MOTID    = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+$$ENDLOOP(STACK)

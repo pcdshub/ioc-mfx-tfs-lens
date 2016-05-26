@@ -1,0 +1,46 @@
+file lens-ioc.archive
+{
+    {IOC = "$$IOC_PV"}
+}
+
+file beam.archive
+{
+    {LOCATION = "$$LOCATION"}
+}
+
+
+$$LOOP(LENS)
+file lens.archive
+{   
+    {
+        LENSID   = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+$$IF($$Y_MOT)
+file stack.archive
+{
+    {
+        MOTID    = "$$ID"
+        LOCATION = "LOCATION"
+    }
+}
+$$ENDIF($$Y_MOT)
+$$ENDLOOP(LENS)}
+
+$$LOOP(STACK)
+file stacklens.archive
+{
+    {
+        MOTID    = "$$ID"
+        LOCATION = "$$LOCATION"
+    }
+}
+$$ENDLOOP(STACK)

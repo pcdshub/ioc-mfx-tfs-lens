@@ -1,4 +1,4 @@
-file autosave_stack.tpl-req
+file autosave_stacklens.tpl-req
 {
     {
         LOCATION = $(LOCATION)

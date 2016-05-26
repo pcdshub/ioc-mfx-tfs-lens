@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdboolh>
+#include <stdbool.h>
 #include <string.h>
 #include <math.h>
 #include <time.h>
@@ -72,8 +72,8 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
 {
     double E;          /*Current beam energy for first harmonic*/
     double R;          /*Effective Radius of Lens*/
-    long N             /*Number of Lenses*/
-    double f1,f2       /*The real and imaginary values of
+    long N;            /*Number of Lenses*/
+    double f1,f2;      /*The real and imaginary values of
                         *the index of refraction*/
     double complex f0; /*The complex index of refraction*/
     double complex f;  /*Be index of refraction*/
@@ -117,14 +117,14 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
     f0 = f1+f2*I;
 
     /*Calculate lens characteristic*/
-    f = f0*p_be*NA/me_b; 
+    f = f0*p_be*NA/m_be; 
 
     /*Calculate delta*/
     lambda = (12389.4/E)*1E-10;
     delta  = creal(eRad*pow(lambda,2.)*f/(2*pi));
 
     /*Calculate focus*/
-    focus = r/(2*NLENS*delta)*(1-NLENS*delta);
+    focus = R/(2*N*delta)*(1-N*delta);
 
     /*Push values out*/
     *(double *)pgsub->valf = focus;
