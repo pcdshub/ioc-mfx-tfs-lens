@@ -1,19 +1,12 @@
-
-record(bi, $(LOCATION):LENS:$(LENSID):LOCK_IN {
-    field(DTYP, "Raw Soft Channel")
-    field(DESC, "Lock lens in the beam.")
-    field(PINI, "NO")
-    field(ZNAM, "Unlocked")
-    field(ONAM, "Locked In")
-
-}
-
-record(bi, $(LOCATION):LENS:$(LENSID):LOCK_OUT){
-    field(DESC, "Lock lens out of the beam")
-    field(DTYP, "Raw Soft Channel")
-    field(PINI, "NO")
-    field(ZNAM, "Unlocked")
-    field(ONAM, "Locked out")
+record(mbbi, $(LOCATION):LENS:$(LENSID):LOCKED) {
+    field(DTYP, "Soft Channel")
+    field(DESC, "Locked state of Lens")
+    field(ZRST, "Unlocked")
+    field(ZRVL, "0")
+    field(ONST, "Locked In")
+    field(ONVL, "1")
+    field(TWST, "Locked Out")
+    field(TWVL, "2")
 }
 
 record(bi, $(LOCATION):LENS:$(LENSID):STATE){
@@ -28,19 +21,30 @@ record(bi, $(LOCATION):LENS:$(LENSID):STATE){
 
 record(bo, $(LOCATION):LENS:$(LENSID):IN:GO) {
     field(DESC, "Put lens in the beam")
-    field(PINI, "NO")
-    field(OUT,  "$(LOCATION):LENS:$(LENSID):UNLOCKED.C")
+    field(DTYP, "Soft Channel")
+    field(PINI, "YES")
+    field(ZNAM, "NO")
+    field(ONAM, "$(IN_STATE)")
+    field(SDIS, "$(LOCATION):LENS:$(LENSID):CHECKLOCK PP")
+    field(DISV, "1")  
+    field(HIGH, "5")
+    field(OUT,  "$(Y_MOT):$(IN_STATE):GO PP")
 }
 
-record(calcout, $(LOCATION):LENS:$(LENSID):UNLOCKED){
+record(stringout, $(LOCATION):LENS:$(LENSID):IN_STATE) {
+    field(DESC, "Name of the in state of the lens")
+    field(PINI, "YES")
+    field(SCAN, "Passive")    
+    field(VAL, "$(IN_STATE)")
+}
+
+record(calc, $(LOCATION):LENS:$(LENSID):CHECKLOCK){
     field(DESC, "Put lens in the beam")
-    field(PINI, "NO")
-    field(INPA, "$(LOCATION):LENS:$(LENSID):LOCK_OUT")
-    field(INPB, "$(LOCATION):LENS:STK:$(MOTID):LOCKED")
-    field(CALC, "A+B=0?C:0)
-    field(OOPT, "When Non-Zero")
-    field(DOPT, "1")
-    field(OUT,  "$(Y_MOT):$(IN_STATE):GO")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):LOCKED CPP")
+    field(INPB, "$(LOCATION):LENS:STK:$(MOTID):LOCKED CPP")
+    field(CALC, "A+B=0?0:1")
 }
 
 

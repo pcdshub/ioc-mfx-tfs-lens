@@ -1,0 +1,853 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 6997
+y 2239
+w 245
+h 300
+font "helvetica-medium-r-12.0"
+ctlFont "helvetica-medium-r-12.0"
+btnFont "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 8
+textColor index 14
+ctlFgColor1 index 25
+ctlFgColor2 index 18
+ctlBgColor1 index 4
+ctlBgColor2 index 4
+topShadowColor index 1
+botShadowColor index 11
+showGrid
+snapToGrid
+gridSize 2
+endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 11
+y 204
+w 222
+h 80
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 9
+y 204
+w 222
+h 80
+lineColor index 14
+fill
+fillColor index 4
+lineWidth 2
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 15
+y 254
+w 35
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Focus"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 17
+y 230
+w 38
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Radius"
+}
+autoSize
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 175
+y 212
+w 48
+h 58
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 189
+y 212
+w 18
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Bot"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 175
+y 230
+w 48
+h 16
+controlPv "$(LENS3):RADIUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 175
+y 254
+w 48
+h 16
+controlPv "$(LENS3):FOCUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 65
+y 212
+w 48
+h 58
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 79
+y 212
+w 21
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Top"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 65
+y 230
+w 48
+h 16
+controlPv "$(LENS1):RADIUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 65
+y 254
+w 48
+h 16
+controlPv "$(LENS1):FOCUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 121
+y 212
+w 48
+h 58
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 135
+y 212
+w 21
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Mid"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 121
+y 230
+w 48
+h 16
+controlPv "$(LENS2):RADIUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 121
+y 254
+w 48
+h 16
+controlPv "$(LENS2):FOCUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 12
+y 136
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS2):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 148
+y 136
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS2):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 117
+y 113
+w 10
+h 12
+lineColor index 14
+fill
+fillColor index 7
+lineWidth 2
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 102
+y 54
+w 40
+h 16
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 102
+y 53
+w 40
+h 16
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(STK):OUT:GO"
+pressValue "1"
+3d
+invisible
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+visPv "$(STK):OUT"
+visInvert
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 102
+y 54
+w 40
+h 14
+lineColor index 14
+fill
+fillColor index 20
+fillAlarm
+lineWidth 2
+visPv "$(STK):OUT"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 102
+y 54
+w 40
+h 14
+lineColor index 14
+fill
+fillColor index 15
+fillAlarm
+lineWidth 2
+visPv "$(STK):OUT"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 117
+y 71
+w 10
+h 16
+lineColor index 14
+fill
+fillColor index 7
+lineWidth 2
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 128
+w 22
+h 20
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 128
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 20
+lineWidth 2
+visPv "$(LENS2):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 128
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 15
+lineWidth 2
+visPv "$(LENS2):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 111
+y 128
+w 22
+h 20
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(LENS2):IN:GO"
+pressValue "1"
+3d
+invisible
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+visPv "$(LENS2):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 117
+y 151
+w 10
+h 12
+lineColor index 14
+fill
+fillColor index 7
+lineWidth 2
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 166
+w 22
+h 20
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 166
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 20
+lineWidth 2
+visPv "$(LENS3):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 166
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 15
+lineWidth 2
+visPv "$(LENS3):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 111
+y 166
+w 22
+h 20
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(LENS3):IN:GO"
+pressValue "1"
+3d
+invisible
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+visPv "$(LENS3):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 100
+y 10
+w 45
+h 14
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "$(STK)"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 86
+y 28
+w 72
+h 16
+controlPv "$(STK):STATE"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 148
+y 98
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS1):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 12
+y 98
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS1):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 12
+y 174
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS3):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 148
+y 174
+w 84
+h 6
+lineColor index 14
+fill
+fillColor index 30
+lineWidth 2
+visPv "$(LENS3):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 90
+w 22
+h 20
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 111
+y 90
+w 22
+h 20
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(LENS1):IN:GO"
+pressValue "1"
+3d
+invisible
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+visPv "$(LENS1):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 90
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 20
+lineWidth 2
+visPv "$(LENS1):STATE"
+visMin "0"
+visMax "1"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 111
+y 90
+w 22
+h 20
+lineColor index 14
+fill
+fillColor index 15
+lineWidth 2
+visPv "$(LENS1):STATE"
+visMin "1"
+visMax "2"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+

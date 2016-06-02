@@ -1,4 +1,3 @@
-$(LOCATION):LENS:$(LENSID):LOCK_IN    30  monitor
-$(LOCATION):LENS:$(LENSID):LOCK_OUT   30  monitor
+$(LOCATION):LENS:$(LENSID):LOCKED     30  monitor
 $(LOCATION):LENS:$(LENSID):STATE      30  monitor
 $(LOCATION):LENS:$(LENSID):IN:GO      30  monitor

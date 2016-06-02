@@ -7,8 +7,8 @@
 #define HIGH_FUND 245    /* Index for the highest energy level included in the
                           * table (i.e Etab[350] = 30000 eV)
                           */
-#define eRad 2.81704E-15 /* Classical radius of an electron in meters*/
-#define p_be 1.85E06     /* Density of Be at room temperature in meters*/
+#define eRad 2.81704E-13 /* Classical radius of an electron in cm*/
+#define p_be 1.85        /* Density of Be at room temperature in cm*/
 #define m_be 9.0121831   /* Standard atomic weight*/
 #define NA   6.02212E23  /* Avogadro's Contstant*/
 #define pi   3.14159     /* pi*/

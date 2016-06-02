@@ -1,32 +1,44 @@
-record(calcout, "$(LOCATION):LENS:STK:$(MOTID):UNLOCKED) {
+record(calcout, $(LOCATION):LENS:STK:$(MOTID):UNLOCKED) {
     field(DESC, "Remove all lenses")
     field(PINI, "NO")
     field(INPA, "$(LOCATION):LENS:STK:$(MOTID):LOCKED")
     field(CALC, "A=1?C:0")
-    field(OOPT, "When Non-Zero")
-    field(DOPT, "1")
-    field(OUT,  "$(Y_MOT):OUT:GO")
+    field(DTYP, "Soft Channel")
+    field(DOPT, "Use OCAL")
+    field(OCAL, "OUT")
+    field(OUT,  "$(Y_MOT):GO")
 }
 
 record(bo, $(LOCATION):LENS:STK:$(MOTID):OUT:GO) {
-    field(DTYP, "Raw Soft Channel")
-    field(DESC, "Put lens in the beam")
-    field(PINI, "NO")
-    field(OUT,  "$(LOCATION):LENS:STK:$(MOTID):UNLOCKED.C")
+    field(DESC, "Remove lens from the beam")
+    field(PINI, "YES")
+    field(ZNAM, "NO")
+    field(ONAM, "OUT")
+    field(SDIS, "$(LOCATION):LENS:STK:$(MOTID):LOCKED PP")
+    field(DISV, "1")
+    field(HIGH, "5")
+    field(OUT,  "$(Y_MOT):OUT:GO PP")
 }
 
+record(bi , $(LOCATION):LENS:STK:$(MOTID):OUT) {
+    field(DESC, "Out position of lens stick")
+    field(PINI, "YES")
+    field(INP, "$(Y_MOT):OUT CPP")
+    field(ZNAM, "Not out")
+    field(ONAM, "Out")
+}
 
 record(calc, $(LOCATION):LENS:STK:$(MOTID):STATE_CALC) {
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(Y_MOT)")
-    field(INPB, "$(LOCATION):LENS:STK:$(MOTID):LOCKED")
-    field(CALC, "A+B=0?0:B+1)
+    field(INPA, "$(Y_MOT) CPP")
+    field(INPB, "$(LOCATION):LENS:STK:$(MOTID):LOCKED CPP")
+    field(CALC, "A>0&&B=0?0:B+1")
 }
 
 record(mbbi, $(LOCATION):LENS:STK:$(MOTID):STATE) {
     field(DESC, "Current state of Lens")
-    field(INP,  "$(LOCATION):LENS:STK:$(MOTID):STATE_CALC")
+    field(INP,  "$(LOCATION):LENS:STK:$(MOTID):STATE_CALC CPP")
     field(PINI, "YES")
     field(ZRVL, "0")
     field(ONVL, "1")

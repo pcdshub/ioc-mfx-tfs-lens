@@ -13,33 +13,33 @@ $$LOOP(LENS)
 file lens.req
 {   
     {
-        LENSID   = "$$ID"
+        LENSID   = "$$CALC{INDEX+1,%02d}"
         LOCATION = "$$LOCATION"
     }
 }
 file lensMotion.req
 {
     {
-        LENSID   = "$$ID"
+        LENSID   = "$$CALC{INDEX+1,%02d}"
         LOCATION = "$$LOCATION"
     }
 }
-$$IF($$Y_MOT)
-file stack.req
+$$IF(Y_MOT)
+file stacklens.req
 {
     {
-        MOTID    = "$$ID"
-        LOCATION = "LOCATION"
+        MOTID    = "$$CALC{INDEX+1,%02d}"
+        LOCATION = "$$LOCATION"
     }
 }
-$$ENDIF($$Y_MOT)
+$$ENDIF(Y_MOT)
 $$ENDLOOP(LENS)}
 
 $$LOOP(STACK)
 file stacklens.req
 {
     {
-        MOTID    = "$$ID"
+        MOTID    = "$$IF($$MOT_ID,$$MOT_ID,$$LENS1_INDEX)"
         LOCATION = "$$LOCATION"
     }
 }

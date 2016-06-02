@@ -1,15 +1,15 @@
 record(ao, $(LOCATION):LENS:$(LENSID):RADIUS) {
-    field(DESC, "Radius in m of Lens $(LENSID)")
+    field(DESC, "Effective radius of lens")
     field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(RADIUS)")
-    field(EGU,  "m")
+    field(EGU,  "um")
+    field(PREC, "1")
 }
 
-record(longout, "$(LOCATION):LENS:$(LENSID):NLENS) {
+record(longout, $(LOCATION):LENS:$(LENSID):NLENS) {
     field(DESC, "Number of lens in Compound Lens Set")
-    field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(NLENS)")
@@ -19,14 +19,54 @@ record(ao, $(LOCATION):LENS:$(LENSID):FOCUS) {
     field(DESC, "Focus of the Lens at current energy")
     field(DTYP, "Raw Soft Channel")
     field(PINI, "YES")
-    field(FLNK, "$(LOCATION):LENS:$(LENSID):IMAGE")
+    field(PREC, "3")
+    field(EGU,  "m")
 }
 
+record(ao, $(LOCATION):LENS:$(LENSID):REQ_FOCUS) {
+    field(DESC, "Focus of the Lens at current energy")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
+
+record(ao, $(LOCATION):LENS:$(LENSID):N1) {
+    field(DESC, "N1 value at current energy")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
+
+record(ao, $(LOCATION):LENS:$(LENSID):N2) {
+    field(DESC, "N2 value at current energy")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
+
+record(ao, $(LOCATION):LENS:$(LENSID):REQ_N1) {
+    field(DESC, "N1 value at requested energy")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
+
+record(ao, $(LOCATION):LENS:$(LENSID):REQ_N2) {
+    field(DESC, "N2 value at requested energy")
+    field(DTYP, "Raw Soft Channel")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
 record(calc, $(LOCATION):LENS:$(LENSID):Z) {
     field(DESC, "Current Z position of lens")
     field(PINI, "YES")
     field(INPA, "$(LOCATION):LENS:$(LENSID):Z_OFFSET CPP")
-    field(INPB, "$(Z_MOT) CPP")
+    field(INPB, "$(Z_MOT)")
     field(CALC, "A+B")
     field(EGU,  "m")
 }
@@ -45,26 +85,27 @@ record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(DESC, "Object distance from lens")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(OBJECT)")
-    field(INPB, "$(LOCATION):LENS:$(LENSID):Z")
+    field(INPA, "$(OBJECT) CPP")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
     field(CALC, "B-A")
     field(EGU,  "m")
-    field(FLNK, "$(LOCATION):LENS:$(LENSID):IMAGE")
 }
 
 record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){
-    field(DESC, "Image created by lens")
+    field(DESC, "Image created by lens Z position")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(LOCATION):LENS:$(LENSID):STATE")
-    field(INPB, "$(LOCATION):LENS:$(LENSID):OBJECT")
-    field(INPC, "$(LOCATION):LENS:$(LENSID):FOCUS")
-    field(CALC, "A=1?1/((1/B)-(1/C)):B)
+    field(INPA, "$(LOCATION):LENS:$(LENSID):STATE CPP")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):OBJECT CPP")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):FOCUS CPP")
+    field(INPD, "$(LOCATION):LENS:$(LENSID):Z CPP")
+    field(CALC, "A=1?D+(1/((1/C)-(1/D))):D-B")
     field(EGU,  "m")
+    field(PREC, "3")
 }
 
-record(genSub, $(LOCATION):LENS:$(LENSID):F_CALC){
-    field(DESC, "Calculation of Focus")
+record(genSub, $(LOCATION):LENS:$(LENSID):C_CALC){
+    field(DESC, "Calculation of Focus at current Energy")
     field(PINI, "YES")
     field(EFLG, "ALWAYS")
     field(SCAN, "Passive")
@@ -76,29 +117,40 @@ record(genSub, $(LOCATION):LENS:$(LENSID):F_CALC){
     field(FTE,  "DOUBLE")
     field(FTN,  "LONG")
     field(FTR,  "DOUBLE")
-    field(OUTF, "$(LOCATION):LENS:$(LENSID):FOCUS")
+    field(OUTF, "$(LOCATION):LENS:$(LENSID):FOCUS PP")
+    field(OUTM, "$(LOCATION):LENS:$(LENSID):N1 PP")
+    field(OUTN, "$(LOCATION):LENS:$(LENSID):N2 PP")
     field(FTVF, "DOUBLE")
+    field(FTVN, "DOUBLE")
+    field(FTVM, "DOUBLE")
 }
 
+record(genSub, $(LOCATION):LENS:$(LENSID):R_CALC){
+    field(DESC, "Calculation of Focus at requested Energy")
+    field(PINI, "YES")
+    field(EFLG, "ALWAYS")
+    field(SCAN, "Passive")
+    field(INAM, "lensFocus_gensub_init")
+    field(SNAM, "lensFocus_gensub_process")
+    field(INPE, "$(LOCATION):LENS:BEAM:REQ_ENERGY NPP")
+    field(INPN, "$(LOCATION):LENS:$(LENSID):NLENS NPP")
+    field(INPR, "$(LOCATION):LENS:$(LENSID):RADIUS NPP")
+    field(FTE,  "DOUBLE")
+    field(FTN,  "LONG")
+    field(FTR,  "DOUBLE")
+    field(OUTF, "$(LOCATION):LENS:$(LENSID):REQ_FOCUS PP")
+    field(OUTM, "$(LOCATION):LENS:$(LENSID):REQ_N1 PP")
+    field(OUTN, "$(LOCATION):LENS:$(LENSID):REQ_N2 PP")
+    field(FTVF, "DOUBLE")
+    field(FTVN, "DOUBLE")
+    field(FTVM, "DOUBLE")
+}
 record(fanout, $(LOCATION):LENS:$(LENSID):_F_CALC_SCAN) {
     field(DESC, "Periodic run of focus calculation")
     field(SCAN, "2 second")
     field(SELM, "All")
-    field(LNK1, "$(LOCATION):LENS:$(LENSID):F_CALC")
+    field(LNK1, "$(LOCATION):LENS:$(LENSID):C_CALC")
+    field(LNK2, "$(LOCATION):LENS:$(LENSID):R_CALC")
 }
 
-record(mbbo, $(LOCATION):LENS:$(LENSID):STATE) {
-    field(DESC, "Current state of the lens")
-    field(PINI, "NO")
-    field(ZRST, "Unknown")
-    field(ZRVL, "0")
-    field(ZRSV, "MINOR")
-    field(ONST, "IN")
-    field(ONVL, "1")
-    field(ONSV, "NO_ALARM")
-    field(TWST, "OUT")
-    field(TWVL, "2")
-    field(TWSV, "NO_ALARM")
-    field(UNSV, "MAJOR")
-}
 

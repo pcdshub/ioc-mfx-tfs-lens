@@ -9,7 +9,7 @@ record(calc, $(LOCATION):LENS:STK:$(MOTID):LOCKED) {
     field(DESC, "Whether a lens is locked in")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(LOCATION):LENS:$(LENSID):LOCK_IN")
-    field(CALC, "A+B+C=0?1:0)
+    field(INPA, "$(LOCATION):LENS:$(LENSID):LOCKED CPP")
+    field(CALC, "A=1?1:0)
 }
 

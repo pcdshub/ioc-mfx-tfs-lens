@@ -1,22 +1,40 @@
-record(ao, $(LOCATION):LENS:BEAM:ENERGY) {
+record(ai, $(LOCATION):LENS:BEAM:ENERGY) {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(DOL,  "SIOC:SYS0:ML00:AO62 PP")
+    field(INP,  "SIOC:SYS0:ML00:AO627 CPP")
     field(EGU,  "eV")
 }
 
-record(ao, $(LOCATION):LENS:BEAM:LRANGE) {
-    field(DESC, "The lower boundary of the safe beam focus")
-    field(DTYP, "Raw Soft Channel")
+record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
+    field(DESC, "Energy in eV of incoming X-rays")
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
     field(PINI, "YES")
-    field(DOL,  "$(LOW_LIMIT)")
+    field(EGU,  "eV")
+}
+
+record(ai, $(LOCATION):LENS:BEAM:SOURCE) {
+    field(DESC, "Z position of the beam source")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "1 second")
+    field(PINI, "YES")
+    field(VAL,  "$(SOURCE)")
     field(EGU,  "m")
 }
 
-record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
-    field(DESC, "The higher boundary of the safe beam focus")
+record(ao, $(LOCATION):LENS:BEAM:LRANGE) {
+    field(DESC, "The lower boundary of beam focus")
     field(DTYP, "Raw Soft Channel")
+    field(SCAN, "Passive")
+    field(PINI,  "YES")
+    field(VAL,  "$(LOW_LIMIT)")
+    field(EGU,  "m")
+}
+record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
+    field(DESC, "The higher boundary of beam focus")
+    field(DTYP, "Raw Soft Channel")
+    field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(HIGH_LIMIT)")
     field(EGU,  "m")
@@ -24,17 +42,30 @@ record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
 
 record(ai, $(LOCATION):LENS:BEAM:FOCUS) {
     field(DESC, "Current focus of the X-ray source")
+    field(SCAN, "Passive")
     field(INP,  "$(FOCUS) CPP")
-    field(DTYP, "Raw Soft Channel")
+    field(DTYP, "Soft Channel")
     field(PINI, "YES")
+    field(PREC, "3")
+    field(EGU,  "m")
 }
 
-record(calc, $(LOCATION):LENS:BEAM:SAFE) {
+record(calc, $(LOCATION):LENS:BEAM:_SAFECALC) {
     field(DESC, "Calculation of safety beam mode")
-    field(CALC, "(B<E<C)?1:0"
+    field(CALC, "B<E&&E<C?1:0")
     field(PINI, "YES")
-    field(INPB, "$(LOCATION):LENS:BEAM:LRANGE)")
-    field(INPC, "$(LOCATION):LENS:BEAM:HRANGE)")
-    field(INPE, "$(LOCATION):LENS:BEAM:FOCUS)")
+    field(INPB, "$(LOCATION):LENS:BEAM:LRANGE CPP")
+    field(INPC, "$(LOCATION):LENS:BEAM:HRANGE CPP")
+    field(INPE, "$(LOCATION):LENS:BEAM:FOCUS CPP")
     field(SCAN, "Passive")
+}
+
+record(bi, $(LOCATION):LENS:BEAM:SAFE) {
+    field(DESC, "Safety of current beam mode")
+    field(PINI, "YES")
+    field(INP,  "$(LOCATION):LENS:BEAM:_SAFECALC CPP")
+    field(ZNAM, "NO")
+    field(ZSV,  "MAJOR")
+    field(ONAM, "YES")
+    field(OSV,  "NO_ALARM")
 }

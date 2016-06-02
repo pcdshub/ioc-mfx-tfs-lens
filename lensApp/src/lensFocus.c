@@ -19,12 +19,14 @@
     on the photon Energy of a incoming Xray beam.
 
         INPUTS
-            E = user input fundamental energy (eV)
+            E = User input fundamental energy (eV)
             N = Number of Lenses in the set
-            R = Effective radius of curvature (m)
+            R = Effective radius of curvature (um)
 
         OUTPUTS
             F = Focus of the lens at the specified energy
+            M = N1 of the lens at the specified energy
+            N = N2 of the lens at the specified energy
 */
 
 /* Energy range struct */
@@ -71,7 +73,7 @@ long lensFocus_gensub_init(genSubRecord *pgsub)
 long lensFocus_gensub_process(genSubRecord *pgsub)
 {
     double E;          /*Current beam energy for first harmonic*/
-    double R;          /*Effective Radius of Lens*/
+    double R;          /*Effective Radius of Lens in microns*/
     long N;            /*Number of Lenses*/
     double f1,f2;      /*The real and imaginary values of
                         *the index of refraction*/
@@ -120,16 +122,19 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
     f = f0*p_be*NA/m_be; 
 
     /*Calculate delta*/
-    lambda = (12389.4/E)*1E-10;
+    lambda = (12389.4/E)*1E-08;
     delta  = creal(eRad*pow(lambda,2.)*f/(2*pi));
 
     /*Calculate focus*/
-    focus = R/(2*N*delta)*(1-N*delta);
+    focus = R*1E-6/(2*1*delta)*(1-1*delta);
 
     /*Push values out*/
     *(double *)pgsub->valf = focus;
+    *(double *)pgsub->valm = f1;
+    *(double *)pgsub->valn = f2;
 
     pgsub->udf = FALSE;
+    return 1;
 }
 
 epicsRegisterFunction(lensFocus_gensub_init);
