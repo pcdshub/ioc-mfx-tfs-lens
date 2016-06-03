@@ -1,12 +1,13 @@
 file lens.tpl-db
 {
     {
-        LOCATION = $(LOCATION)
-        LENSID   = $(LENSID)
-        Z        = $(Z)
-        Z_MOT    = $(Z_MOT)
-        NLENS    = $(NLENS)
-        RADIUS   = $(RADIUS)
-        OBJECT   = $(OBJECT)
+        LOCATION   = $(LOCATION)
+        LENSID     = $(LENSID)
+        Z          = $(Z)
+        Z_MOT      = $(Z_MOT)
+        NLENS      = $(NLENS)
+        RADIUS     = $(RADIUS)
+        OBJECT_Z   = $(OBJECT_Z)
+        OBJECT_MAG = $(OBJECT_MAG)
     }
 } 

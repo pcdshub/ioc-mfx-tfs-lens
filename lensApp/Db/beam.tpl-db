@@ -19,7 +19,16 @@ record(ai, $(LOCATION):LENS:BEAM:SOURCE) {
     field(DTYP, "Soft Channel")
     field(SCAN, "1 second")
     field(PINI, "YES")
-    field(VAL,  "$(SOURCE)")
+    field(INP,  "$(SOURCE_Z)")
+    field(EGU,  "m")
+}
+
+record(ai, $(LOCATION):LENS:BEAM:PRIOR_MAG) {
+    field(DESC, "Magnification of the beam source")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "1 second")
+    field(PINI, "YES")
+    field(INP,  "$(SOURCE_MAG)")
     field(EGU,  "m")
 }
 
@@ -48,6 +57,15 @@ record(ai, $(LOCATION):LENS:BEAM:FOCUS) {
     field(PINI, "YES")
     field(PREC, "3")
     field(EGU,  "m")
+}
+
+record(ai, $(LOCATION):LENS:BEAM:MAG) {
+    field(DESC, "Magnification of the beam source")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "1 second")
+    field(PINI, "YES")
+    field(INP,  "$(FOCUS)_MAG CPP")
+    field(PREC, "3")
 }
 
 record(calc, $(LOCATION):LENS:BEAM:_SAFECALC) {

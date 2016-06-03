@@ -23,6 +23,17 @@ record(ao, $(LOCATION):LENS:$(LENSID):FOCUS) {
     field(EGU,  "m")
 }
 
+record(calc, $(LOCATION):LENS:$(LENSID):MAG) {
+    field(DESC, "Mag of the Lens at current energy")
+    field(PINI, "YES")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):FOCUS CPP")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):OBJECT CPP")
+    field(CALC, "A/(A-B)")
+    field(PREC, "3")
+    field(EGU,  "m")
+}
+
+
 record(ao, $(LOCATION):LENS:$(LENSID):REQ_FOCUS) {
     field(DESC, "Focus of the Lens at current energy")
     field(DTYP, "Raw Soft Channel")
@@ -85,10 +96,28 @@ record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(DESC, "Object distance from lens")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(OBJECT) CPP")
+    field(INPA, "$(OBJECT_Z) CPP")
     field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
     field(CALC, "B-A")
     field(EGU,  "m")
+}
+
+record(ai, $(LOCATION):LENS:$(LENSID):OBJECT_MAG) {
+    field(DESC, "Previous magnification of object")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INP,  "$(OBJECT_MAG) CPP")
+    field(PREC, "3")
+}
+    
+record(calc, $(LOCATION):LENS:$(LENSID):IMAGE_MAG) {
+    field(DESC, "Magnification of propagated image")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):OBJECT_MAG CPP")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):MAG CPP")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):STATE CPP")
+    field(CALC, "C=1?A*B:A")
 }
 
 record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){

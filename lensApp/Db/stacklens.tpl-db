@@ -1,14 +1,3 @@
-record(calcout, $(LOCATION):LENS:STK:$(MOTID):UNLOCKED) {
-    field(DESC, "Remove all lenses")
-    field(PINI, "NO")
-    field(INPA, "$(LOCATION):LENS:STK:$(MOTID):LOCKED")
-    field(CALC, "A=1?C:0")
-    field(DTYP, "Soft Channel")
-    field(DOPT, "Use OCAL")
-    field(OCAL, "OUT")
-    field(OUT,  "$(Y_MOT):GO")
-}
-
 record(bo, $(LOCATION):LENS:STK:$(MOTID):OUT:GO) {
     field(DESC, "Remove lens from the beam")
     field(PINI, "YES")

@@ -1,10 +1,11 @@
 file beam.tpl-db
 {
     {
-        LOCATION   = $(LOCATION)
-        LOW_LIMIT  = $(LOW_LIMIT)
-        HIGH_LIMIT = $(HIGH_LIMIT)
-        FOCUS      = $(FOCUS)
-        SOURCE     = $(SOURCE)
+        LOCATION       = $(LOCATION)
+        LOW_LIMIT      = $(LOW_LIMIT)
+        HIGH_LIMIT     = $(HIGH_LIMIT)
+        FOCUS          = $(FOCUS)
+        SOURCE_Z       = $(SOURCE_Z)
+        SOURCE_MAG     = $(SOURCE_MAG)
     }
 } 

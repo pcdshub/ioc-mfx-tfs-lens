@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 683
-y 562
+x 4129
+y 2079
 w 150
 h 205
 font "helvetica-medium-r-12.0"
@@ -34,7 +34,7 @@ release 0
 x 2
 y 2
 w 144
-h 196
+h 200
 lineColor index 14
 fill
 fillColor index 4
@@ -204,8 +204,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 10
-y 146
+x 11
+y 158
 w 125
 h 34
 
@@ -217,8 +217,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 9
-y 146
+x 10
+y 158
 w 52
 h 34
 
@@ -230,8 +230,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 11
-y 166
+x 12
+y 178
 w 48
 h 16
 controlPv "$(BEAM):LRANGE"
@@ -249,8 +249,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 9
-y 146
+x 10
+y 158
 w 52
 h 14
 font "helvetica-medium-r-12.0"
@@ -273,8 +273,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 79
-y 146
+x 80
+y 158
 w 55
 h 34
 
@@ -286,8 +286,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 83
-y 166
+x 84
+y 178
 w 48
 h 16
 controlPv "$(BEAM):HRANGE"
@@ -305,8 +305,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 79
-y 146
+x 80
+y 158
 w 55
 h 14
 font "helvetica-medium-r-12.0"
@@ -334,7 +334,7 @@ major 4
 minor 0
 release 0
 x 40
-y 97
+y 116
 w 67
 h 36
 
@@ -347,7 +347,7 @@ major 10
 minor 0
 release 0
 x 51
-y 117
+y 135
 w 42
 h 16
 controlPv "$(BEAM):SAFE"
@@ -366,7 +366,7 @@ major 4
 minor 1
 release 1
 x 39
-y 97
+y 115
 w 67
 h 14
 font "helvetica-medium-r-12.0"
@@ -375,6 +375,62 @@ bgColor index 4
 useDisplayBg
 value {
   "Focus Safe:"
+}
+autoSize
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 12
+y 94
+w 122
+h 16
+
+beginGroup
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 75
+y 93
+w 58
+h 16
+controlPv "$(BEAM):MAG"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 11
+y 94
+w 28
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Mag:"
 }
 autoSize
 endObjectProperties
