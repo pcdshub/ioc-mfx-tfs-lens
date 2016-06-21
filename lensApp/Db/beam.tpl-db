@@ -20,6 +20,7 @@ record(ai, $(LOCATION):LENS:BEAM:SOURCE) {
     field(SCAN, "1 second")
     field(PINI, "YES")
     field(INP,  "$(SOURCE_Z)")
+    field(DISP, "1")
     field(EGU,  "m")
 }
 
@@ -38,6 +39,7 @@ record(ao, $(LOCATION):LENS:BEAM:LRANGE) {
     field(SCAN, "Passive")
     field(PINI,  "YES")
     field(VAL,  "$(LOW_LIMIT)")
+    field(DISP, "1")
     field(EGU,  "m")
 }
 record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
@@ -46,6 +48,7 @@ record(ao, $(LOCATION):LENS:BEAM:HRANGE) {
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(HIGH_LIMIT)")
+    field(DISP, "1")
     field(EGU,  "m")
 }
 
@@ -68,14 +71,30 @@ record(ai, $(LOCATION):LENS:BEAM:MAG) {
     field(PREC, "3")
 }
 
+record(calc, $(LOCATION):LENS:BEAM:FOCUSED') {
+    field(DESC, "Whether the beam has been modified")
+    field(CALC, "A=B?0:1")
+    field(PINI, "YES")
+    field(INPA, "$(LOCATION):LENS:BEAM:FOCUS CPP")
+    field(INPB, "$(LOCATION):LENS:BEAM:SOURCE CPP")
+    field(SCAN, "Passive")
+    field(DISP, "1")
+}
+
 record(calc, $(LOCATION):LENS:BEAM:_SAFECALC) {
     field(DESC, "Calculation of safety beam mode")
-    field(CALC, "B<E&&E<C?1:0")
+    field(CALC, "$(LOW_LIMIT)<E&&E<$(HIGH_LIMIT)?1:F=0")
     field(PINI, "YES")
-    field(INPB, "$(LOCATION):LENS:BEAM:LRANGE CPP")
-    field(INPC, "$(LOCATION):LENS:BEAM:HRANGE CPP")
     field(INPE, "$(LOCATION):LENS:BEAM:FOCUS CPP")
+    field(INPF, "$(LOCATION):LENS:BEAM:FOCUSED CPP")
+    field(DISP, "1")
     field(SCAN, "Passive")
+}
+
+record(longin, $(LOCATION):LENS:BEAM:NLENS) {
+    field(DESC, "Calculation of safety beam mode")
+    field(PINI, "YES")
+    field(VAL,  "$(NLENS)")
 }
 
 record(bi, $(LOCATION):LENS:BEAM:SAFE) {
@@ -86,4 +105,5 @@ record(bi, $(LOCATION):LENS:BEAM:SAFE) {
     field(ZSV,  "MAJOR")
     field(ONAM, "YES")
     field(OSV,  "NO_ALARM")
+    field(DISP, "1")
 }

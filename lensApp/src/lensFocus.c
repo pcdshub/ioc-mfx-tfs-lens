@@ -20,7 +20,6 @@
 
         INPUTS
             E = User input fundamental energy (eV)
-            N = Number of Lenses in the set
             R = Effective radius of curvature (um)
 
         OUTPUTS
@@ -74,7 +73,6 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
 {
     double E;          /*Current beam energy for first harmonic*/
     double R;          /*Effective Radius of Lens in microns*/
-    long N;            /*Number of Lenses*/
     double f1,f2;      /*The real and imaginary values of
                         *the index of refraction*/
     double complex f0; /*The complex index of refraction*/
@@ -88,7 +86,6 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
 
     /*Retrieve current beam energy (eV)*/
     E = (*(double *)pgsub->e);
-    N = (*(long *)pgsub->n);
     R = (*(double *)pgsub->r);
     /*If current energy is lower than table*/
     if (E<Etab[0] )
@@ -126,7 +123,7 @@ long lensFocus_gensub_process(genSubRecord *pgsub)
     delta  = creal(eRad*pow(lambda,2.)*f/(2*pi));
 
     /*Calculate focus*/
-    focus = R*1E-6/(2*1*delta)*(1-1*delta);
+    focus = R*1E-6/(2*delta);
 
     /*Push values out*/
     *(double *)pgsub->valf = focus;

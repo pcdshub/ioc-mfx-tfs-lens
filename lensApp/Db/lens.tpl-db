@@ -8,12 +8,6 @@ record(ao, $(LOCATION):LENS:$(LENSID):RADIUS) {
     field(PREC, "1")
 }
 
-record(longout, $(LOCATION):LENS:$(LENSID):NLENS) {
-    field(DESC, "Number of lens in Compound Lens Set")
-    field(SCAN, "Passive")
-    field(PINI, "YES")
-    field(DOL,  "$(NLENS)")
-}
 
 record(ao, $(LOCATION):LENS:$(LENSID):FOCUS) {
     field(DESC, "Focus of the Lens at current energy")
@@ -78,6 +72,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):Z) {
     field(PINI, "YES")
     field(INPA, "$(LOCATION):LENS:$(LENSID):Z_OFFSET CPP")
     field(INPB, "$(Z_MOT)")
+    field(DISP, "1")
     field(CALC, "A+B")
     field(EGU,  "m")
 }
@@ -88,6 +83,7 @@ record(ao, $(LOCATION):LENS:$(LENSID):Z_OFFSET) {
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(DOL,  "$(Z)")
+    field(DISP, "1")
     field(EGU,  "m")
     field(FLNK, "$(LOCATION):LENS:$(LENSID):Z")
 } 
@@ -98,6 +94,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(PINI, "YES")
     field(INPA, "$(OBJECT_Z) CPP")
     field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
+    field(DISP, "1")
     field(CALC, "B-A")
     field(EGU,  "m")
 }
@@ -129,6 +126,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){
     field(INPC, "$(LOCATION):LENS:$(LENSID):FOCUS CPP")
     field(INPD, "$(LOCATION):LENS:$(LENSID):Z CPP")
     field(CALC, "A=1?D+(1/((1/C)-(1/D))):D-B")
+    field(DISP, "1")
     field(EGU,  "m")
     field(PREC, "3")
 }
@@ -141,7 +139,6 @@ record(genSub, $(LOCATION):LENS:$(LENSID):C_CALC){
     field(INAM, "lensFocus_gensub_init")
     field(SNAM, "lensFocus_gensub_process")
     field(INPE, "$(LOCATION):LENS:BEAM:ENERGY NPP")
-    field(INPN, "$(LOCATION):LENS:$(LENSID):NLENS NPP")
     field(INPR, "$(LOCATION):LENS:$(LENSID):RADIUS NPP")
     field(FTE,  "DOUBLE")
     field(FTN,  "LONG")
@@ -162,7 +159,6 @@ record(genSub, $(LOCATION):LENS:$(LENSID):R_CALC){
     field(INAM, "lensFocus_gensub_init")
     field(SNAM, "lensFocus_gensub_process")
     field(INPE, "$(LOCATION):LENS:BEAM:REQ_ENERGY NPP")
-    field(INPN, "$(LOCATION):LENS:$(LENSID):NLENS NPP")
     field(INPR, "$(LOCATION):LENS:$(LENSID):RADIUS NPP")
     field(FTE,  "DOUBLE")
     field(FTN,  "LONG")

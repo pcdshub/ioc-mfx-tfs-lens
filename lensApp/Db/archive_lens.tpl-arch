@@ -1,5 +1,4 @@
 $(LOCATION):LENS:$(LENSID):RADIUS     30  monitor
-$(LOCATION):LENS:$(LENSID):NLENS      30  monitor
 $(LOCATION):LENS:$(LENSID):FOCUS      30  monitor
 $(LOCATION):LENS:$(LENSID):REQ_FOCUS  30  monitor
 $(LOCATION):LENS:$(LENSID):REQ_N1     30  monitor

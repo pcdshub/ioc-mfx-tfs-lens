@@ -38,6 +38,13 @@ record(stringout, $(LOCATION):LENS:$(LENSID):IN_STATE) {
     field(VAL, "$(IN_STATE)")
 }
 
+record(stringout, $(LOCATION):LENS:$(LENSID):Y_MOT) {
+    field(DESC, "Name of the the Y motor")
+    field(PINI, "YES")
+    field(SCAN, "Passive")    
+    field(VAL, "$(Y_MOT)")
+}
+
 record(calc, $(LOCATION):LENS:$(LENSID):CHECKLOCK){
     field(DESC, "Put lens in the beam")
     field(SCAN, "Passive")

@@ -136,7 +136,7 @@ x 175
 y 230
 w 48
 h 16
-controlPv "$(LENS3):RADIUS"
+controlPv "$(LENS_BOT):RADIUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -155,7 +155,7 @@ x 175
 y 254
 w 48
 h 16
-controlPv "$(LENS3):FOCUS"
+controlPv "$(LENS_BOT):FOCUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -211,7 +211,7 @@ x 65
 y 230
 w 48
 h 16
-controlPv "$(LENS1):RADIUS"
+controlPv "$(LENS_TOP):RADIUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -230,7 +230,7 @@ x 65
 y 254
 w 48
 h 16
-controlPv "$(LENS1):FOCUS"
+controlPv "$(LENS_TOP):FOCUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -286,7 +286,7 @@ x 121
 y 230
 w 48
 h 16
-controlPv "$(LENS2):RADIUS"
+controlPv "$(LENS_MID):RADIUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -305,7 +305,7 @@ x 121
 y 254
 w 48
 h 16
-controlPv "$(LENS2):FOCUS"
+controlPv "$(LENS_MID):FOCUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -336,7 +336,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS2):STATE"
+visPv "$(LENS_MID):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -355,7 +355,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS2):STATE"
+visPv "$(LENS_MID):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -503,7 +503,7 @@ lineColor index 14
 fill
 fillColor index 20
 lineWidth 2
-visPv "$(LENS2):STATE"
+visPv "$(LENS_MID):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -522,7 +522,7 @@ lineColor index 14
 fill
 fillColor index 15
 lineWidth 2
-visPv "$(LENS2):STATE"
+visPv "$(LENS_MID):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -542,13 +542,13 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS2):IN:GO"
+controlPv "$(LENS_MID):IN:GO"
 pressValue "1"
 3d
 invisible
 useEnumNumeric
 font "helvetica-medium-r-12.0"
-visPv "$(LENS2):STATE"
+visPv "$(LENS_MID):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -600,7 +600,7 @@ lineColor index 14
 fill
 fillColor index 20
 lineWidth 2
-visPv "$(LENS3):STATE"
+visPv "$(LENS_BOT):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -619,7 +619,7 @@ lineColor index 14
 fill
 fillColor index 15
 lineWidth 2
-visPv "$(LENS3):STATE"
+visPv "$(LENS_BOT):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -639,13 +639,13 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS3):IN:GO"
+controlPv "$(LENS_BOT):IN:GO"
 pressValue "1"
 3d
 invisible
 useEnumNumeric
 font "helvetica-medium-r-12.0"
-visPv "$(LENS3):STATE"
+visPv "$(LENS_BOT):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -708,7 +708,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS1):STATE"
+visPv "$(LENS_TOP):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -727,7 +727,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS1):STATE"
+visPv "$(LENS_TOP):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -746,7 +746,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS3):STATE"
+visPv "$(LENS_BOT):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -765,7 +765,7 @@ lineColor index 14
 fill
 fillColor index 30
 lineWidth 2
-visPv "$(LENS3):STATE"
+visPv "$(LENS_BOT):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
@@ -798,13 +798,13 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS1):IN:GO"
+controlPv "$(LENS_TOP):IN:GO"
 pressValue "1"
 3d
 invisible
 useEnumNumeric
 font "helvetica-medium-r-12.0"
-visPv "$(LENS1):STATE"
+visPv "$(LENS_TOP):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -823,7 +823,7 @@ lineColor index 14
 fill
 fillColor index 20
 lineWidth 2
-visPv "$(LENS1):STATE"
+visPv "$(LENS_TOP):STATE"
 visMin "0"
 visMax "1"
 endObjectProperties
@@ -842,7 +842,7 @@ lineColor index 14
 fill
 fillColor index 15
 lineWidth 2
-visPv "$(LENS1):STATE"
+visPv "$(LENS_TOP):STATE"
 visMin "1"
 visMax "2"
 endObjectProperties
