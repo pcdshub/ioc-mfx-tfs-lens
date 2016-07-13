@@ -12,6 +12,8 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 DB_INSTALLS += $(IOCADMIN)/db/iocSoft.db
 DB += beam.db
+DB += fixedlimit.db
+DB += flexiblelimit.db
 DB += lensMotion.db
 DB += lens.db
 DB += stacklens1.db
@@ -25,6 +27,7 @@ ARCHIVE += lens-ioc.archive
 ARCHIVE += lensMotion.archive
 ARCHIVE += lens.archive
 ARCHIVE += stacklens.archive
+ARCHIVE += limit.archive
 ARCHIVE += beam.archive
 
 #----------------------------------------------------

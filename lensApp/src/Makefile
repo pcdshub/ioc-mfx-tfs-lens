@@ -20,9 +20,12 @@ lens_DBD += iocAdmin.dbd
 lens_DBD += autosaveSupport.dbd
 lens_DBD += genSubRecord.dbd
 lens_DBD += lensFocus.dbd
+lens_DBD += any.dbd
+lens_DBD += lensLimit.dbd
 
-# Install header for lens lookup table
+# Install header for lookup tables
 INC += lensTable.h
+INC += lensLimit.h
 
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 lens_SRCS += lens_registerRecordDeviceDriver.cpp
@@ -30,6 +33,8 @@ lens_SRCS_DEFAULT += lensMain.cpp
 
 # Add locally compiled object code
 lens_SRCS += lensFocus.c
+lens_SRCS += any.c
+lens_SRCS += limit.c
 
 lens_LIBS += devIocStats
 lens_LIBS += autosave

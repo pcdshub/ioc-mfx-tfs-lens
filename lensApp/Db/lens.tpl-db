@@ -178,4 +178,3 @@ record(fanout, $(LOCATION):LENS:$(LENSID):_F_CALC_SCAN) {
     field(LNK2, "$(LOCATION):LENS:$(LENSID):R_CALC")
 }
 
-

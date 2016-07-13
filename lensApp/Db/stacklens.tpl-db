@@ -21,18 +21,13 @@ record(calc, $(LOCATION):LENS:STK:$(MOTID):STATE_CALC) {
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(INPA, "$(Y_MOT) CPP")
-    field(INPB, "$(LOCATION):LENS:STK:$(MOTID):LOCKED CPP")
-    field(CALC, "A>0&&B=0?0:B+1")
+    field(CALC, "A>0?1:0")
 }
 
-record(mbbi, $(LOCATION):LENS:STK:$(MOTID):STATE) {
+record(bi, $(LOCATION):LENS:STK:$(MOTID):STATE) {
     field(DESC, "Current state of Lens")
     field(INP,  "$(LOCATION):LENS:STK:$(MOTID):STATE_CALC CPP")
     field(PINI, "YES")
-    field(ZRVL, "0")
-    field(ONVL, "1")
-    field(TWVL, "2")
-    field(ZRST, "OK")
-    field(ONST, "ERROR")
-    field(TWST, "LOCKED")
+    field(ZNAM, "ERROR")
+    field(ONAM, "OK")
 } 

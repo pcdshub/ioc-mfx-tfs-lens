@@ -19,6 +19,16 @@ record(bi, $(LOCATION):LENS:$(LENSID):STATE){
     field(FLNK, $(LOCATION):LENS:$(LENSID):FOCUS)
 }
 
+record(bi, $(LOCATION):LENS:$(LENSID):SAFE){
+    field(DESC, "Unknown state of the lens")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(INP, "$(LOCATION):LENS:STK:$(MOTID):STATE CPP")
+    field(ZNAM, "Not safe")
+    field(ONAM, "Safe")
+}
+
+
 record(bo, $(LOCATION):LENS:$(LENSID):IN:GO) {
     field(DESC, "Put lens in the beam")
     field(DTYP, "Soft Channel")

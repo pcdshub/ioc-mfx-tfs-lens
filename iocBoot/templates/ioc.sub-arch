@@ -44,3 +44,13 @@ file stacklens.archive
     }
 }
 $$ENDLOOP(STACK)
+
+$$LOOP(LIMIT)
+file limit.archive
+{   
+    {
+        LIMIT    = "$$NAME"
+        LOCATION = "$$LOCATION"
+    }
+}
+$$ENDLOOP(LIMIT)
