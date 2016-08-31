@@ -1,0 +1,7 @@
+file archive_limit.tpl-arch
+{
+    {
+        LOCATION = $(LOCATION)
+        LIMIT    = $(LIMIT)
+    }
+}

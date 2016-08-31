@@ -1,0 +1,44 @@
+record(ao, $(LOCATION):LIMIT:$(LIMIT):LRANGE) {
+    field(DESC, "The lower boundary of beam focus")
+    field(DTYP, "Raw Soft Channel")
+    field(SCAN, "Passive")
+    field(PINI,  "YES")
+    field(EGU,  "m")
+}
+record(ao, $(LOCATION):LIMIT:$(LIMIT):HRANGE) {
+    field(DESC, "The higher boundary of beam focus")
+    field(DTYP, "Raw Soft Channel")
+    field(SCAN, "Passive")
+    field(PINI, "YES")
+    field(EGU,  "m")
+}
+
+record(genSub, $(LOCATION):LIMIT:$(LIMIT):_LKUP){
+    field(DESC, "Lookup of limit at requested Energy")
+    field(PINI, "YES")
+    field(EFLG, "ALWAYS")
+    field(SCAN, "Passive")
+    field(INAM, "limit_gensub_init")
+    field(SNAM, "limit_gensub_process")
+    field(INPE, "$(LOCATION):LENS:BEAM:ENERGY NPP")
+    field(INPT, "$(LOCATION):LIMIT:$(LIMIT):STR")
+    field(FTE,  "DOUBLE")
+    field(FTT,  "STRING")
+    field(OUTL, "$(LOCATION):LIMIT:$(LIMIT):LRANGE PP")
+    field(OUTH, "$(LOCATION):LIMIT:$(LIMIT):HRANGE PP")
+    field(FTVL, "DOUBLE")
+    field(FTVH, "DOUBLE")
+}
+
+record(stringout, $(LOCATION):LIMIT:$(LIMIT):STR){
+    field(DESC, "Table identifier for limit lookup")
+    field(VAL,  "$(TYPE)")
+    field(OMSL,  "supervisory")
+    field(DISP, "1")
+}
+record(fanout, $(LOCATION):LIMIT:$(LIMIT):SCAN) {
+    field(DESC, "Scan for limit lookup")
+    field(SCAN, "1 second")
+    field(SELM, "All")
+    field(LNK1, "$(LOCATION):LIMIT:$(LIMIT):_LKUP")
+}

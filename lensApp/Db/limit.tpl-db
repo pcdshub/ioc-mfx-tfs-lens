@@ -1,0 +1,21 @@
+record(bi, $(LOCATION):LIMIT:$(LIMIT):SAFE) {
+    field(DESC, "Safety of current beam mode")
+    field(PINI, "YES")
+    field(INP,  "$(LOCATION):LIMIT:$(LIMIT):_SAFECALC CPP")
+    field(ZNAM, "NO")
+    field(ZSV,  "MAJOR")
+    field(ONAM, "YES")
+    field(OSV,  "NO_ALARM")
+    field(DISP, "1")
+}
+
+record(calc, $(LOCATION):LIMIT:$(LIMIT):_SAFECALC) {
+    field(DESC, "Calculation of safety beam mode")
+    field(CALC, "A<F&&F<B?1:0")
+    field(PINI, "YES")
+    field(INPF, "$(LOCATION):LENS:BEAM:FOCUS CPP")
+    field(INPA, "$(LOCATION):LIMIT:$(LIMIT):LRANGE CPP")
+    field(INPB, "$(LOCATION):LIMIT:$(LIMIT):HRANGE CPP")
+    field(DISP, "1")
+    field(SCAN, "Passive")
+}

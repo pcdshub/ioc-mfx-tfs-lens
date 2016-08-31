@@ -60,19 +60,38 @@ record(longin, $(LOCATION):LENS:BEAM:NLENS) {
     field(VAL,  "$(NLENS)")
 }
 
-record(calcout, $(LOCATION):LENS:BEAM:HEARTBEAT)
-{
+record(calcout, $(LOCATION):LENS:BEAM:HEARTBEAT){
     field(DESC, "1 Hz heartbeat")
     field(CALC, "A=1?0:A+1")
     field(SCAN, ".5 second")
     field(INPA, "$(LOCATION):LENS:BEAM:HEARTBEAT")
-    field(OUT,  "$(LOCATION):LENS:BEAM:HEARTBIT")
+    field(OUT,  "$(LOCATION):LENS:BEAM:HEARTBIT PP")
     field(OOPT, "Every Time")
     field(DOPT, "Use CALC")
 }
 
-record(bi,  $(LOCATION):LENS:BEAM:HEARTBIT"){
+record(bi,  $(LOCATION):LENS:BEAM:HEARTBIT){
     field(DESC, "Current status of heartbeat")
+    field(DTYP, "Soft Channel")
     field(ZNAM, "Tick")
     field(ONAM, "Tock")
+}
+
+record(longin, $(LOCATION):LENS:BEAM:LIMIT_NUM){
+    field(DESC, "Current limit enum integer")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "Passive")
+    field(LOPR, "-1")
+    field(HOPR, "4")
+}
+
+record(mbbi, $(LOCATION):LENS:BEAM:LIMIT_MODE){
+    field(DESC, "Current limit mode")
+    field(DTYP, "Soft Channel")
+    field(SCAN, "Passive")
+    field(INP,  "$(LOCATION):LENS:BEAM:LIMIT_NUM CPP")
+    field(ZRST, "No lens set")
+    field(ONST, "XRT Only")
+    field(TWST, "MFX Only")
+    field(THST, "Pre-focusing")
 }

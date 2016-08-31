@@ -1,0 +1,36 @@
+#file ../../db/bi_bit_template { pattern
+file "bi_bit.template" {pattern
+{P,     R,      PORT,       OFFSET,        ZNAM,       ONAM,       ZSV,        OSV,        SCAN}
+{"MFX:TFS:LENS:01","SAFE","BI_PORT","10", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:02","SAFE","BI_PORT","11", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:03","SAFE","BI_PORT","12", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:04","SAFE","BI_PORT","13", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:05","SAFE","BI_PORT","14", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:06","SAFE","BI_PORT","15", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:07","SAFE","BI_PORT","16", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:08","SAFE","BI_PORT","17", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:01","SAFE","BI_PORT","18", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:02","SAFE","BI_PORT","19", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:03","SAFE","BI_PORT","20", "Not safe",  "Safe",     "NO_ALARM", "NO_ALARM"  "Passive"}
+
+{"MFX:TFS:LENS:01","STATE","BI_PORT","30", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:02","STATE","BI_PORT","31", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:03","STATE","BI_PORT","32", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:04","STATE","BI_PORT","33", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:05","STATE","BI_PORT","34", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:06","STATE","BI_PORT","35", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:07","STATE","BI_PORT","36", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:TFS:LENS:08","STATE","BI_PORT","37", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:01","STATE","BI_PORT","38", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:02","STATE","BI_PORT","39", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+{"MFX:DIA:LENS:03","STATE","BI_PORT","40", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+
+{"MFX:TFS:LENS:BEAM", "HEARTBEAT","BI_PORT","41", "Not in",  "In",     "NO_ALARM", "NO_ALARM"  "Passive"}
+
+file "aiFloat64.template" {pattern
+{P,                   R,       PORT,            OFFSET, DATA_TYPE,    PREC, HOPR, LOPR,  SCAN,     UNITS}
+{"MFX:TFS:LENS:BEAM", "FOCUS", "aiFLOAT_PORT",  "21",   "FLOAT32_LE", "3",  "0",  "0",  "Passive", "m"}
+
+{"MFX:TFS:LIMIT:",    "MFX_ONLY:HRANGE", "aiFLOAT_PORT",  "22",   "FLOAT32_LE", "0",  "0",  "0",  "Passive", "m"}
+{"MFX:TFS:LIMIT:",    "PREFOCUS:HRANGE", "aiFLOAT_PORT",  "23",   "FLOAT32_LE", "0",  "0",  "0",  "Passive", "m"}
+{"MFX:TFS:LIMIT:",    "XRT_ONLY:LRANGE", "aiFLOAT_PORT",  "24",   "FLOAT32_LE", "0",  "0",  "0",  "Passive", "m"}
