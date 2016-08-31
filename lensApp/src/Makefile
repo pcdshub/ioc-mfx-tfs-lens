@@ -20,8 +20,9 @@ lens_DBD += iocAdmin.dbd
 lens_DBD += autosaveSupport.dbd
 lens_DBD += genSubRecord.dbd
 lens_DBD += lensFocus.dbd
-lens_DBD += any.dbd
 lens_DBD += lensLimit.dbd
+lens_DBD += asyn.dbd
+lens_DBD += modbus.dbd
 
 # Install header for lookup tables
 INC += lensTable.h
@@ -33,13 +34,15 @@ lens_SRCS_DEFAULT += lensMain.cpp
 
 # Add locally compiled object code
 lens_SRCS += lensFocus.c
-lens_SRCS += any.c
 lens_SRCS += limit.c
 
 lens_LIBS += devIocStats
 lens_LIBS += autosave
 lens_LIBS += genSub
+lens_LIBS += modbus
+lens_LIBS += asyn
 lens_LIBS += $(EPICS_BASE_IOC_LIBS)
+
 
 #===========================
 

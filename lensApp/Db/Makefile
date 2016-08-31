@@ -18,6 +18,8 @@ DB += lensMotion.db
 DB += lens.db
 DB += stacklens1.db
 DB += stacklens3.db
+DB += lens-mfx-plcModbus.db
+
 
 #----------------------------------------------------
 # Create and install (or just install)

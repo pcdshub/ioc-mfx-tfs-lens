@@ -5,5 +5,3 @@ $(LOCATION):LENS:BEAM:PRIOR_MAG   10  monitor
 $(LOCATION):LENS:BEAM:MAG         10  monitor
 $(LOCATION):LENS:BEAM:SOURCE      30  monitor
 $(LOCATION):LENS:BEAM:NLENS       30  monitor
-$(LOCATION):LENS:BEAM:ERROR       10  monitor
-$(LOCATION):LENS:BEAM:ANY_IN      10  monitor
