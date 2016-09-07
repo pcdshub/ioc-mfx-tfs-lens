@@ -7,7 +7,19 @@ file lens.tpl-db
         Z_MOT      = $(Z_MOT)
         NLENS      = $(NLENS)
         RADIUS     = $(RADIUS)
-        OBJECT_Z   = $(OBJECT_Z)
-        OBJECT_MAG = $(OBJECT_MAG)
+        PREV_Z     = $(PREV_Z)
+        PREV_MAG   = $(PREV_MAG)
     }
 } 
+
+file lensMotion.tpl-db
+{
+    {
+        LOCATION  = $(LOCATION)
+        LENSID    = $(LENSID)
+        Y_MOT     = $(Y_MOT)
+        IN_STATE  = $(IN_STATE)
+        SAFEBIT   = $(SAFEBIT)
+        INBIT     = $(INBIT)
+    }
+}

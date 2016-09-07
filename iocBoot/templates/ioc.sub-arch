@@ -13,37 +13,18 @@ $$LOOP(LENS)
 file lens.archive
 {   
     {
-        LENSID   = "$$CALC{INDEX+1,%02d}"
+        LENSID   = "$$LENSID"
         LOCATION = "$$LOCATION"
     }
 }
 file lensMotion.archive
 {
     {
-        LENSID   = "$$CALC{INDEX+1,%02d}"
+        LENSID   = "$$LENSID"
         LOCATION = "$$LOCATION"
     }
 }
-$$IF(Y_MOT)
-file stacklens.archive
-{
-    {
-        MOTID    = "$$CALC{INDEX+1,%02d}"
-        LOCATION = "$$LOCATION"
-    }
-}
-$$ENDIF(Y_MOT)
 $$ENDLOOP(LENS)}
-
-$$LOOP(STACK)
-file stacklens.archive
-{
-    {
-        MOTID    = "$$IF($$MOT_ID,$$MOT_ID,$$LENS1_INDEX)"
-        LOCATION = "$$LOCATION"
-    }
-}
-$$ENDLOOP(STACK)
 
 $$LOOP(LIMIT)
 file limit.archive

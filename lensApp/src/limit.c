@@ -66,7 +66,6 @@ long limit_gensub_process(genSubRecord *pgsub)
 {
     double E;   /*Current beam energy for first harmonic*/
     double L;   /*Low range of acceptable limit*/
-    double H;   /*High range of acceptable limit*/ 
     
     
     /*Check status of record*/
@@ -78,24 +77,19 @@ long limit_gensub_process(genSubRecord *pgsub)
     char* T = (char*) pgsub->t;
 
     if(strcmp(T,MFX_ONLY)==0) {
-        L = -10000.;
-        H = find_limits(0,99,Etab,MFX_only,E);
+        L = find_limits(0,99,Etab,MFX_only,E);
     }
     else if(strcmp(T,XRT_ONLY)==0) {
         L = find_limits(0,99,Etab,XRT_only,E);
-        H = 10000.;
     }
     else if(strcmp(T,PREFOCUS_MFX)==0) {
-        L = -10000.;
-        H = find_limits(0,99,Etab,Prefocus,E);
+        L = find_limits(0,99,Etab,Prefocus,E);
     }
     else {
             L = 0.;
-            H = 0.;
     }
 
     *(double *)pgsub->vall = L;
-    *(double *)pgsub->valh = H;
 
     pgsub->udf = FALSE;
 

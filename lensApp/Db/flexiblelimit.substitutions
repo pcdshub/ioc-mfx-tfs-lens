@@ -4,12 +4,6 @@ file flexiblelimit.tpl-db
         LOCATION = $(LOCATION)
         LIMIT    = $(LIMIT)
         TYPE     = $(TYPE)
-    }
-}
-file limit.tpl-db
-{
-    {
-        LOCATION = $(LOCATION)
-        LIMIT    = $(LIMIT)
+        OFFSET   = $(OFFSET)
     }
 }

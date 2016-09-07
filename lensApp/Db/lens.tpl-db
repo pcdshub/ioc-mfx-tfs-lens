@@ -92,18 +92,18 @@ record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(DESC, "Object distance from lens")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(OBJECT_Z) CPP")
+    field(INPA, "$(PREV_Z) CPP")
     field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
     field(DISP, "1")
     field(CALC, "B-A")
     field(EGU,  "m")
 }
 
-record(ai, $(LOCATION):LENS:$(LENSID):OBJECT_MAG) {
+record(ai, $(LOCATION):LENS:$(LENSID):PREV_MAG) {
     field(DESC, "Previous magnification of object")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INP,  "$(OBJECT_MAG) CPP")
+    field(INP,  "$(PREV_MAG) CPP")
     field(PREC, "3")
 }
     
@@ -111,7 +111,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):IMAGE_MAG) {
     field(DESC, "Magnification of propagated image")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INPA, "$(LOCATION):LENS:$(LENSID):OBJECT_MAG CPP")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):PREV_MAG CPP")
     field(INPB, "$(LOCATION):LENS:$(LENSID):MAG CPP")
     field(INPC, "$(LOCATION):LENS:$(LENSID):STATE CPP")
     field(CALC, "C=1?A*B:A")

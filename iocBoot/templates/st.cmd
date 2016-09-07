@@ -18,40 +18,102 @@ cd( "$(IOCTOP)" )
 dbLoadDatabase("dbd/lens.dbd")
 lens_registerRecordDeviceDriver(pdbbase)
 
-# Load Lens IOC
+######################################################################################
+# Beckhoff ModBus TCP Client Setup
+# Here we set up the various ports for the Beckhoff PLC modbus interface
+######################################################################################
 
-#Load Lenses in Order
+# Use the following commands for TCP/IP
+#drvAsynIPPortConfigure(const char *portName, 
+#                       const char *hostInfo,
+#                       unsigned int priority, 
+#                       int noAutoConnect,
+#                       int noProcessEos);
+drvAsynIPPortConfigure("lens-plc","$$PLC:502",0,0,1)
+
+#modbusInterposeConfig(const char *portName, 
+#                      int slaveAddress, 
+#                      modbusLinkType linkType,
+#                      int timeoutMsec)
+modbusInterposeConfig("lens-plc",0,0,0)
+
+# Make sure that these port configurations include the correct modbusLength,
+# otherwise you might see your records initialize as unconnected...
+
+#drvModbusAsynConfigure(portName, 
+#                       tcpPortName,
+#                       slaveAddress, 
+#                       modbusFunction, 
+#                       modbusStartAddress, 
+#                       modbusLength,
+#                       dataType,  #0-UINT16, 7-FLOAT32LE, 8-FLOAT32BE
+#                       pollMsec, 
+#                       plcType);
+
+
+# COIL Outputs (EPICS -> PLC) starting at 0x8000 on function code 5.
+drvModbusAsynConfigure("BO_PORT",  "lens-plc", 0, 5,  0x8000, 256,   0,  100,  "BK")
+
+# Extra PLC memory output (EPICS -> PLC) starting at 0x3000 on function code 6 (0x0064 is 100 in hex).
+# I set the modbus length to 100, that's how many 16-bit registers we are currently using, it can be longer
+drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  100,  "BK")
+
+
+# COIL Inputs (PLC -> EPICS) starting at 0x8000 on function code 2.
+# I set the modbus length to 256, the maximum array size in the Beckhoff PLC
+drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  100, "BK")
+
+# FLOAT Inputs (PLC -> EPICS) starting at 0x3000 on function code 3, data type 7
+# I set the modbus length to 100, pretty much an arbitrary length, it can be longer
+drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x31F4, 100,    7,  100, "BK")
+
+# DINT aka LONG Inputs (PLC -> EPICS) starting at 0x3500 on function code 3, data type 5
+# I set the modbus length to 100, pretty much an arbitrary length, it can be longer
+# Note: the offset is 500 in hex. HEX...
+drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x3500, 100,    5,  100, "BK")
+
+#####################
+#Load Lenses
+#####################
 $$LOOP(LENS)
-$$IF(INDEX,0)
-dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$CALC{INDEX+1,%02d},RADIUS=$$RADIUS,Z=$$IF(Z,$$Z,0),Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),OBJECT_Z=$$LOCATION:LENS:BEAM:SOURCE,OBJECT_MAG=$$LOCATION:LENS:BEAM:PRIOR_MAG")
-$$ELSE(INDEX)
-dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$CALC{INDEX+1,%02d},RADIUS=$$RADIUS,Z=$$IF(Z,$$Z,0),Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),OBJECT_Z=$$LOCATION:LENS:$$LENSID$$CALC{INDEX,%02d}:IMAGE,OBJECT_MAG=$$LOCATION:LENS:$$LENSID$$CALC{INDEX,%02d}:IMAGE_MAG")
-$$ENDIF(INDEX)
-$$IF(Y_MOT)
-dbLoadRecords("db/stacklens1.db", "LOCATION=$$LOCATION,MOTID=$$CALC{INDEX+1,%02d},LENSID=$$CALC{INDEX+1,%02d},Y_MOT=$$Y_MOT,IN_STATE=$$IF($$IN_STATE,$$IN_STATE,IN)")
-$$ENDIF(Y_MOT)
+$$IF(PREV_LENS)
+
+dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$LENSID,RADIUS=$$RADIUS,Z=$$Z,Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),PREV_Z=$$PREV_LENS:IMAGE,Y_MOT=$$Y_MOT,IN_STATE=$$IN_STATE,PREV_MAG=$$PREV_LENS:IMAGE_MAG,SAFEBIT=$$IF(SAFEBIT,$$SAFEBIT,0.0),INBIT=$$IF(INBIT,$$INBIT,0.0)")
+
+$$ELSE(PREV_LENS)
+
+dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$LENSID,RADIUS=$$RADIUS,Z=$$Z,Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),PREV_Z=$$LOCATION:LENS:BEAM:SOURCE),Y_MOT=$$Y_MOT,IN_STATE=$$IN_STATE,PREV_MAG=$$LOCATION:LENS:BEAM:SIZE,SAFEBIT=$$IF(SAFEBIT,$$SAFEBIT,0.0),INBIT=$$IF(INBIT,$$INBIT,0.0)")
+$$ENDIF(PREV_LENS)
 $$ENDLOOP(LENS)
+
+#####################
 #Load Beam Parameters
-dbLoadRecords("db/beam.db", "LOCATION=$$LOCATION,FOCUS=$$LOCATION:LENS:$$CALC{$$COUNT(LENS),%02d}:IMAGE,SOURCE_Z=$$BEAMSOURCE0,SOURCE_MAG=$$IF(BEAMSOURCE_MAG0,$$BEAMSOURCE_MAG0 CPP,1),NLENS=$$COUNT(LENS)")
+#####################
+dbLoadRecords("db/beam.db","LOCATION=$$LOCATION,LAST_LENS=$$BEAMLAST_LENS0,BEAM_START=$$IF(BEAMSTART0,$$BEAMSTART0,0.0),BEAM_SIZE=$$IF(BEAMSIZE0,$$BEAMSIZE0 CPP,1),NLENS=$$COUNT(LENS)")
+
+######################
 #Load Limit Parameters
+######################
 $$LOOP(LIMIT)
-$$IF(CALC_TYPE)
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$$LOCATION,TYPE=$$CALC_TYPE,LIMIT=$$NAME")
-$$ELSE(CALC_TYPE)
-dbLoadRecords("db/fixedlimit.db","LOCATION=$$LOCATION,LIMIT=$$NAME,LOW_LIMIT=$$LOW_LIMIT,HIGH_LIMIT=$$HIGH_LIMIT")
-$$ENDIF(CALC_TYPE)
+
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$$LOCATION,TYPE=$$CALC_TYPE,LIMIT=$$NAME,OFFSET=$$OFFSET")
 $$ENDLOOP(LIMIT)
 
-$$LOOP(STACK)
-$$IF(NLENS,3)
-dbLoadRecords("db/stacklens3.db", "LOCATION=$$LOCATION,MOTID=$$IF($$MOT_ID,$$MOT_ID,$$LENS1_INDEX),Y_MOT=$$Y_MOT,LENS1_ID=$$CALC{LENS1_INDEX,%02d},LENS1_STATE=$$LENS1_STATE,LENS2_ID=$$CALC{LENS2_INDEX,%02d},LENS2_STATE=$$LENS2_STATE,LENS3_ID=$$CALC{LENS3_INDEX,%02d},LENS3_STATE=$$LENS3_STATE")
-$$ENDIF(NLENS)
-$$ENDLOOP(STACK)
+
+#####################
+#Load Remaining Modbus PV
+#####################
+
+###############################
 # Load default record instances
+###############################
 dbLoadRecords( "db/iocSoft.db",             "IOC=$(IOC_PV)" )
 dbLoadRecords( "db/save_restoreStatus.db",  "IOC=$(IOC_PV)" )
 
+
+###############################
 # Setup autosave
+###############################
 set_savefile_path( "$(IOC_DATA)/$(IOCNAME)/autosave" )
 set_requestfile_path( "$(TOP)/autosave" )
 save_restoreSet_status_prefix( "$(IOC_PV):" )

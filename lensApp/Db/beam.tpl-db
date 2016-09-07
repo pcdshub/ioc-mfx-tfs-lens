@@ -17,39 +17,40 @@ record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
 record(ai, $(LOCATION):LENS:BEAM:SOURCE) {
     field(DESC, "Z position of the beam source")
     field(DTYP, "Soft Channel")
-    field(SCAN, "1 second")
     field(PINI, "YES")
-    field(INP,  "$(SOURCE_Z)")
+    field(INP,  "$(BEAM_START)")
     field(DISP, "1")
     field(EGU,  "m")
 }
 
-record(ai, $(LOCATION):LENS:BEAM:PRIOR_MAG) {
+record(ai, $(LOCATION):LENS:BEAM:SIZE) {
     field(DESC, "Magnification of the beam source")
     field(DTYP, "Soft Channel")
-    field(SCAN, "1 second")
     field(PINI, "YES")
-    field(INP,  "$(SOURCE_MAG)")
-    field(EGU,  "m")
+    field(INP,  "$(BEAM_SIZE)")
 }
 
 
-record(ai, $(LOCATION):LENS:BEAM:FOCUS) {
+record(ao, $(LOCATION):LENS:BEAM:FOCUS) {
     field(DESC, "Current focus of the X-ray source")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn(aoFLOAT_PORT 0)FLOAT32_LE")
     field(SCAN, "Passive")
-    field(INP,  "$(FOCUS) CPP")
-    field(DTYP, "Soft Channel")
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(LAST_LENS):IMAGE CPP")
     field(PINI, "YES")
     field(PREC, "3")
+    field(LOPR, "0")
+    field(HOPR, "500")
     field(EGU,  "m")
 }
+
 
 record(ai, $(LOCATION):LENS:BEAM:MAG) {
     field(DESC, "Magnification of the beam source")
     field(DTYP, "Soft Channel")
-    field(SCAN, "1 second")
     field(PINI, "YES")
-    field(INP,  "$(FOCUS)_MAG CPP")
+    field(INP,  "$(LAST_LENS):IMAGE_MAG CPP")
     field(PREC, "3")
 }
 
@@ -60,38 +61,34 @@ record(longin, $(LOCATION):LENS:BEAM:NLENS) {
     field(VAL,  "$(NLENS)")
 }
 
-record(calcout, $(LOCATION):LENS:BEAM:HEARTBEAT){
+
+record(calc, $(LOCATION):LENS:BEAM:HEARTBEAT){
     field(DESC, "1 Hz heartbeat")
     field(CALC, "A=1?0:A+1")
     field(SCAN, ".5 second")
     field(INPA, "$(LOCATION):LENS:BEAM:HEARTBEAT")
-    field(OUT,  "$(LOCATION):LENS:BEAM:HEARTBIT PP")
-    field(OOPT, "Every Time")
-    field(DOPT, "Use CALC")
 }
 
-record(bi,  $(LOCATION):LENS:BEAM:HEARTBIT){
+
+record(bo,  $(LOCATION):LENS:BEAM:HEARTBIT){
     field(DESC, "Current status of heartbeat")
-    field(DTYP, "Soft Channel")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT 50 0x1)")
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(LOCATION):LENS:BEAM:HEARTBEAT CP")
     field(ZNAM, "Tick")
     field(ONAM, "Tock")
 }
 
-record(longin, $(LOCATION):LENS:BEAM:LIMIT_NUM){
-    field(DESC, "Current limit enum integer")
-    field(DTYP, "Soft Channel")
-    field(SCAN, "Passive")
-    field(LOPR, "-1")
-    field(HOPR, "4")
-}
 
 record(mbbi, $(LOCATION):LENS:BEAM:LIMIT_MODE){
     field(DESC, "Current limit mode")
     field(DTYP, "Soft Channel")
     field(SCAN, "Passive")
-    field(INP,  "$(LOCATION):LENS:BEAM:LIMIT_NUM CPP")
+    field(INP,  "$(LOCATION):LENS:BEAM:LIMIT_NUM")
     field(ZRST, "No lens set")
     field(ONST, "XRT Only")
     field(TWST, "MFX Only")
     field(THST, "Pre-focusing")
 }
+

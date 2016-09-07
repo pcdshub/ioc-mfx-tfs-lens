@@ -1,3 +1,1 @@
-$(LOCATION):LIMIT:$(LIMIT):LRANGE      10  monitor
-$(LOCATION):LIMIT:$(LIMIT):HRANGE      10  monitor
-$(LOCATION):LIMIT:$(LIMIT):SAFE        10  monitor
+$(LOCATION):LENS:$(LIMIT):LIMIT      30  monitor

@@ -14,11 +14,7 @@ DB_INSTALLS += $(IOCADMIN)/db/iocSoft.db
 DB += beam.db
 DB += fixedlimit.db
 DB += flexiblelimit.db
-DB += lensMotion.db
 DB += lens.db
-DB += stacklens1.db
-DB += stacklens3.db
-DB += lens-mfx-plcModbus.db
 
 
 #----------------------------------------------------
@@ -26,10 +22,9 @@ DB += lens-mfx-plcModbus.db
 # Archive files, templates, substitutions like this
 #
 ARCHIVE += lens-ioc.archive
-ARCHIVE += lensMotion.archive
 ARCHIVE += lens.archive
-ARCHIVE += stacklens.archive
 ARCHIVE += limit.archive
+ARCHIVE += lensMotion.archive
 ARCHIVE += beam.archive
 
 #----------------------------------------------------
@@ -37,10 +32,8 @@ ARCHIVE += beam.archive
 # Autosave request files, templates, substitutions like this
 #
 REQ += lens-ioc.req
-REQ += lensMotion.req
-REQ += lens.req
-REQ += stacklens.req
 REQ += beam.req
+
 # Nothing to build for autosave, just install from $AUTOSAVE/db
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
 
