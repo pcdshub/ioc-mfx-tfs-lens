@@ -125,7 +125,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){
     field(INPB, "$(LOCATION):LENS:$(LENSID):OBJECT CPP")
     field(INPC, "$(LOCATION):LENS:$(LENSID):FOCUS CPP")
     field(INPD, "$(LOCATION):LENS:$(LENSID):Z CPP")
-    field(CALC, "A=1?D+(1/((1/C)-(1/D))):D-B")
+    field(CALC, "A=1?D+(1/((1/C)-(1/B))):D-B")
     field(DISP, "1")
     field(EGU,  "m")
     field(PREC, "3")

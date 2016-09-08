@@ -83,12 +83,20 @@ record(bo,  $(LOCATION):LENS:BEAM:HEARTBIT){
 
 record(mbbi, $(LOCATION):LENS:BEAM:LIMIT_MODE){
     field(DESC, "Current limit mode")
-    field(DTYP, "Soft Channel")
     field(SCAN, "Passive")
-    field(INP,  "$(LOCATION):LENS:BEAM:LIMIT_NUM")
+    field(INP,  "$(LOCATION):LENS:BEAM:LIMIT_NUM CP")
     field(ZRST, "No lens set")
     field(ONST, "XRT Only")
     field(TWST, "MFX Only")
     field(THST, "Pre-focusing")
 }
 
+record(bo, $(LOCATION):LENS:BEAM:CLEAR_FAULT){
+    field(DESC, "Clear all faults")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT 51 0x1)")
+    field(ZNAM, "Uncleared")
+    field(ONAM, "Clear")
+    field(HIGH, "3")
+}
+    

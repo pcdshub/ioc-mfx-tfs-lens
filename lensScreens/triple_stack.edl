@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 6997
-y 2239
+x 886
+y 516
 w 245
 h 300
 font "helvetica-medium-r-12.0"
@@ -376,90 +376,6 @@ fillColor index 7
 lineWidth 2
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 102
-y 54
-w 40
-h 16
-
-beginGroup
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 102
-y 53
-w 40
-h 16
-fgColor index 14
-onColor index 4
-offColor index 4
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(STK):OUT:GO"
-pressValue "1"
-3d
-invisible
-useEnumNumeric
-font "helvetica-medium-r-12.0"
-visPv "$(STK):OUT"
-visInvert
-visMin "1"
-visMax "2"
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 102
-y 54
-w 40
-h 14
-lineColor index 14
-fill
-fillColor index 20
-fillAlarm
-lineWidth 2
-visPv "$(STK):OUT"
-visMin "0"
-visMax "1"
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 102
-y 54
-w 40
-h 14
-lineColor index 14
-fill
-fillColor index 15
-fillAlarm
-lineWidth 2
-visPv "$(STK):OUT"
-visMin "1"
-visMax "2"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -542,7 +458,7 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS_MID):IN:GO"
+controlPv "$(LENS_MID):INSERT"
 pressValue "1"
 3d
 invisible
@@ -639,7 +555,7 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS_BOT):IN:GO"
+controlPv "$(LENS_BOT):INSERT"
 pressValue "1"
 3d
 invisible
@@ -654,27 +570,6 @@ endGroup
 
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 100
-y 10
-w 45
-h 14
-font "helvetica-bold-r-12.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "$(STK)"
-}
-autoSize
-endObjectProperties
-
 # (Text Update)
 object TextupdateClass
 beginObjectProperties
@@ -685,7 +580,7 @@ x 86
 y 28
 w 72
 h 16
-controlPv "$(STK):STATE"
+controlPv "$(LENS_TOP):SAFE"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -798,7 +693,7 @@ onColor index 4
 offColor index 4
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(LENS_TOP):IN:GO"
+controlPv "$(LENS_TOP):INSERT"
 pressValue "1"
 3d
 invisible
@@ -849,5 +744,49 @@ endObjectProperties
 
 endGroup
 
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 102
+y 53
+w 40
+h 16
+fgColor index 14
+onColor index 14
+offColor index 14
+topShadowColor index 3
+botShadowColor index 11
+controlPv "$(LENS_TOP):REMOVE"
+pressValue "1"
+useEnumNumeric
+font "helvetica-medium-r-12.0"
+visInvert
+visMin "1"
+visMax "2"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 104
+y 8
+w 36
+h 16
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Stack"
+}
+autoSize
 endObjectProperties
 

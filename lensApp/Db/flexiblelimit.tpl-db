@@ -1,9 +1,7 @@
 record(ao, $(LOCATION):LENS:$(LIMIT):LIMIT) {
     field(DESC, "The boundary of beam focus")
     field(DTYP, "asynFloat64")
-    field(OUT,  "@asyn(aoFLOAT_PORT $(OFFSET))FLOAT32_LE
-    field(SCAN, "Passive")
-    field(PINI,  "YES")
+    field(OUT,  "@asyn(aoFLOAT_PORT $(OFFSET))FLOAT32_LE")
     field(EGU,  "m")
     field(PREC, "3")
     field(LOPR, "0")

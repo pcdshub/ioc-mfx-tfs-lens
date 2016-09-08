@@ -15,7 +15,7 @@ DB += beam.db
 DB += fixedlimit.db
 DB += flexiblelimit.db
 DB += lens.db
-
+DB += mfx-modbus.db
 
 #----------------------------------------------------
 # Create and install (or just install)

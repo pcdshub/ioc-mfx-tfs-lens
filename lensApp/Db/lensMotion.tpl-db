@@ -1,7 +1,7 @@
 record(bo, $(LOCATION):LENS:$(LENSID):STATE){
     field(DESC, "Check the state of lens")
-#    field(DTYP, "asynUInt32Digital")
-#    field(OUT,  "@asynMask(BO_PORT $(INBIT) 0x1)")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT $(INBIT) 0x1)")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -14,8 +14,8 @@ record(bo, $(LOCATION):LENS:$(LENSID):STATE){
 
 record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
     field(DESC, "Unknown state of the lens")
-#    field(DTYP, "asynUInt32Digital")
-#    field(OUT,  "@asynMask(BO_PORT $(SAFEBIT) 0x1)")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT $(SAFEBIT) 0x1)")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -27,7 +27,7 @@ record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
 }
 
 
-record(bo, $(LOCATION):LENS:$(LENSID):IN:GO) {
+record(bo, $(LOCATION):LENS:$(LENSID):INSERT) {
     field(DESC, "Put lens in the beam")
     field(DTYP, "Soft Channel")
     field(PINI, "YES")
@@ -62,7 +62,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):STATE_CALC) {
     field(CALC, "A>0?1:0")
 }
 
-record(bo, $(LOCATION):LENS::$(LENSID):REMOVE) {
+record(bo, $(LOCATION):LENS:$(LENSID):REMOVE) {
     field(DESC, "Remove lens from the beam")
     field(PINI, "YES")
     field(ZNAM, "NO")

@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 4129
-y 2079
-w 150
-h 205
+x 847
+y 171
+w 328
+h 312
 font "helvetica-medium-r-12.0"
 ctlFont "helvetica-medium-r-12.0"
 btnFont "helvetica-medium-r-12.0"
@@ -19,7 +19,6 @@ ctlBgColor1 index 4
 ctlBgColor2 index 4
 topShadowColor index 1
 botShadowColor index 11
-title "$(HUTCH) Solid Attenuator"
 showGrid
 snapToGrid
 gridSize 2
@@ -39,31 +38,6 @@ lineColor index 14
 fill
 fillColor index 4
 lineWidth 2
-endObjectProperties
-
-# (Lines)
-object activeLineClass
-beginObjectProperties
-major 4
-minor 0
-release 1
-x 278
-y 304
-w 0
-h 0
-lineColor index 14
-lineAlarm
-fill
-fillColor index 15
-fillAlarm
-alarmPv "$(ATT):ATT:COM:_TDES_CALC"
-numPoints 1
-xPoints {
-  0 278
-}
-yPoints {
-  0 304
-}
 endObjectProperties
 
 # (Static Text)
@@ -93,7 +67,7 @@ major 4
 minor 0
 release 0
 x 12
-y 38
+y 36
 w 122
 h 16
 
@@ -106,7 +80,7 @@ major 10
 minor 0
 release 0
 x 75
-y 37
+y 35
 w 58
 h 16
 controlPv "$(BEAM):ENERGY"
@@ -125,7 +99,7 @@ major 4
 minor 1
 release 1
 x 11
-y 38
+y 36
 w 43
 h 14
 font "helvetica-medium-r-12.0"
@@ -149,7 +123,7 @@ major 4
 minor 0
 release 0
 x 12
-y 68
+y 66
 w 122
 h 16
 
@@ -162,7 +136,7 @@ major 10
 minor 0
 release 0
 x 75
-y 67
+y 65
 w 58
 h 16
 controlPv "$(BEAM):FOCUS"
@@ -181,7 +155,7 @@ major 4
 minor 1
 release 1
 x 11
-y 68
+y 66
 w 38
 h 14
 font "helvetica-medium-r-12.0"
@@ -204,44 +178,12 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 11
-y 158
-w 125
-h 34
+x 38
+y 90
+w 75
+h 32
 
 beginGroup
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 158
-w 52
-h 34
-
-beginGroup
-
-# (Text Update)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 12
-y 178
-w 48
-h 16
-controlPv "$(BEAM):LRANGE"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
-fontAlign "center"
-endObjectProperties
 
 # (Static Text)
 object activeXTextClass
@@ -249,36 +191,19 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 10
-y 158
-w 52
+x 58
+y 90
+w 35
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Low Limit"
+  "Mode:"
 }
 autoSize
 endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 80
-y 158
-w 55
-h 34
-
-beginGroup
 
 # (Text Update)
 object TextupdateClass
@@ -286,97 +211,17 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 84
-y 178
-w 48
+x 38
+y 106
+w 75
 h 16
-controlPv "$(BEAM):HRANGE"
+controlPv "$(BEAM):LIMIT_MODE"
 fgColor index 15
 fgAlarm
 bgColor index 11
 fill
 font "courier-medium-r-10.0"
 fontAlign "center"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 80
-y 158
-w 55
-h 14
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "High Limit"
-}
-autoSize
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 40
-y 116
-w 67
-h 36
-
-beginGroup
-
-# (Text Update)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 51
-y 135
-w 42
-h 16
-controlPv "$(BEAM):SAFE"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
-fontAlign "center"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 39
-y 115
-w 67
-h 14
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Focus Safe:"
-}
-autoSize
 endObjectProperties
 
 endGroup
@@ -390,7 +235,7 @@ major 4
 minor 0
 release 0
 x 12
-y 94
+y 132
 w 122
 h 16
 
@@ -403,10 +248,10 @@ major 10
 minor 0
 release 0
 x 75
-y 93
+y 131
 w 58
 h 16
-controlPv "$(BEAM):MAG"
+controlPv "$(BEAM):LIMIT"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -422,7 +267,7 @@ major 4
 minor 1
 release 1
 x 11
-y 94
+y 132
 w 28
 h 14
 font "helvetica-medium-r-12.0"
@@ -430,7 +275,63 @@ fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Mag:"
+  "Limit:"
+}
+autoSize
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 12
+y 156
+w 122
+h 16
+
+beginGroup
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 75
+y 155
+w 58
+h 16
+controlPv "$(BEAM):FAULTED"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 11
+y 156
+w 37
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Status:"
 }
 autoSize
 endObjectProperties

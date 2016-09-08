@@ -1,0 +1,22 @@
+#file ../../db/bi_bit_template { pattern
+
+
+#PLC values returned to IOC
+file "aiFloat64.template"{ pattern,
+{P,              R,                 PORT,           OFFSET,  DATA_TYPE,    PREC, HOPR,  LOPR, SCAN}
+{"$(LOCATION):", "LENS:BEAM:LIMIT", "aiFLOAT_PORT", "0",     "FLOAT32_LE", "3",  "500", "0",  "I/O Intr"}
+}
+
+
+file "longinInt32.template" { pattern
+{P,       R,   PORT,   OFFSET,    DATA_TYPE,   SCAN,   UNITS}
+{"$(LOCATION):", "LENS:BEAM:LIMIT_NUM", "aiLONG_PORT",  "0", "INT32_LE",  "I/O Intr",  "mode"}
+}
+
+
+file "bi_bit.template"{ pattern, 
+{P,               R,                   PORT,       OFFSET, ZNAM,   ONAM,      ZSV,        OSV,        SCAN}
+{"$(LOCATION):",  "LENS:BEAM:ALIVE",   "BI_PORT",  "0",    "Dead",    "Alive",   "MAJOR",    "NO_ALARM", "I/O Intr"}
+{"$(LOCATION):",  "LENS:BEAM:FAULTED", "BI_PORT",  "1",    "Safe",    "Faulted", "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"$(LOCATION):",  "LENS:BEAM:KNOWN",   "BI_PORT",  "2",    "Unknown", "Known",   "MAJOR",    "NO_ALARM", "I/O Intr"}
+}
