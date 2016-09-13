@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 847
-y 171
+x 851
+y 223
 w 328
 h 312
 font "helvetica-medium-r-12.0"
@@ -139,7 +139,7 @@ x 75
 y 65
 w 58
 h 16
-controlPv "$(BEAM):FOCUS"
+controlPv "$(BEAM):FOCAL_PLANE"
 fgColor index 15
 fgAlarm
 bgColor index 11

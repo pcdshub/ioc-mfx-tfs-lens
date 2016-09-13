@@ -70,3 +70,10 @@ record(bo, $(LOCATION):LENS:$(LENSID):REMOVE) {
     field(HIGH, "5")
     field(OUT,  "$(Y_MOT):OUT:GO PP")
 }
+
+record(calc,$(LOCATION):LENS:$(LENSID):OUT) {
+    field(DESC, "Whether Y motor is out")
+    field(PINI, "YES")
+    field(INPA, "$(Y_MOT):OUT CPP")
+    field(CALC, "A>0?1:0")
+}

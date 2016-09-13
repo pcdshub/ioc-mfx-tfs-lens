@@ -3,8 +3,8 @@
 
 #PLC values returned to IOC
 file "aiFloat64.template"{ pattern,
-{P,              R,                 PORT,           OFFSET,  DATA_TYPE,    PREC, HOPR,  LOPR, SCAN}
-{"$(LOCATION):", "LENS:BEAM:LIMIT", "aiFLOAT_PORT", "0",     "FLOAT32_LE", "3",  "500", "0",  "I/O Intr"}
+{P,              R,                 PORT,           OFFSET,  DATA_TYPE,    PREC, HOPR,  LOPR, SCAN, UNITS}
+{"$(LOCATION):", "LENS:BEAM:LIMIT", "aiFLOAT_PORT", "0",     "FLOAT32_LE", "3",  "500", "0",  "I/O Intr", "m"}
 }
 
 

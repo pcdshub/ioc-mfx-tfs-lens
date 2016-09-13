@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 886
-y 516
+x 1590
+y 2703
 w 245
 h 300
 font "helvetica-medium-r-12.0"
@@ -576,7 +576,7 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 86
+x 85
 y 28
 w 72
 h 16
@@ -763,6 +763,7 @@ topShadowColor index 3
 botShadowColor index 11
 controlPv "$(LENS_TOP):REMOVE"
 pressValue "1"
+invisible
 useEnumNumeric
 font "helvetica-medium-r-12.0"
 visInvert
@@ -776,17 +777,56 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 104
+x 94
 y 8
-w 36
-h 16
+w 55
+h 14
 font "helvetica-bold-r-12.0"
+fontAlign "center"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Stack"
+  "$(NAME)"
 }
 autoSize
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 102
+y 53
+w 40
+h 16
+lineColor index 14
+fill
+fillColor index 20
+lineWidth 2
+visPv "$(LENS_TOP):STATE"
+visMin "0"
+visMax "2"
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 102
+y 53
+w 40
+h 16
+lineColor index 14
+fill
+fillColor index 15
+lineWidth 2
+visPv "$(LENS_TOP):OUT"
+visMin "1"
+visMax "2"
 endObjectProperties
 

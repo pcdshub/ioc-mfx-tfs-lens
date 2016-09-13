@@ -33,8 +33,6 @@ record(ai, $(LOCATION):LENS:BEAM:SIZE) {
 
 record(ao, $(LOCATION):LENS:BEAM:FOCUS) {
     field(DESC, "Current focus of the X-ray source")
-    field(DTYP, "asynFloat64")
-    field(OUT,  "@asyn(aoFLOAT_PORT 0)FLOAT32_LE")
     field(SCAN, "Passive")
     field(OMSL, "closed_loop")
     field(DOL,  "$(LAST_LENS):IMAGE CPP")
@@ -42,6 +40,30 @@ record(ao, $(LOCATION):LENS:BEAM:FOCUS) {
     field(PREC, "3")
     field(LOPR, "0")
     field(HOPR, "500")
+    field(EGU,  "m")
+}
+
+record(calc, $(LOCATION):LENS:BEAM:_LCALC){
+    field(DESC, "Calculate focal length")
+    field(SCAN, "Passive")
+    field(PREC, "3")
+    field(INPA, "$(LAST_LENS):IMAGE CPP")
+    field(INPB, "$(LAST_LENS):LAST_CRL CPP")
+    field(CALC, "A>0?A-B:0")
+}
+    
+
+record(ao, $(LOCATION):LENS:BEAM:FOCAL_PLANE){
+    field(DESC, "Current focal plane of the X-ray source")
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn(aoFLOAT_PORT 0)FLOAT32_LE")
+    field(SCAN, "Passive")
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(LOCATION):LENS:BEAM:_LCALC CPP")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(LOPR, "0")
+    field(HOPR, "100")
     field(EGU,  "m")
 }
 

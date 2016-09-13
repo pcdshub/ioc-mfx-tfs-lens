@@ -88,6 +88,16 @@ record(ao, $(LOCATION):LENS:$(LENSID):Z_OFFSET) {
     field(FLNK, "$(LOCATION):LENS:$(LENSID):Z")
 } 
 
+record(calc, $(LOCATION):LENS:$(LENSID):LAST_CRL){
+    field(DESC, "Position of last CRL")
+    field(SCAN, "Passive")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):STATE CPP")
+    field(INPB, "$(PREV_CRL) CPP")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):Z CPP")
+    field(CALC, "A=1?C:B")
+}
+
+
 record(calc, $(LOCATION):LENS:$(LENSID):OBJECT) {
     field(DESC, "Object distance from lens")
     field(SCAN, "Passive")
@@ -130,6 +140,7 @@ record(calc, $(LOCATION):LENS:$(LENSID):IMAGE){
     field(EGU,  "m")
     field(PREC, "3")
 }
+
 
 record(genSub, $(LOCATION):LENS:$(LENSID):C_CALC){
     field(DESC, "Calculation of Focus at current Energy")
