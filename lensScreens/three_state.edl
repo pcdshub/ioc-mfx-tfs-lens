@@ -4,8 +4,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 289
-y 2533
+x 2786
+y 2485
 w 543
 h 357
 font "helvetica-medium-r-18.0"
@@ -60,7 +60,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 34
 y 53
 w 100
@@ -79,7 +79,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 34
 y 83
@@ -97,6 +97,7 @@ smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Static Text)
@@ -104,7 +105,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 160
 y 17
 w 100
@@ -124,7 +125,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 280
 y 17
 w 80
@@ -144,7 +145,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 380
 y 17
 w 80
@@ -163,7 +164,7 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 280
 y 45
@@ -175,20 +176,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 380
 y 45
@@ -200,20 +201,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 280
 y 69
@@ -225,20 +226,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 380
 y 69
@@ -250,20 +251,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 280
 y 93
@@ -275,20 +276,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 380
 y 93
@@ -300,20 +301,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 280
 y 117
@@ -325,20 +326,20 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 2
+minor 7
 release 0
 x 380
 y 117
@@ -350,13 +351,13 @@ fontAlign "center"
 fgColor index 16
 bgColor index 12
 editable
-limitsFromDb
-precision 1
+precision 3
 nullColor index 40
 smartRefresh
 useHexPrefix
 newPos
 objType "monitors"
+noExecuteClipMask
 endObjectProperties
 
 # (Static Text)
@@ -364,7 +365,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 163
 y 43
 w 100
@@ -384,7 +385,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 163
 y 67
 w 100
@@ -404,7 +405,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 163
 y 91
 w 100
@@ -424,7 +425,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 163
 y 116
 w 100

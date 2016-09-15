@@ -17,6 +17,15 @@ record(ao, $(LOCATION):LENS:$(LENSID):FOCUS) {
     field(EGU,  "m")
 }
 
+record(calc, $(LOCATION):LENS:$(LENSID):FOCAL_PLANE) {
+    field(DESC, "Focal plane of Lens")
+    field(PINI, "YES")
+    field(PREC, "3")
+    field(INPA, "$(LOCATION):LENS:$(LENSID):IMAGE CPP")
+    field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
+    field(CALC, "A-B")
+}
+
 record(calc, $(LOCATION):LENS:$(LENSID):MAG) {
     field(DESC, "Mag of the Lens at current energy")
     field(PINI, "YES")

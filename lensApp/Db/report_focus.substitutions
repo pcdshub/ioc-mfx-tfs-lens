@@ -1,0 +1,10 @@
+file report_focus.tpl-db
+{
+
+    {
+        LOCATION = $(LOCATION)
+        LENSID   = $(LENSID)
+        REPORT   = $(REPORT)
+
+    }
+}

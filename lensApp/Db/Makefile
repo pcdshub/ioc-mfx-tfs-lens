@@ -16,7 +16,7 @@ DB += fixedlimit.db
 DB += flexiblelimit.db
 DB += lens.db
 DB += mfx-modbus.db
-
+DB += report_focus.db
 #----------------------------------------------------
 # Create and install (or just install)
 # Archive files, templates, substitutions like this
@@ -26,6 +26,7 @@ ARCHIVE += lens.archive
 ARCHIVE += limit.archive
 ARCHIVE += lensMotion.archive
 ARCHIVE += beam.archive
+ARCHIVE += report_focus.archive
 
 #----------------------------------------------------
 # Create and install (or just install)
