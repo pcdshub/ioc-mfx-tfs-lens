@@ -32,7 +32,7 @@ class LensSystem(epicsdevice.Device):
         Return the shape of the lens array
 
         The shape is determined by sorting the leneses in the system by
-        beamline posiiton. If multiple lenses are found with identical
+        beamline position. If multiple lenses are found with identical
         coordinates, they are assumed to belong to a lens stack and therefore
         their in posiitons are assumed to be mutually exclusive. The None
         values are place holders for the option of removing the lens from the
@@ -60,7 +60,7 @@ class LensSystem(epicsdevice.Device):
     def combinations(self):
         """
         Return a list with all possible lens combinations as determined by the
-        :param:`.shape`array. Each combination is represented as a
+        :attr:`.shape`array. Each combination is represented as a
         :class'`.LensArray` object
         """
         return [LensArray(*l) for l in itertools.product(*self.shape)]
@@ -68,9 +68,9 @@ class LensSystem(epicsdevice.Device):
 
     def focus_at(self,z,energy=None):
         """
-        Focus the Transfocator at a beamline position
+        Focus the lenses at a beamline position.
 
-        This uses the :method:`.config_focused_at` to determine the most suitable
+        This uses the :meth:`.config_focused_at` to determine the most suitable
         lens configuration for the requested focus which is then applied. 
         
         :param z: The beamline position to focus the lens system at in meters
@@ -83,11 +83,37 @@ class LensSystem(epicsdevice.Device):
         log.info(array)
         self._apply_array(array)
 
+    
+    def create_spot(self,z,size,convergent=True,divergent=True,energy=None):
+        """
+        Focus the lenses at a point such that a unfocused image of a specific
+        size is created at a beamline position.
+        
+        :param z: The beamline position to create the image at in meters
+        :type  z: float
+
+        :param size: The size of the spot in microns
+        :type  size: float
+        
+        :param convergent: Allow convergent solutions
+        :type  convergent: bool
+
+        :param divergent:  Allow divergent solutions
+        :type  divergent:  bool
+
+        :param energy: (optional) The energy to evaluate the array at in eV
+        :type  energy: float
+        """
+        array = self.config_with_spot(z,size,convergent=convergent,
+                                      divergent=divergent,energy=energy)
+        log.info(array)
+        self._apply_array(array)
+
 
     def config_focused_at(self,z,energy=None):
         """
         Find the configuration that focuses the beam at a specific beamline
-        coordinate. The function :method:`.LensArray.focus_displacement` is
+        coordinate. The function :meth:`.LensArray.focus_displacement` is
         calculated for each array, the mininimum being treated as the most
         optimal conifguration. 
         
@@ -101,8 +127,35 @@ class LensSystem(epicsdevice.Device):
             self.requested_energy = energy
 
         return self._minimize(LensArray.focus_displacement,z,energy=energy)
-    
-    
+   
+
+    def config_with_spot(self,z,size,convergent=True,divergent=True,energy=None):
+        """
+        Find the configuration with a given spot size and Z position
+        
+        :param z: The beamline position to create the image at in meters
+        :type  z: float
+
+        :param size: The size of the spot in microns
+        :type  size: float
+        
+        :param convergent: Allow convergent solutions
+        :type  convergent: bool
+
+        :param divergent:  Allow divergent solutions
+        :type  divergent:  bool
+
+        :param energy: (optional) The energy to evaluate the array at in eV
+        :type  energy: float
+        """
+        if energy:
+            self.requested_energy = energy
+   
+        return self._minimize(LensArray._spot_size_diff,z,size,
+                              convergent=convergent,divergent=divergent,
+                              energy=energy)
+
+
     def _add_lens(self,base):
         """
         Add a Lens to the system by providing the channel access base for all

@@ -11,7 +11,7 @@ class Lens(epicsdevice.Device):
     A Python interface to wrap the PVs created by a Beryllium IOC
     
     The methods related to the calculation of the focal plane have two major
-    modes determined by the :param:`.use_beam`. If set to True, the current
+    modes determined by the :attr:`.use_beam`. If set to True, the current
     beam energy will be used to calculate the focal plane of the lens. This is
     the default mode of operation. However, if there is a need to calculate
     beam parameters in an offline mode, you can set this to False, and the
@@ -86,7 +86,6 @@ class Lens(epicsdevice.Device):
         .. math::
             &[   1      0  ]\\
             &[ -1/f     1  ]
-            :label: thins_lens
         """
         return np.array([[1,0],[-1/self.focus,1]])
 
@@ -101,7 +100,6 @@ class Lens(epicsdevice.Device):
         .. math::
             &[  1   d  ]\\
             &[  0   1  ]
-            :label: propagation
         
         :param z: The origin of the light ray along the beamline in meters
         :type  z: float
@@ -116,7 +114,7 @@ class Lens(epicsdevice.Device):
         Return the ray transfer matrix for for a beam of light originating from
         a beamline position, z, which is then focused by the lens. This is
         simply the matrix created by the cross product of
-        :param:`.ray_transfer` and the :method:`.propagation_from`   
+        :attr:`.ray_transfer` and the :meth:`.propagation_from`   
         
         :param z: The origin of the light ray along the beamline in meters
         :type  z: float
@@ -137,12 +135,15 @@ class LensArray(object):
     arguement. 
     
     The methods related to the calculation of the focal plane have two major
-    modes determined by the :param:`.use_beam`. If set to True, the current
+    modes determined by the :attr:`.use_beam`. If set to True, the current
     beam energy will be used to calculate the focal plane of the lens. This is
     the default mode of operation. However, if there is a need to calculate
     beam parameters in an offline mode, you can set this to False, and the
     requested beam energy as specified by the IOC will be used. 
     """
+    
+    _lens_width = 0.001 #mm
+    
     def __init__(self,*lenses):
         self.lenses   = lenses
         self.use_beam = True
@@ -208,7 +209,7 @@ class LensArray(object):
 
 
     @property
-    def focus(self):
+    def focal_plane(self):
         """
         Calculate the focal plane in beamline coordinates of the Lens Array
 
@@ -218,20 +219,22 @@ class LensArray(object):
         transfer       = self.ray_transfer_matrix
         focal_distance =  -transfer[0][1]/transfer[1][1]
         
-        focal_distance += self.inserted_lenses[-1].beamline_position
         return focal_distance
 
 
-    def focus_displacement(self,z,energy=None):
+    def focus_displacement(self,z,energy=None,absolute=True):
         """
         Return the absolute distance from the focal plane to a point on the
-        beamline
+        beamline.
         
         :param z: The beamline position of reference mark in meters
         :type  z: float
-
+        
         :param energy: (optional) The energy to evaluate the array at in eV
         :type  energy: float
+        
+        :param absolute: Choice to return as absolute value or signed value
+        :type  absolute: bool
         """
         if energy:
             self.use_beam = False
@@ -239,19 +242,67 @@ class LensArray(object):
         if not self.inserted_lenses:
             return np.inf
         
-        return math.fabs(z - self.focus)
+        distance = z - (self.focal_plane 
+                        + self.inserted_lenses[-1].beamline_position)
+        
+        if absolute:
+            return math.fabs(distance)
+
+        return distance
+                          
    
+    @property
+    def focal_dispersal(self):
+        """
+        The dispersion of the beam at the focal plane of the lens array
+        """
+        free_space = np.array([[1,self.focal_plane],[0,1]])
+        transfer   = np.dot(free_space,self.ray_transfer_matrix)
+        
+        first_lens = self.inserted_lenses[0].beamline_position
+        return transfer[1][1] * math.atan(self._lens_width/(2*first_lens))
+
+
+    def spot_size_at(self,z,energy=None,
+                     convergent=True,divergent=True):    
+        """
+        The size of the spot formed at a beamline position
+        """
+        if not self.inserted_lenses:
+            return np.inf
+
+        d = self.focus_displacement(z,energy=energy,absolute=False)
+
+        if d > 0 and not divergent:
+            return np.inf
+
+        if d < 0 and not convergent:
+            return np.inf
+        
+        return 2*d*math.sin(self.focal_dispersal)
+
+    
+    def _spot_size_diff(self,z,spot,energy=None,convergent=True,divergent=True):
+        """
+        Find the difference between the desired spot size and the actual at
+        point along the beamline. Used in the optimization algorithm
+        """
+        actual = self.spot_size_at(z,energy=energy,
+                                convergent=convergent,divergent=divergent)
+
+        return math.fabs(actual*(10**6) - spot)
+
 
     def __str__(self):
         """
         String description of Lens Array
         """
         s = ''
-        s+= 'Lens Array with focus at {:}\n'.format(self.focus)
+        s+= 'Lens Array with focal plane {:}\n'.format(self.focal_plane)
         s+= '-'*79+'\n'
-        s+= '{:20} {:15} {:15}\n'.format('Name','Focal Length','Position')
+        s+= '{:^20} {:^15} {:^15}\n'.format('Name','Focal Length','Position')
         for lens in (self.inserted_lenses):
-            s+= '{:20} {:15.2f} {:15.2f}\n'.format(lens.base,
+            s+= '{:^20} {:^15.2f} {:^15.2f}\n'.format(lens.base,
                                              lens.focus,
                                              lens.beamline_position)
         return s

@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lenses.lens &mdash; Lens Calculator 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Lens Calculator 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for lenses.lens</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">blbase</span> <span class="kn">import</span> <span class="n">epicsdevice</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Lens"><a class="viewcode-back" href="../../lenses.html#lenses.lens.Lens">[docs]</a><span class="k">class</span> <span class="nc">Lens</span><span class="p">(</span><span class="n">epicsdevice</span><span class="o">.</span><span class="n">Device</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Python interface to wrap the PVs created by a Beryllium IOC</span>
+<span class="sd">    </span>
+<span class="sd">    The methods related to the calculation of the focal plane have two major</span>
+<span class="sd">    modes determined by the :attr:`.use_beam`. If set to True, the current</span>
+<span class="sd">    beam energy will be used to calculate the focal plane of the lens. This is</span>
+<span class="sd">    the default mode of operation. However, if there is a need to calculate</span>
+<span class="sd">    beam parameters in an offline mode, you can set this to False, and the</span>
+<span class="sd">    requested beam energy as specified by the IOC will be used. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_records</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;radius&#39;</span>             <span class="p">:</span> <span class="s">&#39;RADIUS&#39;</span><span class="p">,</span>
+                <span class="s">&#39;current_focus&#39;</span>      <span class="p">:</span> <span class="s">&#39;FOCUS&#39;</span><span class="p">,</span>
+                <span class="s">&#39;requested_focus&#39;</span>    <span class="p">:</span> <span class="s">&#39;REQ_FOCUS&#39;</span><span class="p">,</span>
+                <span class="s">&#39;beamline_position&#39;</span>  <span class="p">:</span> <span class="s">&#39;Z&#39;</span><span class="p">,</span>
+                <span class="s">&#39;_state&#39;</span>             <span class="p">:</span> <span class="s">&#39;STATE&#39;</span><span class="p">,</span>
+                <span class="s">&#39;_insert&#39;</span>            <span class="p">:</span> <span class="s">&#39;INSERT&#39;</span><span class="p">,</span>
+                <span class="s">&#39;_remove&#39;</span>            <span class="p">:</span> <span class="s">&#39;REMOVE&#39;</span><span class="p">}</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">base</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_shift</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_beam</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Lens</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="n">base</span><span class="p">,</span><span class="n">delim</span><span class="o">=</span><span class="s">&#39;:&#39;</span><span class="p">)</span>
+  
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inserted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether lens is in the beam as determined by the STATE PV</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="mi">1</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">removed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Whether lens is out of the beam as determined by the STATE PV</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">==</span> <span class="mi">0</span>
+ 
+
+<div class="viewcode-block" id="Lens.insert"><a class="viewcode-back" href="../../lenses.html#lenses.lens.Lens.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Place the lens in the beam path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_insert</span> <span class="o">=</span> <span class="mi">1</span>
+
+</div>
+<div class="viewcode-block" id="Lens.remove"><a class="viewcode-back" href="../../lenses.html#lenses.lens.Lens.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove the lens from the beam path</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">removed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_remove</span> <span class="o">=</span> <span class="mi">1</span>
+
+</div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">focus</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the focal length based on the use_beam parameter</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_beam</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">requested_focus</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_focus</span>
+    
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ray_transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The thin lens ray transfer matrix based on the focal length of the lens</span>
+<span class="sd">        </span>
+<span class="sd">        The matrix take the form :</span>
+<span class="sd">        </span>
+<span class="sd">        .. math::</span>
+<span class="sd">            &amp;[   1      0  ]\\</span>
+<span class="sd">            &amp;[ -1/f     1  ]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">focus</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+
+
+<div class="viewcode-block" id="Lens.propagation_from"><a class="viewcode-back" href="../../lenses.html#lenses.lens.Lens.propagation_from">[docs]</a>    <span class="k">def</span> <span class="nf">propagation_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the ray transfer matrix corresponding to light travelling from a</span>
+<span class="sd">        beamline position, z, to the surface of the lens  </span>
+<span class="sd">        </span>
+<span class="sd">        The matrix takes the form :</span>
+
+<span class="sd">        .. math::</span>
+<span class="sd">            &amp;[  1   d  ]\\</span>
+<span class="sd">            &amp;[  0   1  ]</span>
+<span class="sd">        </span>
+<span class="sd">        :param z: The origin of the light ray along the beamline in meters</span>
+<span class="sd">        :type  z: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">beamline_position</span>
+        
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="n">d</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+    
+    </div>
+<div class="viewcode-block" id="Lens.focused_from"><a class="viewcode-back" href="../../lenses.html#lenses.lens.Lens.focused_from">[docs]</a>    <span class="k">def</span> <span class="nf">focused_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the ray transfer matrix for for a beam of light originating from</span>
+<span class="sd">        a beamline position, z, which is then focused by the lens. This is</span>
+<span class="sd">        simply the matrix created by the cross product of</span>
+<span class="sd">        :attr:`.ray_transfer` and the :meth:`.propagation_from`   </span>
+<span class="sd">        </span>
+<span class="sd">        :param z: The origin of the light ray along the beamline in meters</span>
+<span class="sd">        :type  z: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ray_transfer</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">propagation_from</span><span class="p">(</span><span class="n">z</span><span class="p">))</span>
+   
+</div>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;&lt; LENS object with focus {:}, radius {:}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">focus</span><span class="p">,</span>
+                                                                 <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="LensArray"><a class="viewcode-back" href="../../lenses.html#lenses.lens.LensArray">[docs]</a><span class="k">class</span> <span class="nc">LensArray</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An object to represent an array of Lenses</span>
+<span class="sd">    </span>
+<span class="sd">    The array is initalized by passing each :class:`.Lens` object as a</span>
+<span class="sd">    arguement. </span>
+<span class="sd">    </span>
+<span class="sd">    The methods related to the calculation of the focal plane have two major</span>
+<span class="sd">    modes determined by the :attr:`.use_beam`. If set to True, the current</span>
+<span class="sd">    beam energy will be used to calculate the focal plane of the lens. This is</span>
+<span class="sd">    the default mode of operation. However, if there is a need to calculate</span>
+<span class="sd">    beam parameters in an offline mode, you can set this to False, and the</span>
+<span class="sd">    requested beam energy as specified by the IOC will be used. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">_lens_width</span> <span class="o">=</span> <span class="mf">0.001</span> <span class="c">#mm</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">lenses</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lenses</span>   <span class="o">=</span> <span class="n">lenses</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_beam</span> <span class="o">=</span> <span class="bp">True</span>
+        
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Number of lenses in the array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inserted_lenses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A list of all the lenses in the array organized by beamline position</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">lenses</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lenses</span> <span class="k">if</span> <span class="n">l</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">lenses</span><span class="p">,</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">lens</span><span class="p">:</span> <span class="n">lens</span><span class="o">.</span><span class="n">beamline_position</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">use_beam</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The choice to use the current beam energy for focus calculations or the</span>
+<span class="sd">        requested energy stored in the IOC </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_use_beam</span>
+
+
+    <span class="nd">@use_beam.setter</span>
+    <span class="k">def</span> <span class="nf">use_beam</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">beam_usage</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">lens</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">:</span>
+            <span class="n">lens</span><span class="o">.</span><span class="n">use_beam</span> <span class="o">=</span> <span class="n">beam_usage</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">_use_beam</span> <span class="o">=</span> <span class="n">beam_usage</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ray_transfer_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The ray transfer matrix of all the inserted lenses</span>
+
+<span class="sd">        This is the matrix formed by tracing a ray originating at the LCLS</span>
+<span class="sd">        Undulator (z=0) through each inserted lens in the array      </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">lens</span><span class="o">.</span><span class="n">use_beam</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_beam</span> 
+                    <span class="k">for</span> <span class="n">lens</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">]):</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s">&#39;Not all lenses are using the same beam energy parameter, &#39;</span>\
+                     <span class="s">&#39;set use_beam to True/False&#39;</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">lens</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">transfer</span> <span class="o">=</span> <span class="n">lens</span><span class="o">.</span><span class="n">focused_from</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">transfer</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">lens</span><span class="o">.</span><span class="n">focused_from</span><span class="p">(</span><span class="n">prev_lens</span><span class="o">.</span><span class="n">beamline_position</span><span class="p">),</span>
+                                                    <span class="n">transfer</span><span class="p">)</span>
+            <span class="n">prev_lens</span> <span class="o">=</span> <span class="n">lens</span>
+        
+        <span class="k">return</span> <span class="n">transfer</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">focal_plane</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculate the focal plane in beamline coordinates of the Lens Array</span>
+
+<span class="sd">        This solution is derived from the coefficients found in the ray transfer</span>
+<span class="sd">        matrix</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">transfer</span>       <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ray_transfer_matrix</span>
+        <span class="n">focal_distance</span> <span class="o">=</span>  <span class="o">-</span><span class="n">transfer</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">transfer</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        
+        <span class="k">return</span> <span class="n">focal_distance</span>
+
+
+<div class="viewcode-block" id="LensArray.focus_displacement"><a class="viewcode-back" href="../../lenses.html#lenses.lens.LensArray.focus_displacement">[docs]</a>    <span class="k">def</span> <span class="nf">focus_displacement</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">energy</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">absolute</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return the absolute distance from the focal plane to a point on the</span>
+<span class="sd">        beamline.</span>
+<span class="sd">        </span>
+<span class="sd">        :param z: The beamline position of reference mark in meters</span>
+<span class="sd">        :type  z: float</span>
+<span class="sd">        </span>
+<span class="sd">        :param energy: (optional) The energy to evaluate the array at in eV</span>
+<span class="sd">        :type  energy: float</span>
+<span class="sd">        </span>
+<span class="sd">        :param absolute: Choice to return as absolute value or signed value</span>
+<span class="sd">        :type  absolute: bool</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">energy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_beam</span> <span class="o">=</span> <span class="bp">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_plane</span> 
+                        <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">beamline_position</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">absolute</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">distance</span>
+                          
+   </div>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">focal_dispersal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The dispersion of the beam at the focal plane of the lens array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">free_space</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_plane</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+        <span class="n">transfer</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">free_space</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">ray_transfer_matrix</span><span class="p">)</span>
+        
+        <span class="n">first_lens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">beamline_position</span>
+        <span class="k">return</span> <span class="n">transfer</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lens_width</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">first_lens</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="LensArray.spot_size_at"><a class="viewcode-back" href="../../lenses.html#lenses.lens.LensArray.spot_size_at">[docs]</a>    <span class="k">def</span> <span class="nf">spot_size_at</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">energy</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                     <span class="n">convergent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">divergent</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>    
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The size of the spot formed at a beamline position</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">focus_displacement</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span><span class="n">absolute</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">divergent</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+        <span class="k">if</span> <span class="n">d</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">convergent</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+        
+        <span class="k">return</span> <span class="mi">2</span><span class="o">*</span><span class="n">d</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_dispersal</span><span class="p">)</span>
+
+    </div>
+    <span class="k">def</span> <span class="nf">_spot_size_diff</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">z</span><span class="p">,</span><span class="n">spot</span><span class="p">,</span><span class="n">energy</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">convergent</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">divergent</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find the difference between the desired spot size and the actual at</span>
+<span class="sd">        point along the beamline. Used in the optimization algorithm</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">actual</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spot_size_at</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+                                <span class="n">convergent</span><span class="o">=</span><span class="n">convergent</span><span class="p">,</span><span class="n">divergent</span><span class="o">=</span><span class="n">divergent</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">fabs</span><span class="p">(</span><span class="n">actual</span><span class="o">*</span><span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">6</span><span class="p">)</span> <span class="o">-</span> <span class="n">spot</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        String description of Lens Array</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="s">&#39;&#39;</span>
+        <span class="n">s</span><span class="o">+=</span> <span class="s">&#39;Lens Array with focal plane {:}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">focal_plane</span><span class="p">)</span>
+        <span class="n">s</span><span class="o">+=</span> <span class="s">&#39;-&#39;</span><span class="o">*</span><span class="mi">79</span><span class="o">+</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span>
+        <span class="n">s</span><span class="o">+=</span> <span class="s">&#39;{:^20} {:^15} {:^15}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&#39;Name&#39;</span><span class="p">,</span><span class="s">&#39;Focal Length&#39;</span><span class="p">,</span><span class="s">&#39;Position&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">lens</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">inserted_lenses</span><span class="p">):</span>
+            <span class="n">s</span><span class="o">+=</span> <span class="s">&#39;{:^20} {:^15.2f} {:^15.2f}</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lens</span><span class="o">.</span><span class="n">base</span><span class="p">,</span>
+                                             <span class="n">lens</span><span class="o">.</span><span class="n">focus</span><span class="p">,</span>
+                                             <span class="n">lens</span><span class="o">.</span><span class="n">beamline_position</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">s</span>
+
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__str__</span><span class="p">()</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, trendahl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

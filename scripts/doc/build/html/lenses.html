@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Lens Objects &mdash; Lens Calculator 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Lens Calculator 0.0.1 documentation" href="index.html" />
+    <link rel="next" title="Lens System" href="system.html" />
+    <link rel="prev" title="Welcome to Lens Calculators’s documentation!" href="index.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="lens-objects">
+<h1>Lens Objects<a class="headerlink" href="#lens-objects" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="lenses.lens.Lens">
+<em class="property">class </em><code class="descclassname">lenses.lens.</code><code class="descname">Lens</code><span class="sig-paren">(</span><em>base</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#Lens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.Lens" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Python interface to wrap the PVs created by a Beryllium IOC</p>
+<p>The methods related to the calculation of the focal plane have two major
+modes determined by the <a class="reference internal" href="#lenses.lens.LensArray.use_beam" title="lenses.lens.LensArray.use_beam"><code class="xref py py-attr docutils literal"><span class="pre">use_beam</span></code></a>. If set to True, the current
+beam energy will be used to calculate the focal plane of the lens. This is
+the default mode of operation. However, if there is a need to calculate
+beam parameters in an offline mode, you can set this to False, and the
+requested beam energy as specified by the IOC will be used.</p>
+<dl class="attribute">
+<dt id="lenses.lens.Lens.focus">
+<code class="descname">focus</code><a class="headerlink" href="#lenses.lens.Lens.focus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the focal length based on the use_beam parameter</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.Lens.focused_from">
+<code class="descname">focused_from</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#Lens.focused_from"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.Lens.focused_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ray transfer matrix for for a beam of light originating from
+a beamline position, z, which is then focused by the lens. This is
+simply the matrix created by the cross product of
+<a class="reference internal" href="#lenses.lens.Lens.ray_transfer" title="lenses.lens.Lens.ray_transfer"><code class="xref py py-attr docutils literal"><span class="pre">ray_transfer</span></code></a> and the <a class="reference internal" href="#lenses.lens.Lens.propagation_from" title="lenses.lens.Lens.propagation_from"><code class="xref py py-meth docutils literal"><span class="pre">propagation_from()</span></code></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>z</strong> (<em>float</em>) &#8211; The origin of the light ray along the beamline in meters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.Lens.insert">
+<code class="descname">insert</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#Lens.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.Lens.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>Place the lens in the beam path</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.Lens.inserted">
+<code class="descname">inserted</code><a class="headerlink" href="#lenses.lens.Lens.inserted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether lens is in the beam as determined by the STATE PV</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.Lens.propagation_from">
+<code class="descname">propagation_from</code><span class="sig-paren">(</span><em>z</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#Lens.propagation_from"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.Lens.propagation_from" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the ray transfer matrix corresponding to light travelling from a
+beamline position, z, to the surface of the lens</p>
+<p>The matrix takes the form :</p>
+<div class="math">
+\[\begin{split}&amp;[  1   d  ]\
+&amp;[  0   1  ]\end{split}\]</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>z</strong> (<em>float</em>) &#8211; The origin of the light ray along the beamline in meters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.Lens.ray_transfer">
+<code class="descname">ray_transfer</code><a class="headerlink" href="#lenses.lens.Lens.ray_transfer" title="Permalink to this definition">¶</a></dt>
+<dd><p>The thin lens ray transfer matrix based on the focal length of the lens</p>
+<p>The matrix take the form :</p>
+<div class="math">
+\[\begin{split}&amp;[   1      0  ]\
+&amp;[ -1/f     1  ]\end{split}\]</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.Lens.remove">
+<code class="descname">remove</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#Lens.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.Lens.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove the lens from the beam path</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.Lens.removed">
+<code class="descname">removed</code><a class="headerlink" href="#lenses.lens.Lens.removed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether lens is out of the beam as determined by the STATE PV</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="lenses.lens.LensArray">
+<em class="property">class </em><code class="descclassname">lenses.lens.</code><code class="descname">LensArray</code><span class="sig-paren">(</span><em>*lenses</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#LensArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.LensArray" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent an array of Lenses</p>
+<p>The array is initalized by passing each <a class="reference internal" href="#lenses.lens.Lens" title="lenses.lens.Lens"><code class="xref py py-class docutils literal"><span class="pre">Lens</span></code></a> object as a
+arguement.</p>
+<p>The methods related to the calculation of the focal plane have two major
+modes determined by the <a class="reference internal" href="#lenses.lens.LensArray.use_beam" title="lenses.lens.LensArray.use_beam"><code class="xref py py-attr docutils literal"><span class="pre">use_beam</span></code></a>. If set to True, the current
+beam energy will be used to calculate the focal plane of the lens. This is
+the default mode of operation. However, if there is a need to calculate
+beam parameters in an offline mode, you can set this to False, and the
+requested beam energy as specified by the IOC will be used.</p>
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.focal_dispersal">
+<code class="descname">focal_dispersal</code><a class="headerlink" href="#lenses.lens.LensArray.focal_dispersal" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dispersion of the beam at the focal plane of the lens array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.focal_plane">
+<code class="descname">focal_plane</code><a class="headerlink" href="#lenses.lens.LensArray.focal_plane" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the focal plane in beamline coordinates of the Lens Array</p>
+<p>This solution is derived from the coefficients found in the ray transfer
+matrix</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.LensArray.focus_displacement">
+<code class="descname">focus_displacement</code><span class="sig-paren">(</span><em>z</em>, <em>energy=None</em>, <em>absolute=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#LensArray.focus_displacement"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.LensArray.focus_displacement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the absolute distance from the focal plane to a point on the
+beamline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>z</strong> (<em>float</em>) &#8211; The beamline position of reference mark in meters</li>
+<li><strong>energy</strong> (<em>float</em>) &#8211; (optional) The energy to evaluate the array at in eV</li>
+<li><strong>absolute</strong> (<em>bool</em>) &#8211; Choice to return as absolute value or signed value</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.inserted_lenses">
+<code class="descname">inserted_lenses</code><a class="headerlink" href="#lenses.lens.LensArray.inserted_lenses" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of all the lenses in the array organized by beamline position</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.ray_transfer_matrix">
+<code class="descname">ray_transfer_matrix</code><a class="headerlink" href="#lenses.lens.LensArray.ray_transfer_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>The ray transfer matrix of all the inserted lenses</p>
+<p>This is the matrix formed by tracing a ray originating at the LCLS
+Undulator (z=0) through each inserted lens in the array</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.size">
+<code class="descname">size</code><a class="headerlink" href="#lenses.lens.LensArray.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of lenses in the array</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lenses.lens.LensArray.spot_size_at">
+<code class="descname">spot_size_at</code><span class="sig-paren">(</span><em>z</em>, <em>energy=None</em>, <em>convergent=True</em>, <em>divergent=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/lenses/lens.html#LensArray.spot_size_at"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lenses.lens.LensArray.spot_size_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>The size of the spot formed at a beamline position</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="lenses.lens.LensArray.use_beam">
+<code class="descname">use_beam</code><a class="headerlink" href="#lenses.lens.LensArray.use_beam" title="Permalink to this definition">¶</a></dt>
+<dd><p>The choice to use the current beam energy for focus calculations or the
+requested energy stored in the IOC</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to Lens Calculators&#8217;s documentation!</a></li>
+      <li>Next: <a href="system.html" title="next chapter">Lens System</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/lenses.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, trendahl.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
+      
+      |
+      <a href="_sources/lenses.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
