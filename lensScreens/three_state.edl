@@ -1,0 +1,441 @@
+
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 289
+y 2533
+w 543
+h 357
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-medium-r-18.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor index 14
+bgColor index 7
+textColor index 14
+ctlFgColor1 index 14
+ctlFgColor2 index 0
+ctlBgColor1 index 0
+ctlBgColor2 index 14
+topShadowColor index 0
+botShadowColor index 14
+showGrid
+gridSize 8
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 8
+y 10
+w 523
+h 136
+lineColor index 14
+fill
+fillColor index 3
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 24
+y 43
+w 120
+h 70
+lineColor index 14
+fill
+fillColor index 4
+lineWidth 2
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 34
+y 53
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Current State"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 34
+y 83
+w 100
+h 20
+controlPv "$(Y_MOT)"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 160
+y 17
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "State"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 280
+y 17
+w 80
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Set Value"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 380
+y 17
+w 80
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Tolerance"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 45
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_TOP)_SET"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 380
+y 45
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_TOP)_DELTA"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 69
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_MID)_SET"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 380
+y 69
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_MID)_DELTA"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 93
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_BOT)_SET"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 380
+y 93
+w 80
+h 20
+controlPv "$(Y_MOT):$(STATE_BOT)_DELTA"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 117
+w 80
+h 20
+controlPv "$(Y_MOT):OUT_SET"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 380
+y 117
+w 80
+h 20
+controlPv "$(Y_MOT):OUT_DELTA"
+font "courier-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 12
+editable
+limitsFromDb
+precision 1
+nullColor index 40
+smartRefresh
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 163
+y 43
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "$(STATE_TOP)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 163
+y 67
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "$(STATE_MID)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 163
+y 91
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "$(STATE_BOT)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 163
+y 116
+w 100
+h 20
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "OUT"
+}
+endObjectProperties
+

@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 851
-y 223
+x 743
+y 163
 w 328
 h 312
 font "helvetica-medium-r-12.0"
@@ -19,7 +19,6 @@ ctlBgColor1 index 4
 ctlBgColor2 index 4
 topShadowColor index 1
 botShadowColor index 11
-showGrid
 snapToGrid
 gridSize 2
 endScreenProperties
@@ -31,9 +30,9 @@ major 4
 minor 0
 release 0
 x 2
-y 2
-w 144
-h 200
+y 4
+w 312
+h 256
 lineColor index 14
 fill
 fillColor index 4
@@ -46,16 +45,56 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 20
-y 10
-w 107
+x 26
+y 44
+w 96
+h 14
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Beam Statistics"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 170
+y 44
+w 96
+h 14
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Interlock Status"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 94
+y 12
+w 125
 h 16
 font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Beam Statistics"
+  "Beam Diagnostics"
 }
 autoSize
 endObjectProperties
@@ -66,30 +105,57 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 12
-y 36
-w 122
-h 16
+x 138
+y 66
+w 163
+h 92
 
 beginGroup
 
-# (Text Update)
-object TextupdateClass
+# (Group)
+object activeGroupClass
 beginObjectProperties
-major 10
+major 4
 minor 0
 release 0
-x 75
-y 35
-w 58
-h 16
-controlPv "$(BEAM):ENERGY"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
-fontAlign "center"
+x 158
+y 92
+w 141
+h 66
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 158
+y 92
+w 54
+h 64
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 184
+y 142
+w 28
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Limit:"
+}
+autoSize
 endObjectProperties
 
 # (Static Text)
@@ -98,16 +164,36 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 11
-y 36
-w 43
+x 158
+y 118
+w 53
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Energy:"
+  "Positions:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 176
+y 92
+w 35
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Mode:"
 }
 autoSize
 endObjectProperties
@@ -122,10 +208,10 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 12
-y 66
-w 122
-h 16
+x 224
+y 92
+w 75
+h 66
 
 beginGroup
 
@@ -135,10 +221,370 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 75
-y 65
+x 224
+y 142
+w 75
+h 16
+controlPv "$(BEAM):VIOLATED"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 224
+y 118
+w 75
+h 16
+controlPv "$(BEAM):KNOWN"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 224
+y 92
+w 75
+h 16
+controlPv "$(BEAM):LIMIT_MODE"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 136
+y 66
+w 159
+h 16
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 137
+y 67
+w 76
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Current State:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 224
+y 66
+w 74
+h 16
+controlPv "$(BEAM):FAULTED"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 14
+y 174
+w 289
+h 70
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 13
+y 200
+w 173
+h 44
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 116
+y 200
+w 70
+h 44
+
+beginGroup
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 116
+y 200
+w 70
+h 16
+controlPv "$(BEAM):POS_FAULT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 116
+y 228
+w 70
+h 16
+controlPv "$(BEAM):LIM_FAULT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 13
+y 200
+w 93
+h 43
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 28
+y 229
+w 78
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Limit Violated:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 13
+y 200
+w 93
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Positional Fault: "
+}
+autoSize
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 204
+y 210
+w 98
+h 20
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(BEAM):CLEAR_FAULT"
+pressValue "1"
+onLabel "Clear Faults"
+offLabel "Clear Faults"
+3d
+useEnumNumeric
+font "helvetica-bold-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 132
+y 174
+w 67
+h 14
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Past Faults"
+}
+autoSize
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 16
+y 68
+w 113
+h 42
+
+beginGroup
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 69
+y 68
+w 58
+h 42
+
+beginGroup
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 69
+y 68
 w 58
 h 16
+controlPv "$(BEAM):ENERGY"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 69
+y 94
+w 58
+h 17
 controlPv "$(BEAM):FOCAL_PLANE"
 fgColor index 15
 fgAlarm
@@ -148,14 +594,51 @@ font "courier-medium-r-10.0"
 fontAlign "center"
 endObjectProperties
 
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 14
+y 68
+w 43
+h 41
+
+beginGroup
+
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 11
-y 66
+x 14
+y 68
+w 43
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Energy:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 19
+y 96
 w 38
 h 14
 font "helvetica-medium-r-12.0"
@@ -172,83 +655,18 @@ endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 38
-y 90
-w 75
-h 32
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 58
-y 90
-w 35
-h 14
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Mode:"
-}
-autoSize
-endObjectProperties
-
-# (Text Update)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 38
-y 106
-w 75
-h 16
-controlPv "$(BEAM):LIMIT_MODE"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
-fontAlign "center"
-endObjectProperties
-
 endGroup
 
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 12
-y 132
-w 122
-h 16
-
-beginGroup
-
 # (Text Update)
 object TextupdateClass
 beginObjectProperties
 major 10
 minor 0
 release 0
-x 75
-y 131
+x 70
+y 120
 w 58
 h 16
 controlPv "$(BEAM):LIMIT"
@@ -266,8 +684,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 11
-y 132
+x 28
+y 122
 w 28
 h 14
 font "helvetica-medium-r-12.0"
@@ -280,22 +698,25 @@ value {
 autoSize
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
+# (Static Text)
+object activeXTextClass
 beginObjectProperties
 major 4
-minor 0
-release 0
-x 12
-y 156
-w 122
+minor 1
+release 1
+x 20
+y 144
+w 94
 h 16
-
-beginGroup
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Beamline Focus:"
+}
+autoSize
+endObjectProperties
 
 # (Text Update)
 object TextupdateClass
@@ -303,40 +724,16 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 75
-y 155
+x 36
+y 164
 w 58
 h 16
-controlPv "$(BEAM):FAULTED"
+controlPv "$(BEAM):FOCUS"
 fgColor index 15
 fgAlarm
 bgColor index 11
 fill
 font "courier-medium-r-10.0"
 fontAlign "center"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 11
-y 156
-w 37
-h 14
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Status:"
-}
-autoSize
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 

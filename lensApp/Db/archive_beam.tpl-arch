@@ -6,3 +6,7 @@ $(LOCATION):LENS:BEAM:SIZE        30  monitor
 $(LOCATION):LENS:BEAM:MAG         10  monitor
 $(LOCATION):LENS:BEAM:SOURCE      30  monitor
 $(LOCATION):LENS:BEAM:NLENS       30  monitor
+$(LOCATION):LENS:BEAM:FAULTED     30  monitor
+$(LOCATION):LENS:BEAM:KNOWN       30  monitor
+$(LOCATION):LENS:BEAM:VIOLATED    30  monitor
+$(LOCATION):LENS:BEAM:LIMIT       30  monitor

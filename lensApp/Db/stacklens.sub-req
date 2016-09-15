@@ -1,7 +1,0 @@
-file autosave_stacklens.tpl-req
-{
-    {
-        LOCATION = $(LOCATION)
-        MOTID    = $(MOTID)
-    }
-}
