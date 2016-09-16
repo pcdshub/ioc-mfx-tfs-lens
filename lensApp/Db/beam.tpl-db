@@ -57,7 +57,7 @@ record(ao, $(LOCATION):LENS:BEAM:FOCAL_PLANE){
     field(DESC, "Current focal plane of the X-ray source")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn(aoFLOAT_PORT 0)FLOAT32_LE")
-    field(SCAN, "Passive")
+    field(SCAN, ".5 second")
     field(OMSL, "closed_loop")
     field(DOL,  "$(LOCATION):LENS:BEAM:_LCALC CPP")
     field(PINI, "YES")

@@ -1,17 +1,17 @@
 record(calc, $(LOCATION):LENS:$(LENSID):_PCALC) {
     field(DESC, "Focal plane of Lens")
-    field(SCAN, "Passive')
+    field(SCAN, "Passive")
     field(PREC, "3")
     field(INPA, "$(LOCATION):LENS:$(LENSID):IMAGE CPP")
     field(INPB, "$(LOCATION):LENS:$(LENSID):Z CPP")
-    field(CALC, "A-B")
+    field(CALC, "A>0?A-B:A")
 }
 
 record(ao, $(LOCATION):LENS:$(LENSID):FOCAL_PLANE){
     field(DESC, "Current focal plane of the X-ray source")
     field(DTYP, "asynFloat64")
     field(OUT,  "@asyn(aoFLOAT_PORT $(REPORT))FLOAT32_LE")
-    field(SCAN, "Passive")
+    field(SCAN, ".5 second")
     field(OMSL, "closed_loop")
     field(DOL,  "$(LOCATION):LENS:$(LENSID):_PCALC CPP")
     field(PINI, "YES")
