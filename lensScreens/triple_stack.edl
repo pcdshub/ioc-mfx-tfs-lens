@@ -832,7 +832,7 @@ buttonLabel "States"
 numPvs 4
 numDsps 1
 displayFileName {
-  0 "/reg/g/pcds/package/epics/3.14/ioc/common/lens/R0.0.1/lensScreens/three_state.edl"
+  0 "/reg/g/pcds/package/epics/3.14/ioc/common/lens/R0.0.2/lensScreens/three_state.edl"
 }
 symbols {
   0 "Y_MOT=$(Y_MOT),STATE_TOP=$(STATE_TOP),STATE_MID=$(STATE_MID),STATE_BOT=$(STATE_BOT)"

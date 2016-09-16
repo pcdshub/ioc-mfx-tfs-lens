@@ -451,7 +451,7 @@ buttonLabel "States"
 numPvs 4
 numDsps 1
 displayFileName {
-  0 "/reg/g/pcds/package/epics/3.14/ioc/common/lens/R0.0.1/lensScreens/one_state.edl"
+  0 "/reg/g/pcds/package/epics/3.14/ioc/common/lens/R0.0.2/lensScreens/one_state.edl"
 }
 menuLabel {
   0 "States"
