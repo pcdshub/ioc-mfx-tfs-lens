@@ -4,22 +4,64 @@
 #PLC values returned to IOC
 file "aiFloat64.template"{ pattern,
 {P,              R,                 PORT,           OFFSET,  DATA_TYPE,    PREC, HOPR,  LOPR, SCAN, UNITS}
-{"$(LOCATION):", "LENS:BEAM:LIMIT", "aiFLOAT_PORT", "0",     "FLOAT32_LE", "3",  "500", "0",  "I/O Intr", "m"}
+{"MFX:LENS:BEAM", "XRT_RADIUS", "aiFLOAT_PORT",  "0",     "FLOAT32_LE", "1",  "500", "0",  "I/O Intr", "um"}
+{"MFX:LENS:BEAM", "TFS_RADIUS", "aiFLOAT_PORT",  "2",     "FLOAT32_LE", "1",  "500", "0",  "I/O Intr", "um"}
+{"MFX:LENS:BEAM", "TFS:01:RADIUS", "aoFLOAT_PORT", "4", "FLOAT32_LE", "1", "1000", "0", "I/O Intr", "um"}
+{"MFX:LENS:BEAM", "TFS:02:RADIUS", "aoFLOAT_PORT", "6", "FLOAT32_LE", "1", "1000", "0", "I/O Intr", "um"}
+{"MFX:LENS:BEAM", "TFS:03:RADIUS", "aoFLOAT_PORT", "8", "FLOAT32_LE", "1", "1000", "0", "I/O Intr", "um"}
+{"MFX:LENS:BEAM", "TFS:04:RADIUS", "aoFLOAT_PORT", "10", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:05:RADIUS", "aoFLOAT_PORT", "12", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:06:RADIUS", "aoFLOAT_PORT", "14", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:07:RADIUS", "aoFLOAT_PORT", "16", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:08:RADIUS", "aoFLOAT_PORT", "18", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:09:RADIUS", "aoFLOAT_PORT", "20", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "TFS:10:RADIUS", "aoFLOAT_PORT", "22", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "DIA:01:RADIUS", "aoFLOAT_PORT", "24", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "DIA:02:RADIUS", "aoFLOAT_PORT", "26", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:BEAM", "DIA:03:RADIUS", "aoFLOAT_PORT", "28", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 }
-
-
-file "longinInt32.template" { pattern
-{P,       R,   PORT,   OFFSET,    DATA_TYPE,   SCAN,   UNITS}
-{"$(LOCATION):", "LENS:BEAM:LIMIT_NUM", "aiLONG_PORT",  "0", "INT32_LE",  "I/O Intr",  "mode"}
+file "aoFloat64.template" {pattern
+{P,	R,	PORT,	OFFSET,	DATA_TYPE,	PREC,	HOPR,	LOPR,	UNITS}
+{"MFX:LENS:", "TFS_LIMIT:MAX", "aoFLOAT_PORT", "0", "FLOAT32_LE", "1", "1000", "0", "um"}
+{"MFX:LENS:", "XRT_LIMIT:MIN", "aoFLOAT_PORT", "2", "FLOAT32_LE", "1", "1000", "0", "um"}
 }
-
 
 file "bi_bit.template"{ pattern, 
 {P,               R,                    PORT,       OFFSET, ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
-{"$(LOCATION):",  "LENS:BEAM:ALIVE",     "BI_PORT",  "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
-{"$(LOCATION):",  "LENS:BEAM:FAULTED",   "BI_PORT",  "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
-{"$(LOCATION):",  "LENS:BEAM:KNOWN",     "BI_PORT",  "2",    "Unknown",    "Known",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
-{"$(LOCATION):",  "LENS:BEAM:VIOLATED",  "BI_PORT",  "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR", "I/O Intr"}
-{"$(LOCATION):",  "LENS:BEAM:POS_FAULT", "BI_PORT",  "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR", "I/O Intr"}
-{"$(LOCATION):",  "LENS:BEAM:LIM_FAULT", "BI_PORT",  "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR", "I/O Intr"}
+{"MFX:LENS:BEAM:",  "ALIVE",     "BI_PORT",  "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULTED",   "BI_PORT",  "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN",   "BI_PORT",  "2",  "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED",  "BI_PORT",  "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "POS_FAULT", "BI_PORT",  "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "LIM_FAULT", "BI_PORT",  "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+}
+
+file "bo_bit.template" {pattern
+{P,	R,	PORT,	OFFSET,	ZNAM,	ONAM}
+{"MFX:LENS:BEAM:", "TFS:01:KNOWN" "BO_PORT", "10",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:02:KNOWN" "BO_PORT", "11",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:03:KNOWN" "BO_PORT", "12",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:04:KNOWN" "BO_PORT", "13",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:05:KNOWN" "BO_PORT", "14",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:06:KNOWN" "BO_PORT", "15",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:07:KNOWN" "BO_PORT", "16",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:08:KNOWN" "BO_PORT", "17",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:09:KNOWN" "BO_PORT", "18",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:10:KNOWN" "BO_PORT", "19",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "DIA:01:KNOWN" "BO_PORT", "20",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "DIA:02:KNOWN" "BO_PORT", "21",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "DIA:03:KNOWN" "BO_PORT", "22",   "Unknown",	"Known"}
+{"MFX:LENS:BEAM:", "TFS:01:INSERTED" "BO_PORT", "30",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:02:INSERTED" "BO_PORT", "31",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:03:INSERTED" "BO_PORT", "32",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:04:INSERTED" "BO_PORT", "33",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:05:INSERTED" "BO_PORT", "34",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:06:INSERTED" "BO_PORT", "35",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:07:INSERTED" "BO_PORT", "36",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:08:INSERTED" "BO_PORT", "37",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:09:INSERTED" "BO_PORT", "38",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "TFS:10:INSERTED" "BO_PORT", "39",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "DIA:01:INSERTED" "BO_PORT", "40",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "DIA:02:INSERTED" "BO_PORT", "41",   "Removed",	"Inserted"}
+{"MFX:LENS:BEAM:", "DIA:03:INSERTED" "BO_PORT", "42",   "Removed",	"Inserted"}
 }

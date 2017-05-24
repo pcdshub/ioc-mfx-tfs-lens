@@ -7,8 +7,3 @@ $(LOCATION):LENS:$(LENSID):N1         30  monitor
 $(LOCATION):LENS:$(LENSID):N2         30  monitor
 $(LOCATION):LENS:$(LENSID):Z          30  monitor
 $(LOCATION):LENS:$(LENSID):Z_OFFSET   30  monitor
-$(LOCATION):LENS:$(LENSID):STATE      30  monitor
-$(LOCATION):LENS:$(LENSID):IMAGE      30  monitor
-$(LOCATION):LENS:$(LENSID):OBJECT     30  monitor
-$(LOCATION):LENS:$(LENSID):IMAGE_MAG  30  monitor
-$(LOCATION):LENS:$(LENSID):MAG        30  monitor

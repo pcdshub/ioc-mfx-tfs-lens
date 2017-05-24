@@ -1,7 +1,0 @@
-file autosave_lens.tpl-req
-{
-    {
-        LOCATION = $(LOCATION)
-        LENSID   = $(LENSID)
-    }
-}

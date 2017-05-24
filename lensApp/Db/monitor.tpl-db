@@ -1,0 +1,26 @@
+record(calc, $(LOCATION):LENS:BEAM:HEARTBEAT){
+    field(DESC, "1 Hz heartbeat")
+    field(CALC, "A=1?0:A+1")
+    field(SCAN, ".5 second")
+    field(INPA, "$(LOCATION):LENS:BEAM:HEARTBEAT")
+}
+
+
+record(bo,  $(LOCATION):LENS:BEAM:HEARTBIT){
+    field(DESC, "Current status of heartbeat")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT 50 0x1)")
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(LOCATION):LENS:BEAM:HEARTBEAT CP")
+    field(ZNAM, "Tick")
+    field(ONAM, "Tock")
+}
+
+record(bo, $(LOCATION):LENS:BEAM:CLEAR_FAULT){
+    field(DESC, "Clear all faults")
+    field(DTYP, "asynUInt32Digital")
+    field(OUT,  "@asynMask(BO_PORT 51 0x1)")
+    field(ZNAM, "Uncleared")
+    field(ONAM, "Clear")
+    field(HIGH, "3")
+}

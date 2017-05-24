@@ -1,7 +1,0 @@
-file archive_report.tpl-arch
-{
-    {
-        LOCATION = $(LOCATION)
-        LENSID   = $(LENSID)
-    }
-}

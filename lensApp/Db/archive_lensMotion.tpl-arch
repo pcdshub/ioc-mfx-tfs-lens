@@ -1,2 +1,4 @@
 $(LOCATION):LENS:$(LENSID):STATE      10  monitor
+$(LOCATION):LENS:$(LENSID):INSERTED      1  monitor
+$(LOCATION):LENS:$(LENSID):KNOWN         1  monitor
 $(LOCATION):LENS:$(LENSID):SAFE       10  monitor

@@ -1,12 +1,3 @@
-record(ao, $(LOCATION):LENS:$(LIMIT):LIMIT) {
-    field(DESC, "The boundary of beam focus")
-    field(DTYP, "asynFloat64")
-    field(OUT,  "@asyn(aoFLOAT_PORT $(OFFSET))FLOAT32_LE")
-    field(EGU,  "m")
-    field(PREC, "3")
-    field(LOPR, "0")
-    field(HOPR, "500")
-}
 
 record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
     field(DESC, "Lookup of limit at requested Energy")
@@ -19,7 +10,7 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
     field(INPT, "$(LOCATION):LENS:$(LIMIT):STR")
     field(FTE,  "DOUBLE")
     field(FTT,  "STRING")
-    field(OUTL, "$(LOCATION):LENS:$(LIMIT):LIMIT PP")
+    field(OUTL, "$(LOCATION):LENS:$(LIMIT):$(SIDE) PP")
     field(FTVL, "DOUBLE")
 }
 

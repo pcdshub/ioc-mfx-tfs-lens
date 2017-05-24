@@ -1,7 +1,6 @@
 record(bo, $(LOCATION):LENS:$(LENSID):STATE){
     field(DESC, "Check the state of lens")
-    field(DTYP, "asynUInt32Digital")
-    field(OUT,  "@asynMask(BO_PORT $(INBIT) 0x1)")
+    field(OUT,  "$(LOCATION):LENS:$(LENSID):INSERTED")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -14,8 +13,8 @@ record(bo, $(LOCATION):LENS:$(LENSID):STATE){
 
 record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
     field(DESC, "Unknown state of the lens")
-    field(DTYP, "asynUInt32Digital")
-    field(OUT,  "@asynMask(BO_PORT $(SAFEBIT) 0x1)")
+    field(DTYP, "Soft Channel")
+    field(OUT,  "$(LOCATION):LENS:$(LENSID):KNOWN")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")

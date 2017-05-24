@@ -2,10 +2,7 @@ file beam.tpl-db
 {
     {
         LOCATION       = $(LOCATION)
-        FOCUS          = $(FOCUS)
         NLENS          = $(NLENS)
-        LAST_LENS      = $(LAST_LENS)
-        BEAM_START     = $(BEAM_START)
-        BEAM_SIZE      = $(BEAM_SIZE) 
+        ENERGY         = $(ENERGY)
     }
 } 

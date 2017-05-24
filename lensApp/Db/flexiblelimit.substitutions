@@ -3,7 +3,7 @@ file flexiblelimit.tpl-db
     {
         LOCATION = $(LOCATION)
         LIMIT    = $(LIMIT)
+        SIDE     = $(SIDE)
         TYPE     = $(TYPE)
-        OFFSET   = $(OFFSET)
     }
 }

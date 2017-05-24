@@ -5,10 +5,6 @@ file lens.tpl-db
         LENSID     = $(LENSID)
         Z          = $(Z)
         Z_MOT      = $(Z_MOT)
-        NLENS      = $(NLENS)
-        RADIUS     = $(RADIUS)
-        PREV_Z     = $(PREV_Z)
-        PREV_MAG   = $(PREV_MAG)
     }
 } 
 
@@ -19,7 +15,5 @@ file lensMotion.tpl-db
         LENSID    = $(LENSID)
         Y_MOT     = $(Y_MOT)
         IN_STATE  = $(IN_STATE)
-        SAFEBIT   = $(SAFEBIT)
-        INBIT     = $(INBIT)
     }
 }

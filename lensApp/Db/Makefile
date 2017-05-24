@@ -12,22 +12,19 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 DB_INSTALLS += $(IOCADMIN)/db/iocSoft.db
 DB += beam.db
-DB += fixedlimit.db
 DB += flexiblelimit.db
 DB += lens.db
 DB += mfx-modbus.db
-DB += report_focus.db
+DB += monitor.db
 #----------------------------------------------------
 # Create and install (or just install)
 # Archive files, templates, substitutions like this
 #
 ARCHIVE += lens-ioc.archive
 ARCHIVE += lens.archive
-ARCHIVE += limit.archive
 ARCHIVE += lensMotion.archive
 ARCHIVE += beam.archive
-ARCHIVE += report_focus.archive
-
+ARCHIVE += flexiblelimit.archive
 #----------------------------------------------------
 # Create and install (or just install)
 # Autosave request files, templates, substitutions like this

@@ -1,7 +1,8 @@
-file archive_limit.tpl-arch
+file archive_flexiblelimit.tpl-arch
 {
     {
         LOCATION = $(LOCATION)
         LIMIT    = $(LIMIT)
+        SIDE     = $(SIDE)
     }
 }

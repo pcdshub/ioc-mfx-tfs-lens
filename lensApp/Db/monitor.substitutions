@@ -1,0 +1,6 @@
+file monitor.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+    }
+}
