@@ -1,0 +1,9 @@
+file lens-ioc.req
+{
+    {IOC = "IOC:MFX:TFS:LENS"}
+}
+
+file beam.req
+{
+    {LOCATION = "MFX"}
+}

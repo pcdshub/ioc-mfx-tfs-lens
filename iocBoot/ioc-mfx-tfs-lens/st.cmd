@@ -1,15 +1,13 @@
-#!$$IOCTOP/bin/$$IF(ARCH,$$ARCH,linux-x86_64)/lens
+#!../../bin/linux-x86_64/lens
 
 < envPaths
-epicsEnvSet( "IOCNAME",   "$$IOCNAME" )
-epicsEnvSet( "ENGINEER",  "$$ENGINEER" )
-epicsEnvSet( "LOCATION",  "$$LOCATION" )
+epicsEnvSet( "IOCNAME",   "ioc-mfx-tfs-lens" )
+epicsEnvSet( "ENGINEER",  "Teddy Rendahl (trendahl)" )
+epicsEnvSet( "LOCATION",  "MFX" )
 epicsEnvSet( "IOCSH_PS1", "$(IOCNAME)> " )
-epicsEnvSet( "IOC_PV",    "$$IOC_PV" )
-epicsEnvSet( "IOCTOP",    "$$IOCTOP")
-epicsEnvSet( "TOP",       "$$TOP")
+epicsEnvSet( "IOC_PV",    "IOC:MFX:LENS" )
 
-cd( "$(IOCTOP)" )
+cd( "../.." )
 
 # Run common startup commands for linux soft IOC's
 < /reg/d/iocCommon/All/pre_linux.cmd
@@ -29,7 +27,7 @@ lens_registerRecordDeviceDriver(pdbbase)
 #                       unsigned int priority, 
 #                       int noAutoConnect,
 #                       int noProcessEos);
-drvAsynIPPortConfigure("lens-plc","$$PLC:502",0,0,1)
+drvAsynIPPortConfigure("lens-plc","172.21.62.99:502",0,0,1)
 
 #modbusInterposeConfig(const char *portName, 
 #                      int slaveAddress, 
@@ -77,43 +75,38 @@ drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,
 #####################
 #Load Lenses
 #####################
-$$LOOP(LENS)
-$$IF(PREV_LENS)
-
-dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$LENSID,RADIUS=$$RADIUS,Z=$$Z,Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),PREV_Z=$$PREV_LENS:IMAGE,PREV_CRL=$$PREV_LENS:LAST_CRL,Y_MOT=$$Y_MOT,IN_STATE=$$IN_STATE,PREV_MAG=$$PREV_LENS:IMAGE_MAG,SAFEBIT=$$IF(SAFEBIT,$$SAFEBIT,0.0),INBIT=$$IF(INBIT,$$INBIT,0.0)")
-$$IF(REPORT)
-dbLoadRecords("db/report_focus.db","LOCATION=$$LOCATION,LENSID=$$LENSID,REPORT=$$REPORT")
-$$ENDIF(REPORT)
-
-$$ELSE(PREV_LENS)
-dbLoadRecords("db/lens.db", "LOCATION=$$LOCATION,LENSID=$$LENSID,RADIUS=$$RADIUS,Z=$$Z,Z_MOT=$$IF(Z_MOT,$$Z_MOT CPP,0),PREV_Z=$$LOCATION:LENS:BEAM:SOURCE,PREV_CRL=$$LOCATION:LENS:$$LENSID:Z,Y_MOT=$$Y_MOT,IN_STATE=$$IN_STATE,PREV_MAG=$$LOCATION:LENS:BEAM:SIZE,SAFEBIT=$$IF(SAFEBIT,$$SAFEBIT,0.0),INBIT=$$IF(INBIT,$$INBIT,0.0)")
-$$IF(REPORT)
-dbLoadRecords("db/report_focus.db","LOCATION=$$LOCATION,LENSID=$$LENSID,REPORT=$$REPORT")
-$$ENDIF(REPORT)
-$$ENDIF(PREV_LENS)
-
-$$ENDLOOP(LENS)
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:01,Y_MOT=MFX:TFS:XFLS:01,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:02,Y_MOT=MFX:TFS:XFLS:02,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:03,Y_MOT=MFX:TFS:XFLS:03,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:04,Y_MOT=MFX:TFS:XFLS:04,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:05,Y_MOT=MFX:TFS:XFLS:05,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:06,Y_MOT=MFX:TFS:XFLS:06,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:07,Y_MOT=MFX:TFS:XFLS:07,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:08,Y_MOT=MFX:TFS:XFLS:08,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:09,Y_MOT=MFX:TFS:XFLS:09,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:10,Y_MOT=MFX:TFS:XFLS:10,IN_STATE=IN")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:01,Y_MOT=MFX:DIA:XFLS,IN_STATE=6K70")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:02,Y_MOT=MFX:DIA:XFLS,IN_STATE=7K50")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:03,Y_MOT=MFX:DIA:XFLS,IN_STATE=9K45")
 
 #####################
 #Load Beam Parameters
 #####################
-dbLoadRecords("db/beam.db","LOCATION=$$LOCATION,LAST_LENS=$$BEAMLAST_LENS0,BEAM_START=$$IF(BEAMSTART0,$$BEAMSTART0,0.0),BEAM_SIZE=$$IF(BEAMSIZE0,$$BEAMSIZE0 CPP,1),NLENS=$$COUNT(LENS)")
+dbLoadRecords("db/beam.db", "LOCATION=$(LOCATION), NLENS=13, ENERGY=SIOC:SYS0:ML00:AO627") 
 
 ######################
 #Load Limit Parameters
 ######################
-$$LOOP(LIMIT)
-
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$$LOCATION,TYPE=$$CALC_TYPE,LIMIT=$$NAME,OFFSET=$$OFFSET")
-$$ENDLOOP(LIMIT)
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=mfx_only, LIMIT=MFX_ONLY")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=xrt_only, LIMIT=XRT_ONLY")
+dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 
 
 #####################
 #Load Remaining Modbus PV
 #####################
-$$IF(LOCATION,MFX)
-dbLoadRecords("db/mfx-modbus.db","LOCATION=$$LOCATION")
-$$ENDIF(LOCATION)
+dbLoadRecords("db/mfx-modbus.db","LOCATION=$(LOCATION)")
+
 ###############################
 # Load default record instances
 ###############################

@@ -39,10 +39,11 @@ double find_limits(int l,int u, double E_list[], double L_list[],  double E)
         }
         else if( E < E_list[m] ) {
             if( u == m ) break;
-            u = m;
-        } else {
-           if ( l == m ) break;
-          l = m;
+                u = m;
+        }
+        else {
+            if ( l == m ) break;
+            l = m;
         }
     }
     double slope = 0.;
@@ -77,13 +78,10 @@ long limit_gensub_process(genSubRecord *pgsub)
     char* T = (char*) pgsub->t;
 
     if(strcmp(T,MFX_ONLY)==0) {
-        L = find_limits(0,99,Etab,MFX_only,E);
+        L = find_limits(0,126,E_MFX,MFX_LIMIT,E);
     }
     else if(strcmp(T,XRT_ONLY)==0) {
-        L = find_limits(0,99,Etab,XRT_only,E);
-    }
-    else if(strcmp(T,PREFOCUS_MFX)==0) {
-        L = find_limits(0,99,Etab,Prefocus,E);
+        L = find_limits(0,80,E_XRT,XRT_LIMIT,E);
     }
     else {
             L = 0.;

@@ -1,0 +1,202 @@
+file lens-ioc.archive
+{
+    {IOC = "IOC:MFX:TFS:LENS"}
+}
+
+file beam.archive
+{
+    {LOCATION = "MFX"}
+}
+
+
+file lens.archive
+{   
+    {
+        LENSID   = "DIA:01"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "DIA:01"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "DIA:02"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "DIA:02"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "DIA:03"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "DIA:03"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:02"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:02"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:03"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:03"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:04"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:04"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:05"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:05"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:06"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:06"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:07"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:07"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:08"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:08"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:09"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:09"
+        LOCATION = "MFX"
+    }
+}
+file lens.archive
+{   
+    {
+        LENSID   = "TFS:10"
+        LOCATION = "MFX"
+    }
+}
+file lensMotion.archive
+{
+    {
+        LENSID   = "TFS:10"
+        LOCATION = "MFX"
+    }
+}
+}
+
+file limit.archive
+{   
+    {
+        LIMIT    = "MFX_ONLY"
+        LOCATION = "MFX"
+    }
+}
+file limit.archive
+{   
+    {
+        LIMIT    = "XRT_ONLY"
+        LOCATION = "MFX"
+    }
+}
+file limit.archive
+{   
+    {
+        LIMIT    = "PREFOCUS"
+        LOCATION = "MFX"
+    }
+}

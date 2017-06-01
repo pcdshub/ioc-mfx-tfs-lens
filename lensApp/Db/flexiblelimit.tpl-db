@@ -10,9 +10,10 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
     field(INPT, "$(LOCATION):LENS:$(LIMIT):STR")
     field(FTE,  "DOUBLE")
     field(FTT,  "STRING")
-    field(OUTL, "$(LOCATION):LENS:$(LIMIT):$(SIDE) PP")
+    field(OUTL, "$(LOCATION):LENS:$(LIMIT) PP")
     field(FTVL, "DOUBLE")
 }
+
 
 record(stringout, $(LOCATION):LENS:$(LIMIT):STR){
     field(DESC, "Table identifier for limit lookup")

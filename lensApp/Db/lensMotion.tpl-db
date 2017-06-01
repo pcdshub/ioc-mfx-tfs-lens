@@ -1,6 +1,6 @@
 record(bo, $(LOCATION):LENS:$(LENSID):STATE){
     field(DESC, "Check the state of lens")
-    field(OUT,  "$(LOCATION):LENS:$(LENSID):INSERTED")
+    field(OUT,  "$(LOCATION):LENS:$(LENSID):INSERTED CPP")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -14,7 +14,7 @@ record(bo, $(LOCATION):LENS:$(LENSID):STATE){
 record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
     field(DESC, "Unknown state of the lens")
     field(DTYP, "Soft Channel")
-    field(OUT,  "$(LOCATION):LENS:$(LENSID):KNOWN")
+    field(OUT,  "$(LOCATION):LENS:$(LENSID):KNOWN CPP")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")

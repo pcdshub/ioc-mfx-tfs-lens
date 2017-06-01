@@ -1,9 +1,0 @@
-file lens-ioc.req
-{
-    {IOC = "$$IOC_PV"}
-}
-
-file beam.req
-{
-    {LOCATION = "$$LOCATION"}
-}
