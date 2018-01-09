@@ -16,6 +16,8 @@ DB += flexiblelimit.db
 DB += lens.db
 DB += mfx-modbus.db
 DB += monitor.db
+DB += shutter.db
+
 #----------------------------------------------------
 # Create and install (or just install)
 # Archive files, templates, substitutions like this

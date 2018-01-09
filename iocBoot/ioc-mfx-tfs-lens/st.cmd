@@ -107,6 +107,11 @@ dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 #####################
 dbLoadRecords("db/mfx-modbus.db","LOCATION=$(LOCATION)")
 
+###################
+#Load Shutter PVs #
+###################
+dbLoadRecords("db/shutter.db", "LOCATION=$(LOCATION), SHUTTER=MFX:ATT:10")
+
 ###############################
 # Load default record instances
 ###############################

@@ -1,0 +1,7 @@
+file shutter.tpl-db
+{
+    {
+        LOCATION = $(LOCATION)
+        SHUTTER = $(SHUTTER)
+    }
+}
