@@ -63,8 +63,6 @@ record(ao, $(LOCATION):LENS:$(LENSID):Z_OFFSET) {
     field(DTYP, "Raw Soft Channel")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(DOL,  "$(Z)")
-    field(DISP, "1")
     field(EGU,  "m")
     field(FLNK, "$(LOCATION):LENS:$(LENSID):Z")
 } 
