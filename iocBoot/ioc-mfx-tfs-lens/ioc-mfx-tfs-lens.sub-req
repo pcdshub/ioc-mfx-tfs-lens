@@ -7,3 +7,99 @@ file beam.req
 {
     {LOCATION = "MFX"}
 }
+
+file lens.req
+{   
+    {
+        ID   = "DIA:01"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "DIA:02"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "DIA:03"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:02"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:03"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:04"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:05"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:06"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:07"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:08"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:09"
+        LOCATION = "MFX"
+    }
+}
+
+file lens.req
+{   
+    {
+        ID   = "TFS:10"
+        LOCATION = "MFX"
+    }
+}

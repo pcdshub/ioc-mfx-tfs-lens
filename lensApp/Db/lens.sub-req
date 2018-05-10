@@ -1,0 +1,7 @@
+file autosave_lens.tpl-req
+{
+     {
+           LOCATION = $(LOCATION)
+           ID = $(ID)
+     }
+}

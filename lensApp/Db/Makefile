@@ -33,6 +33,7 @@ ARCHIVE += flexiblelimit.archive
 #
 REQ += lens-ioc.req
 REQ += beam.req
+REQ += lens.req
 
 # Nothing to build for autosave, just install from $AUTOSAVE/db
 DB_INSTALLS += $(AUTOSAVE)/db/save_restoreStatus.db
