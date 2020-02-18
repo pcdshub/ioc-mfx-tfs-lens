@@ -27,7 +27,7 @@ lens_registerRecordDeviceDriver(pdbbase)
 #                       unsigned int priority, 
 #                       int noAutoConnect,
 #                       int noProcessEos);
-drvAsynIPPortConfigure("lens-plc","172.21.62.99:502",0,0,1)
+drvAsynIPPortConfigure("lens-plc","172.21.72.99:502",0,0,1)
 
 #modbusInterposeConfig(const char *portName, 
 #                      int slaveAddress, 
