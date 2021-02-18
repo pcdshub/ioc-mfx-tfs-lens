@@ -1,0 +1,7 @@
+O.*
+TABLE_*
+dump_table
+./bin/
+./db/
+./dbd/
+.DS_Store
