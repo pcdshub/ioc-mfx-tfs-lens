@@ -19,9 +19,10 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
 
 record(stringout, $(LOCATION):LENS:$(LIMIT):STR){
     field(DESC, "Table identifier for limit lookup")
-    field(VAL,  "$(TYPE)")
+    field(VAL,  "$(TABLE_NAME)")
     field(OMSL,  "supervisory")
     field(DISP, "1")
+    field(PINI, "YES")
 }
 
 record(fanout, $(LOCATION):LENS:$(LIMIT):SCAN) {
