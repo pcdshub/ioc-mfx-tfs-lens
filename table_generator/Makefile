@@ -2,6 +2,8 @@ all: ../lensApp/src/interlockTables.h dump_tables plot
 
 ../lensApp/src/interlockTables.h: MFX_EnergyLensInterlock_Tables_Transposed.xlsx header_creator.py
 	python header_creator.py > $@
+	# Some info for the README:
+	mv interlock_regions.png ../
 
 
 dump_tables: ../lensApp/src/interlockTables.h plot.py

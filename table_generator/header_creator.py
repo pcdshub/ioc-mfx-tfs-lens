@@ -189,14 +189,15 @@ def main():
                            file=sys.stdout)
 
     _, axes = plt.subplots(ncols=2, nrows=2, constrained_layout=True,
-                           dpi=80, figsize=(11, 8))
+                           dpi=120, figsize=(11, 8))
     # plt.ion()
     keys = list(REGIONS)
     plot_data(axes[0, 0], keys[0], data)
     plot_data(axes[0, 1], keys[1], data)
     plot_data(axes[1, 0], keys[2], data)
     plot_data(axes[1, 1], keys[3], data)
-    plt.savefig('interlock_regions.pdf')
+    plt.suptitle("Disallowed Effective Radius Regions")
+    plt.savefig('interlock_regions.png')
     # plt.ioff()
     return data
 
