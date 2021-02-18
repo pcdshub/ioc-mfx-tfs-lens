@@ -16,9 +16,10 @@ record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
 
 record(ao, "$(LOCATION):LENS:_ENERGY_TO_PLC") {
     field(DESC, "Push energy to PLC by modbus")
-    # $(ENERGY) -> $(LOCATION):LENS:ENERGY_TO_PLC -> modbus -> PLC
+    # This record is glue for the following:
+    # $(LOCATION):LENS:BEAM:ENERGY -> $(LOCATION):LENS:ENERGY_TO_PLC -> modbus -> PLC
     field(OMSL, "closed_loop")
-    field(DOL,  "$(ENERGY) CPP")
+    field(DOL,  "$(LOCATION):LENS:BEAM:ENERGY CPP")
     field(OUT,  "$(LOCATION):LENS:ENERGY_TO_PLC CPP")
     field(DTYP, "Soft Channel")
     field(VAL,  "0.0")
