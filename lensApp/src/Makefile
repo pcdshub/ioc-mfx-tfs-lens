@@ -35,6 +35,7 @@ lens_SRCS_DEFAULT += lensMain.cpp
 # Add locally compiled object code
 lens_SRCS += lensFocus.c
 lens_SRCS += limit.c
+lens_SRCS += interlockTables.c
 
 lens_LIBS += devIocStats
 lens_LIBS += autosave

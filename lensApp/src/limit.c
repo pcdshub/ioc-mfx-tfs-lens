@@ -37,10 +37,12 @@ long limit_gensub_process(genSubRecord *pgsub)
 
     /*Retrieve current beam energy (eV)*/
     energy = (*(double *)pgsub->e);
+
+    int table_idx;
     const char* table_name = (const char*) pgsub->t;
     RangeRow row;
 
-	for (int table_idx=0; table_idx < N_TABLES; table_idx++) {
+	for (table_idx=0; table_idx < N_TABLES; table_idx++) {
         if (!strcmp(tables[table_idx]->table_name, table_name)) {
             if (find_limits(&row, tables[table_idx], energy)) {
                 range_low = row.low;
