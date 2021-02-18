@@ -26,7 +26,7 @@ lens_DBD += modbus.dbd
 
 # Install header for lookup tables
 INC += lensTable.h
-INC += lensLimit.h
+INC += interlockTables.h
 
 # <name>_registerRecordDeviceDriver.cpp will be created from <name>.dbd
 lens_SRCS += lens_registerRecordDeviceDriver.cpp
