@@ -1,7 +1,11 @@
 O.*
 TABLE_*
 dump_table
-./bin/
-./db/
-./dbd/
+/bin/
+/db/
+/dbd/
+/archive/
+/autosave/
+/include/
+envPaths
 .DS_Store
