@@ -22,14 +22,15 @@ file "aiFloat64.template"{ pattern,
 }
 file "aoFloat64.template" {pattern
 {          P,                R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
-{"MFX:LENS:",  "XRT_ONLY:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:",  "XRT_ONLY:HIGH", "aoFLOAT_PORT",    "2", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS1_750:LOW" , "aoFLOAT_PORT",    "4", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS1_750:HIGH", "aoFLOAT_PORT",    "6", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS2_428:LOW" , "aoFLOAT_PORT",    "8", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS2_428:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS3_333:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "1", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS3_333:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "1", "1000",  "0", "um"}
+{"MFX:LENS:",  "XRT_ONLY:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",  "XRT_ONLY:HIGH", "aoFLOAT_PORT",    "2", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS1_750:LOW" , "aoFLOAT_PORT",    "4", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS1_750:HIGH", "aoFLOAT_PORT",    "6", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS2_428:LOW" , "aoFLOAT_PORT",    "8", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS2_428:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS3_333:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "LENS3_333:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "ENERGY_TO_PLC",  "aoFLOAT_PORT",   "16", "FLOAT32_LE",  "4", "100000","0", "eV"}
 }
 
 file "bi_bit.template"{ pattern, 

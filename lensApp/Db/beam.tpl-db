@@ -1,4 +1,4 @@
-record(ai, $(LOCATION):LENS:BEAM:ENERGY) {
+record(ai, "$(LOCATION):LENS:BEAM:ENERGY") {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
@@ -6,7 +6,7 @@ record(ai, $(LOCATION):LENS:BEAM:ENERGY) {
     field(EGU,  "eV")
 }
 
-record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
+record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(DTYP, "Soft Channel")
@@ -14,8 +14,20 @@ record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
     field(EGU,  "eV")
 }
 
+record(ao, "$(LOCATION):LENS:_ENERGY_TO_PLC") {
+    field(DESC, "Push energy to PLC by modbus")
+    # $(ENERGY) -> $(LOCATION):LENS:ENERGY_TO_PLC -> modbus -> PLC
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(ENERGY) CPP")
+    field(OUT,  "$(LOCATION):LENS:ENERGY_TO_PLC CPP")
+    field(DTYP, "Soft Channel")
+    field(VAL,  "0.0")
+    field(EGU,  "eV")
+    field(SCAN, "Passive")
+}
 
-record(longin, $(LOCATION):LENS:BEAM:NLENS) {
+
+record(longin, "$(LOCATION):LENS:BEAM:NLENS") {
     field(DESC, "Calculation of safety beam mode")
     field(PINI, "YES")
     field(VAL,  "$(NLENS)")
