@@ -97,8 +97,10 @@ dbLoadRecords("db/beam.db", "LOCATION=$(LOCATION), NLENS=13, ENERGY=SIOC:SYS0:ML
 ######################
 #Load Limit Parameters
 ######################
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=mfx_only, LIMIT=MFX_ONLY")
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=xrt_only, LIMIT=XRT_ONLY")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=NO_LENS,LIMIT=XRT_ONLY")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=LENS1_750,LIMIT=LENS1_750")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=LENS2_428,LIMIT=LENS2_428")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=LENS3_333,LIMIT=LENS3_333")
 dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 
 

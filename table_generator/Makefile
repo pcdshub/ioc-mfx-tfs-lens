@@ -7,7 +7,7 @@ all: ../lensApp/src/interlockTables.h dump_tables plot
 
 
 dump_tables: ../lensApp/src/interlockTables.h plot.py
-	gcc -o dump_tables -Wall -I../lensApp/src dump_tables.c ../lensApp/src/lensTable.c
+	gcc -o dump_tables -Wall -I../lensApp/src dump_tables.c ../lensApp/src/interlockTables.c
 	./dump_tables
 
 

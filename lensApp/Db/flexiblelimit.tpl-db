@@ -10,7 +10,9 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
     field(INPT, "$(LOCATION):LENS:$(LIMIT):STR")
     field(FTE,  "DOUBLE")
     field(FTT,  "STRING")
-    field(OUTL, "$(LOCATION):LENS:$(LIMIT) PP")
+    field(OUTL, "$(LOCATION):LENS:$(LIMIT):LOW PP")
+    field(OUTH, "$(LOCATION):LENS:$(LIMIT):HIGH PP")
+    field(FTVH, "DOUBLE")
     field(FTVL, "DOUBLE")
 }
 
