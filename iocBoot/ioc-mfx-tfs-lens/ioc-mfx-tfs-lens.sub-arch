@@ -182,21 +182,28 @@ file lensMotion.archive
 file limit.archive
 {   
     {
-        LIMIT    = "MFX_ONLY"
+        LIMIT    = "NO_LENS"
         LOCATION = "MFX"
     }
 }
 file limit.archive
 {   
     {
-        LIMIT    = "XRT_ONLY"
+        LIMIT    = "LENS1"
         LOCATION = "MFX"
     }
 }
 file limit.archive
 {   
     {
-        LIMIT    = "PREFOCUS"
+        LIMIT    = "LENS2"
+        LOCATION = "MFX"
+    }
+}
+file limit.archive
+{   
+    {
+        LIMIT    = "LENS3"
         LOCATION = "MFX"
     }
 }

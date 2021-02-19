@@ -85,9 +85,9 @@ dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:07,Y_MOT=MFX:TFS:XF
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:08,Y_MOT=MFX:TFS:XFLS:08,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:09,Y_MOT=MFX:TFS:XFLS:09,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:10,Y_MOT=MFX:TFS:XFLS:10,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:01,Y_MOT=MFX:DIA:XFLS,IN_STATE=6K70")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:02,Y_MOT=MFX:DIA:XFLS,IN_STATE=7K50")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:03,Y_MOT=MFX:DIA:XFLS,IN_STATE=9K45")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:01,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=6K70")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:02,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=7K50")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:03,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=9K45")
 
 #####################
 #Load Beam Parameters
@@ -97,10 +97,10 @@ dbLoadRecords("db/beam.db", "LOCATION=$(LOCATION), NLENS=13, ENERGY=SIOC:SYS0:ML
 ######################
 #Load Limit Parameters
 ######################
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_NO_LENS,LIMIT=XRT_ONLY")
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS1_750,LIMIT=LENS1_750")
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS2_428,LIMIT=LENS2_428")
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS3_333,LIMIT=LENS3_333")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_NO_LENS,LIMIT=NO_LENS")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS1_750,LIMIT=LENS1")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS2_428,LIMIT=LENS2")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS3_333,LIMIT=LENS3")
 dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 
 

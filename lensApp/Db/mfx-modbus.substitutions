@@ -19,28 +19,35 @@ file "aiFloat64.template"{ pattern,
 {"MFX:LENS:", "DIA:01:RADIUS", "aiFLOAT_PORT", "24", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "DIA:02:RADIUS", "aiFLOAT_PORT", "26", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "DIA:03:RADIUS", "aiFLOAT_PORT", "28", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:", "ACTIVE:LOW",    "aiFLOAT_PORT", "30", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
+{"MFX:LENS:", "ACTIVE:HIGH",   "aiFLOAT_PORT", "32", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
 }
 file "aoFloat64.template" {pattern
-{          P,                R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
-{"MFX:LENS:",  "XRT_ONLY:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:",  "XRT_ONLY:HIGH", "aoFLOAT_PORT",    "2", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS1_750:LOW" , "aoFLOAT_PORT",    "4", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS1_750:HIGH", "aoFLOAT_PORT",    "6", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS2_428:LOW" , "aoFLOAT_PORT",    "8", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS2_428:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS3_333:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "LENS3_333:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{          P,               R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
+{"MFX:LENS:",  "NO_LENS:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",  "NO_LENS:HIGH", "aoFLOAT_PORT",    "2", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS1:LOW" , "aoFLOAT_PORT",    "4", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS1:HIGH", "aoFLOAT_PORT",    "6", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS2:LOW" , "aoFLOAT_PORT",    "8", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS2:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS3:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS3:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "4", "1000",  "0", "um"}
 {"MFX:LENS:", "ENERGY_TO_PLC",  "aoFLOAT_PORT",   "16", "FLOAT32_LE",  "4", "100000","0", "eV"}
 }
 
 file "bi_bit.template"{ pattern, 
-{P,               R,                    PORT,       OFFSET, ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
-{"MFX:LENS:BEAM:",  "ALIVE",     "BI_PORT",  "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "FAULTED",   "BI_PORT",  "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
-{"MFX:LENS:BEAM:",  "UNKNOWN",   "BI_PORT",  "2",  "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "VIOLATED",  "BI_PORT",  "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "POS_FAULT", "BI_PORT",  "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "LIM_FAULT", "BI_PORT",  "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{P,               R,                      PORT, OFFSET, ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
+# Online status:
+{"MFX:LENS:BEAM:",  "ALIVE",         "BI_PORT",    "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULTED",       "BI_PORT",    "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN",       "BI_PORT",    "2",    "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED",      "BI_PORT",    "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+# Latched faults:
+{"MFX:LENS:BEAM:",  "POS_FAULT",     "BI_PORT",    "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "LIM_FAULT",     "BI_PORT",    "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT",     "BI_PORT",    "6",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT", "BI_PORT",    "7",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT",     "BI_PORT",    "8",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 }
 
 file "bo_bit.template" {pattern
