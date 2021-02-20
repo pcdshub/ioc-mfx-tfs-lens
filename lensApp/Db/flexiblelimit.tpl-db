@@ -6,7 +6,7 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
     field(SCAN, "Passive")
     field(INAM, "limit_gensub_init")
     field(SNAM, "limit_gensub_process")
-    field(INPE, "$(LOCATION):LENS:BEAM:ENERGY NPP")
+    field(INPE, "$(LOCATION):LENS:BEAM:ENERGY CPP")
     field(INPT, "$(LOCATION):LENS:$(LIMIT):STR")
     field(FTE,  "DOUBLE")
     field(FTT,  "STRING")
