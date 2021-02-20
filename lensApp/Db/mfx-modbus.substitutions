@@ -21,7 +21,16 @@ file "aiFloat64.template"{ pattern,
 {"MFX:LENS:", "DIA:03:RADIUS", "aiFLOAT_PORT", "28", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "ACTIVE:LOW",    "aiFLOAT_PORT", "30", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "ACTIVE:HIGH",   "aiFLOAT_PORT", "32", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
+# Skip 34 (used for cycles below)
+{"MFX:LENS:", "PLC:ENERGY_RBV","aiFLOAT_PORT", "36", "FLOAT32_LE", "1", "0", "0","I/O Intr",  "eV"}
 }
+
+file "longinInt32.template"{ pattern,
+{P,            R,                   PORT, OFFSET,  DATA_TYPE,        SCAN, UNITS   }
+# The following abuses the aiFLOAT_PORT:
+{"MFX:LENS:PLC:", "CYCLE", "aiFLOAT_PORT",  "34",  "INT32_LE", "I/O Intr", "cycles"}
+}
+
 file "aoFloat64.template" {pattern
 {          P,               R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
 {"MFX:LENS:",  "NO_LENS:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
