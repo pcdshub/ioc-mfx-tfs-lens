@@ -51,16 +51,18 @@ file "bi_bit.template"{ pattern,
 {"MFX:LENS:BEAM:",  "FAULTED",       "BI_PORT",    "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
 {"MFX:LENS:BEAM:",  "UNKNOWN",       "BI_PORT",    "2",    "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 {"MFX:LENS:BEAM:",  "VIOLATED",      "BI_PORT",    "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT",     "BI_PORT",    "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT", "BI_PORT",    "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT",     "BI_PORT",    "6",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+
 # Latched faults:
-{"MFX:LENS:BEAM:",  "POS_FAULT_LT",     "BI_PORT",    "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "VIOLATED_LT",      "BI_PORT",    "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "MIN_FAULT_LT",     "BI_PORT",    "6",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT_LT", "BI_PORT",    "7",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "TAB_FAULT_LT",     "BI_PORT",    "8",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-# Some more online/active status:
-{"MFX:LENS:BEAM:",  "MIN_FAULT",        "BI_PORT",    "9",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT",    "BI_PORT",   "10",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "TAB_FAULT",        "BI_PORT",   "11",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "BEAT_FAULT_LT",    "BI_PORT",   "10",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULT_LT",         "BI_PORT",   "11",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN_LT",       "BI_PORT",   "12",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED_LT",      "BI_PORT",   "13",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT_LT",     "BI_PORT",   "14",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT_LT", "BI_PORT",   "15",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT_LT",     "BI_PORT",   "16",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 }
 
 
