@@ -1,5 +1,5 @@
 
-record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
+record(genSub, "$(LOCATION):LENS:$(LIMIT):_LKUP"){
     field(DESC, "Lookup of limit at requested Energy")
     field(PINI, "YES")
     field(EFLG, "ALWAYS")
@@ -17,17 +17,10 @@ record(genSub, $(LOCATION):LENS:$(LIMIT):_LKUP){
 }
 
 
-record(stringout, $(LOCATION):LENS:$(LIMIT):STR){
+record(stringout, "$(LOCATION):LENS:$(LIMIT):STR"){
     field(DESC, "Table identifier for limit lookup")
     field(VAL,  "$(TABLE_NAME)")
     field(OMSL,  "supervisory")
     field(DISP, "1")
     field(PINI, "YES")
-}
-
-record(fanout, $(LOCATION):LENS:$(LIMIT):SCAN) {
-    field(DESC, "Scan for limit lookup")
-    field(SCAN, "1 second")
-    field(SELM, "All")
-    field(LNK1, "$(LOCATION):LENS:$(LIMIT):_LKUP")
 }

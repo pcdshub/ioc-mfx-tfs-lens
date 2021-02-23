@@ -31,6 +31,12 @@ file "longinInt32.template"{ pattern,
 {"MFX:LENS:PLC:", "CYCLE", "aiFLOAT_PORT",  "34",  "INT32_LE", "I/O Intr", "cycles"}
 }
 
+file "longoutInt32.template"{ pattern,
+{P,            R,                   PORT, OFFSET,  DATA_TYPE,        SCAN, UNITS   }
+# The following abuses the aoFLOAT_PORT:
+{"MFX:LENS:PLC:","UPDATE_SEQ",  "aoFLOAT_PORT",  "18", "INT32_LE",    "I/O Intr", "" }
+}
+
 file "aoFloat64.template" {pattern
 {          P,               R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
 {"MFX:LENS:",  "NO_LENS:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
@@ -41,7 +47,8 @@ file "aoFloat64.template" {pattern
 {"MFX:LENS:",    "LENS2:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "4", "1000",  "0", "um"}
 {"MFX:LENS:",    "LENS3:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "4", "1000",  "0", "um"}
 {"MFX:LENS:",    "LENS3:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "4", "1000",  "0", "um"}
-{"MFX:LENS:", "ENERGY_TO_PLC",  "aoFLOAT_PORT",   "16", "FLOAT32_LE",  "4", "100000","0", "eV"}
+{"MFX:LENS:", "ENERGY_TO_PLC",  "aoFLOAT_PORT",  "16", "FLOAT32_LE",  "4", "100000","0", "eV"}
+# PLC update sequence (18)
 }
 
 file "bi_bit.template"{ pattern, 
@@ -94,4 +101,6 @@ file "bo_bit.template" {pattern
 {"MFX:LENS:", "DIA:01:INSERTED" "BO_PORT", "40",   "Removed",	"Inserted"}
 {"MFX:LENS:", "DIA:02:INSERTED" "BO_PORT", "41",   "Removed",	"Inserted"}
 {"MFX:LENS:", "DIA:03:INSERTED" "BO_PORT", "42",   "Removed",	"Inserted"}
+# 50 is taken by the IOC heartbeat
+# 51 is taken by fault clear
 }

@@ -53,10 +53,10 @@ modbusInterposeConfig("lens-plc",0,0,0)
 #Assign Coils
 ####################
 # COIL Outputs (EPICS -> PLC) starting at 0x8000 on function code 5.
-drvModbusAsynConfigure("BO_PORT",  "lens-plc", 0, 5,  0x8000, 256,   0,  100,  "BK")
+drvModbusAsynConfigure("BO_PORT",  "lens-plc", 0, 5,  0x8000, 256,   0,  50, "BK")
 
 # COIL Inputs (PLC -> EPICS) starting at 0x8000 on function code 2.
-drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  100, "BK")
+drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  50, "BK")
 
 
 ###################
@@ -64,13 +64,13 @@ drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  10
 ####################
 # Extra PLC memory output (EPICS -> PLC) starting at 0x3000 on function code 6 (0x0064 is 100 in hex).
 # I set the modbus length to 100, that's how many 16-bit registers we are currently using, it can be longer
-drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  100,  "BK")
+drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  50,  "BK")
 
 # FLOAT Inputs (PLC -> EPICS) starting at 0x3000 on function code 3, data type 7
-drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 100,    7,  100, "BK")
+drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 100,    7,  50, "BK")
 
 # DINT aka LONG Inputs (PLC -> EPICS) starting at 0x3500 on function code 3, data type 5
-drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,  100, "BK")
+drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,  50, "BK")
 
 #####################
 #Load Lenses
