@@ -127,7 +127,7 @@ def plot_data(ax, key, data):
     ax.legend(loc='best')
     ax.set_yscale('log')
     ax.set_ylabel('Reff')
-    ax.set_xlabel('Energy [keV]')
+    ax.set_xlabel('Energy [eV]')
     return df
 
 
