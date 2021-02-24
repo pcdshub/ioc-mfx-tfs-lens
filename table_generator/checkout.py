@@ -13,7 +13,9 @@ from bluesky.callbacks import LiveTable
 import transfocate
 import transfocate.checkout
 
-from config import read_spreadsheet
+from config import (
+    read_spreadsheet, MIN_RADIUS, MIN_ENERGY, REQUIRES_LENS_RANGE
+)
 
 
 def plot_sweep_energy(xrt_lens, dbi):
@@ -22,7 +24,7 @@ def plot_sweep_energy(xrt_lens, dbi):
     df = df.set_index(df.energy)
 
     fig, ax = plt.subplots(constrained_layout=True, figsize=(12, 10))
-    plot_spreadsheet_data(ax=ax, df=lens_to_spreadsheet_df[xrt_lens])
+    plot_spreadsheet_data(xrt_lens, ax=ax, df=lens_to_spreadsheet_df[xrt_lens])
 
     ax.set_yscale('log')
 
@@ -31,6 +33,9 @@ def plot_sweep_energy(xrt_lens, dbi):
     
     when_faulted = df.where(df.faulted == 1).dropna()
     ax.scatter(when_faulted.index, when_faulted.tfs_radius, color='red', marker='x')
+
+    when_not_faulted = df.where(df.faulted == 0).dropna()
+    ax.scatter(when_not_faulted.index, when_not_faulted.tfs_radius, color='black', marker='.', s=3)
     
     ax.set_ylim(1, 1e4)
     
@@ -39,7 +44,7 @@ def plot_sweep_energy(xrt_lens, dbi):
     return xrt_radius, fig
 
 
-def plot_spreadsheet_data(ax, df):
+def plot_spreadsheet_data(xrt_lens, ax, df):
     ax.fill_between(
         df.energy, df.trip_min, df.trip_max,
         where=(df.trip_max > df.trip_min),
@@ -51,6 +56,25 @@ def plot_spreadsheet_data(ax, df):
 
     df.trip_min.plot(ax=ax, lw=1, color='black')
     df.trip_max.plot(ax=ax, lw=1, color='black')
+
+    min_energy = MIN_ENERGY[xrt_lens]
+    ax.fill(
+        (0, 0, min_energy, min_energy),
+        (0, 1e4, 1e4, 0),
+        color='red', alpha=0.2,
+        hatch='\\',
+    )
+
+    req_lens_range = REQUIRES_LENS_RANGE[xrt_lens]
+    if req_lens_range is not None:
+        req_lens_low, req_lens_high = req_lens_range
+
+        ax.fill(
+            (req_lens_low, req_lens_low, req_lens_high, req_lens_high),
+            (0, MIN_RADIUS, MIN_RADIUS, 0),
+            color='red', alpha=0.2,
+            hatch='\\',
+        )
 
     ax.legend(loc='best')
     ax.set_yscale('log')

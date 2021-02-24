@@ -32,17 +32,21 @@ tfs_lens_radii = [
 MIN_RADIUS = 1 / sum(1 / radius for radius in tfs_lens_radii)
 # Max radius is when the largest is inserted:
 MAX_RADIUS = max(tfs_lens_radii)
-# print("Min radius", MIN_RADIUS)
-# print("Max radius", MAX_RADIUS)
 
 # In these ranges, a transfocator lens MUST be inserted
 REQUIRES_LENS_RANGE = {
-    "no_prefocus": None,
-    "xrt_lens3": (9.50, 11.11),
-    "xrt_lens2": (8.28, 10.02),
-    "xrt_lens1": (5.96, 8.02),
+    0: None,
+    3: (9.50e3, 11.11e3),
+    2: (8.28e3, 10.02e3),
+    1: (5.96e3, 8.02e3),
 }
 
+MIN_ENERGY = {
+    0: 0.0,
+    3: 9.50e3,
+    2: 8.28e3,
+    1: 5.96e3,
+}
 
 def read_spreadsheet(spreadsheet=SPREADSHEET):
     for name, read_kw in REGIONS.items():
