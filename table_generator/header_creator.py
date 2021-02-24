@@ -7,16 +7,8 @@ matplotlib.use('Agg')  # noqa
 
 import matplotlib.pyplot as plt  # noqa
 
+from config import read_spreadsheet
 
-# Configuration for reading the spreadsheet:
-EXCEL_SHEET = 'Results'
-ROW_START = 16
-REGIONS = {
-    'NO_LENS': {'usecols': 'B:D'},
-    'LENS3_333': {'usecols': 'F:H'},
-    'LENS2_428': {'usecols': 'J:L'},
-    'LENS1_750': {'usecols': 'N:P'},
-}
 
 # Header file output settings:
 ROW_FORMAT = "{{{energy:.6f}, {trip_min:.6f}, {trip_max:.6f}}}"
@@ -91,60 +83,15 @@ const RangeTable static {table_name} = {{
 }};
 """
 
-# Lens information
-# Radii in micron:
-xrt_lenses_radii = [750.0, 428.6, 333.3]
-tfs_lens_radii = [
-    # 0.0,
-    500.0,
-    300.0,
-    250.0,
-    200.0,
-    125.0,
-    62.5,
-    50.0,
-    50.0,
-    50.0,
-]
-
-
-# Min effective radius is when all lenses are inserted:
-MIN_RADIUS = 1 / sum(1 / radius for radius in tfs_lens_radii)
-# Max radius is when the largest is inserted:
-MAX_RADIUS = max(tfs_lens_radii)
-# print("Min radius", MIN_RADIUS)
-# print("Max radius", MAX_RADIUS)
-
-# In these ranges, a transfocator lens MUST be inserted
-REQUIRES_LENS_RANGE = {
-    "no_prefocus": None,
-    "xrt_lens3": (9.50, 11.11),
-    "xrt_lens2": (8.28, 10.02),
-    "xrt_lens1": (5.96, 8.02),
-}
-
 pd.set_option('display.max_rows', 1000)
 
 
-def generate_header(spreadsheet, *, file=sys.stdout):
+def generate_header(file=sys.stdout):
     """Generate the C header from the given spreadsheet."""
     print(HEADER.lstrip())
 
     data = {}
-    for name, read_kw in REGIONS.items():
-        df = pd.read_excel(
-            spreadsheet,
-            engine='openpyxl',
-            sheet_name=EXCEL_SHEET,
-            skiprows=ROW_START - 1,
-            header=None,
-            **read_kw
-        )
-        df.columns = ['energy', 'trip_min', 'trip_max']
-        df.energy *= 1e3  # keV -> eV
-        df = df.dropna()
-        df = df.set_index(df.energy)
-        df.loc[df.trip_max > 1e4, 'trip_max'] = 1e4
+    for name, df in read_spreadsheet():
         data[name] = df
 
         rows = ',\n        '.join(
@@ -185,13 +132,12 @@ def plot_data(ax, key, data):
 
 
 def main():
-    data = generate_header('MFX_EnergyLensInterlock_Tables_Transposed.xlsx',
-                           file=sys.stdout)
+    data = generate_header(file=sys.stdout)
 
     _, axes = plt.subplots(ncols=2, nrows=2, constrained_layout=True,
                            dpi=120, figsize=(11, 8))
     # plt.ion()
-    keys = list(REGIONS)
+    keys = list(data)
     plot_data(axes[0, 0], keys[0], data)
     plot_data(axes[0, 1], keys[1], data)
     plot_data(axes[1, 0], keys[2], data)

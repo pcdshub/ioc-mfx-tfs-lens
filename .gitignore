@@ -1,6 +1,6 @@
 *.sw[op]
 O.*
-TABLE_*
+/table_generator/TABLE_*
 dump_table
 /bin/
 /db/
