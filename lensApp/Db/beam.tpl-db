@@ -4,7 +4,6 @@ record(ai, "$(LOCATION):LENS:BEAM:ENERGY") {
     field(PINI, "YES")
     field(INP,  "$(ENERGY) CPP")
     field(EGU,  "eV")
-    field(FLNK, "$(LOCATION):LENS:BEAM:ENERGY_FANOUT")
 }
 
 record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
@@ -15,35 +14,18 @@ record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
     field(EGU,  "eV")
 }
 
-record(fanout, "$(LOCATION):LENS:BEAM:ENERGY_FANOUT") {
-    field(LNK1, "$(LOCATION):LENS:LENS1:_LKUP")
-    field(LNK2, "$(LOCATION):LENS:LENS2:_LKUP")
-    field(LNK3, "$(LOCATION):LENS:LENS3:_LKUP")
-    field(LNK4, "$(LOCATION):LENS:NO_LENS:_LKUP")
-    field(LNK5, "$(LOCATION):LENS:_ENERGY_TO_PLC")
-    field(LNK6, "$(LOCATION):LENS:PLC:_UPDATE_SEQ")
-}
-
 record(ao, "$(LOCATION):LENS:_ENERGY_TO_PLC") {
     field(DESC, "Push energy to PLC by modbus")
     # This record is glue for the following:
     # $(LOCATION):LENS:BEAM:ENERGY -> $(LOCATION):LENS:ENERGY_TO_PLC -> modbus -> PLC
     field(OMSL, "closed_loop")
-    field(DOL,  "$(LOCATION):LENS:BEAM:ENERGY PP")
+    field(DOL,  "$(LOCATION):LENS:BEAM:ENERGY CPP")
     field(OUT,  "$(LOCATION):LENS:ENERGY_TO_PLC PP")
     field(DTYP, "Soft Channel")
     field(VAL,  "0.0")
     field(EGU,  "eV")
     field(SCAN, "Passive")
 }
-
-record(calcout, "$(LOCATION):LENS:PLC:_UPDATE_SEQ"){
-    field(CALC, "A=100?0:A+1")
-    field(INPA, "$(LOCATION):LENS:PLC:_UPDATE_SEQ")
-    field(OUT, "$(LOCATION):LENS:PLC:UPDATE_SEQ PP")
-    field(SCAN, "Passive")
-}
-
 
 record(calc, $(LOCATION):LENS:BEAM:HEARTBEAT){
     field(DESC, "1 Hz heartbeat")
@@ -56,11 +38,4 @@ record(longin, "$(LOCATION):LENS:BEAM:NLENS") {
     field(DESC, "Calculation of safety beam mode")
     field(PINI, "YES")
     field(VAL,  "$(NLENS)")
-}
-
-record(fanout, "$(LOCATION):LENS:BEAM:SCAN") {
-    field(DESC, "Scan for limit updating")
-    field(SCAN, ".1 second")
-    field(SELM, "All")
-    field(LNK1, "$(LOCATION):LENS:BEAM:ENERGY_FANOUT")
 }
