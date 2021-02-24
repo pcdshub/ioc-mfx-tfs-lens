@@ -59,7 +59,7 @@ def plot_spreadsheet_data(ax, df):
     return df
 
 
-def sweep_and_plot_xrt(xrt_lens, num_steps=300): 
+def sweep_and_plot_xrt(xrt_lens, num_steps=150):
     RE(transfocate.checkout.sweep_energy_plan(tfs, checkout, xrt_lens, num_steps=num_steps), LiveTable(fields))
     xrt_radius, _ = plot_sweep_energy(xrt_lens, db[-1])
     plt.savefig(f"xrt_lens_{xrt_lens}_{xrt_radius:.0f}um.png")
