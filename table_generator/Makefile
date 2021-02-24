@@ -1,9 +1,12 @@
-all: ../lensApp/src/interlockTables.h dump_tables plot
+all: FB_EnergyTables.TcPOU ../lensApp/src/interlockTables.h dump_tables plot
 
-../lensApp/src/interlockTables.h: MFX_EnergyLensInterlock_Tables_Transposed.xlsx header_creator.py
+../lensApp/src/interlockTables.h: MFX_EnergyLensInterlock_Tables_Transposed.xlsx header_creator.py config.py
 	python header_creator.py > $@
 	# Some info for the README:
 	mv interlock_regions.png ../
+
+FB_EnergyTables.TcPOU: MFX_EnergyLensInterlock_Tables_Transposed.xlsx config.py plc_energy_table_update.py
+	python plc_energy_table_update.py > $@
 
 
 dump_tables: ../lensApp/src/interlockTables.h plot.py
