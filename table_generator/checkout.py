@@ -18,30 +18,93 @@ from config import (
 )
 
 
-def plot_sweep_energy(xrt_lens, dbi):
+def plot_sweeps():
+    """Plot the databroker results from a `sweep_energy_plan`."""
+    fig, axes = plt.subplots(ncols=2, nrows=2, constrained_layout=True,
+                             figsize=(18, 16))
+    plot_sweep_energy(0, ax=axes[0, 0], dbi=db[-4])
+    plot_sweep_energy(1, ax=axes[0, 1], dbi=db[-3])
+    plot_sweep_energy(2, ax=axes[1, 0], dbi=db[-2])
+    plot_sweep_energy(3, ax=axes[1, 1], dbi=db[-1])
+    fig.tight_layout()
+
+    fn = 'summary'
+    plt.savefig(f"{fn}.png")
+    plt.savefig(f"{fn}.pdf")
+
+
+def plot_sweep_energy(xrt_lens, dbi, ax=None):
     """Plot the databroker results from a `sweep_energy_plan`."""
     df = dbi.table()
     df = df.set_index(df.energy)
 
-    fig, ax = plt.subplots(constrained_layout=True, figsize=(12, 10))
+    if ax is None:
+        _, ax = plt.subplots(constrained_layout=True, figsize=(12, 10))
+
     plot_spreadsheet_data(xrt_lens, ax=ax, df=lens_to_spreadsheet_df[xrt_lens])
 
     ax.set_yscale('log')
 
-    ax.scatter(df.energy, df.trip_high, label='Trip high', color='black', marker='v')
-    ax.scatter(df.energy, df.trip_low, label='Trip low', color='black', marker='^')
+    df = df.copy()
+    # **NOTE** for the purposes of plotting in log scale, set tfs_radius = 1
+    # when zero in actuality
+    df.loc[df.tfs_radius == 0.0, 'tfs_radius'] = 1.
     
-    when_faulted = df.where(df.faulted == 1).dropna()
-    ax.scatter(when_faulted.index, when_faulted.tfs_radius, color='red', marker='x')
+    ax.scatter(
+        df.energy, df.trip_high,
+        label='Trip high [PLC]', color='black', marker='v'
+    )
+    ax.scatter(
+        df.energy, df.trip_low,
+        label='Trip low [PLC]', color='black', marker='^'
+    )
+   
+    if False: 
+        when_faulted = df.where(df.faulted == 1).dropna()
+        ax.scatter(
+            when_faulted.index, when_faulted.tfs_radius, 
+            label='Scan point - fault',
+            color='red', marker='x',
+        )
+    else:
+        when_faulted = df.where(df.min_fault == 1).dropna()
+        ax.scatter(
+            when_faulted.index, when_faulted.tfs_radius, 
+            label='Scan point - min energy fault',
+            color='red', marker='x',
+        )
+
+        when_faulted = df.where(df.lens_required_fault == 1).dropna()
+        ax.scatter(
+            when_faulted.index, when_faulted.tfs_radius, 
+            label='Scan point - lens required',
+            color='red', marker='D',
+        )
+
+        when_faulted = df.where(df.table_fault == 1).dropna()
+        ax.scatter(
+            when_faulted.index, when_faulted.tfs_radius, 
+            label='Scan point - table fault',
+            color='red', marker='+',
+        )
 
     when_not_faulted = df.where(df.faulted == 0).dropna()
-    ax.scatter(when_not_faulted.index, when_not_faulted.tfs_radius, color='black', marker='.', s=3)
-    
+    ax.scatter(
+        when_not_faulted.index,
+        when_not_faulted.tfs_radius,
+        color='black', marker='.', s=3,
+        label="Scan point - no fault"
+    )
+   
     ax.set_ylim(1, 1e4)
-    
+   
+    ax.legend(loc='upper right') 
     xrt_radius, *_ = list(df.xrt_radius)
-    ax.set_title(f'xrt_radius = {xrt_radius:.2f} (idx={xrt_lens})')
-    return xrt_radius, fig
+    if xrt_radius == 0.0:
+        ax.set_title(f'No pre-focusing lens')
+    else:
+        ax.set_title(f'Pre-focusing radius = {xrt_radius:.2f}um (Lens #{xrt_lens})')
+    return xrt_radius
 
 
 def plot_spreadsheet_data(xrt_lens, ax, df):
@@ -54,14 +117,14 @@ def plot_spreadsheet_data(xrt_lens, ax, df):
         hatch='/',
     )
 
-    df.trip_min.plot(ax=ax, lw=1, color='black')
-    df.trip_max.plot(ax=ax, lw=1, color='black')
+    ax.plot(df.energy, df.trip_min, lw=1, color='black', label='')
+    ax.plot(df.energy, df.trip_max, lw=1, color='black', label='')
 
     min_energy = MIN_ENERGY[xrt_lens]
     ax.fill(
         (0, 0, min_energy, min_energy),
         (0, 1e4, 1e4, 0),
-        color='red', alpha=0.2,
+        color='red', edgecolor="None", alpha=0.2,
         hatch='\\',
     )
 
@@ -72,21 +135,32 @@ def plot_spreadsheet_data(xrt_lens, ax, df):
         ax.fill(
             (req_lens_low, req_lens_low, req_lens_high, req_lens_high),
             (0, MIN_RADIUS, MIN_RADIUS, 0),
-            color='red', alpha=0.2,
+            color='red', edgecolor="None", alpha=0.2,
             hatch='\\',
         )
 
-    ax.legend(loc='best')
     ax.set_yscale('log')
     ax.set_ylabel('Reff')
     ax.set_xlabel('Energy [eV]')
     return df
 
 
-def sweep_and_plot_xrt(xrt_lens, num_steps=150):
+def sweep_and_plot_xrt(xrt_lens, num_steps=100):
     RE(transfocate.checkout.sweep_energy_plan(tfs, checkout, xrt_lens, num_steps=num_steps), LiveTable(fields))
-    xrt_radius, _ = plot_sweep_energy(xrt_lens, db[-1])
-    plt.savefig(f"xrt_lens_{xrt_lens}_{xrt_radius:.0f}um.png")
+
+    xrt_radius = plot_sweep_energy(xrt_lens, db[-1])
+    fn = f"pre_focus_{xrt_radius:.0f}um_lens_{xrt_lens}"
+    plt.savefig(f"{fn}.png")
+    plt.savefig(f"{fn}.pdf")
+    df = db[-1].table()[fields]
+    df.to_excel(f"{fn}.xlsx")
+
+
+def sweep_and_plot_xrt_all(num_steps):
+    for lens_idx in [0, 1, 2, 3]:
+        sweep_and_plot_xrt(lens_idx, num_steps=num_steps)
+
+    plot_sweeps()
 
 
 if __name__ == "__main__":
