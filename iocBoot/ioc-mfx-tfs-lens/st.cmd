@@ -67,7 +67,7 @@ drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  50
 drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  50,  "BK")
 
 # FLOAT Inputs (PLC -> EPICS) starting at 0x3000 on function code 3, data type 7
-drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 100,    7,  50, "BK")
+drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 125,    7,  50, "BK")
 
 # DINT aka LONG Inputs (PLC -> EPICS) starting at 0x3500 on function code 3, data type 5
 drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,  50, "BK")

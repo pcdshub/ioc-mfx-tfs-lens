@@ -23,6 +23,8 @@ file "aiFloat64.template"{ pattern,
 {"MFX:LENS:", "ACTIVE:HIGH",   "aiFLOAT_PORT", "32", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
 # Skip 34 (used for cycles below)
 {"MFX:LENS:", "PLC:ENERGY_RBV","aiFLOAT_PORT", "36", "FLOAT32_LE", "1", "0", "0","I/O Intr",  "eV"}
+# 38 and on are used for status bits below.  This is done to keep the float feedback and status
+# updates coherent (no race conditions between updating status vs radius/active limits).
 }
 
 file "longinInt32.template"{ pattern,
@@ -52,24 +54,24 @@ file "aoFloat64.template" {pattern
 }
 
 file "bi_bit.template"{ pattern, 
-{P,               R,                      PORT, OFFSET, ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
+{P,               R,                      PORT,         OFFSET,    ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
 # Online/active status:
-{"MFX:LENS:BEAM:",  "ALIVE",         "BI_PORT",    "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "FAULTED",       "BI_PORT",    "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
-{"MFX:LENS:BEAM:",  "UNKNOWN",       "BI_PORT",    "2",    "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "VIOLATED",      "BI_PORT",    "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "MIN_FAULT",     "BI_PORT",    "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT", "BI_PORT",    "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "TAB_FAULT",     "BI_PORT",    "6",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "ALIVE",         "aiFLOAT_PORT",      "38",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM", "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULTED",       "aiFLOAT_PORT",      "39",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN",       "aiFLOAT_PORT",      "40",    "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED",      "aiFLOAT_PORT",      "41",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT",     "aiFLOAT_PORT",      "42",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT", "aiFLOAT_PORT",      "43",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT",     "aiFLOAT_PORT",      "44",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 
 # Latched faults:
-{"MFX:LENS:BEAM:",  "BEAT_FAULT_LT",    "BI_PORT",   "10",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "FAULT_LT",         "BI_PORT",   "11",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "UNKNOWN_LT",       "BI_PORT",   "12",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "VIOLATED_LT",      "BI_PORT",   "13",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "MIN_FAULT_LT",     "BI_PORT",   "14",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT_LT", "BI_PORT",   "15",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "TAB_FAULT_LT",     "BI_PORT",   "16",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "BEAT_FAULT_LT",    "aiFLOAT_PORT",   "45",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULT_LT",         "aiFLOAT_PORT",   "46",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN_LT",       "aiFLOAT_PORT",   "47",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED_LT",      "aiFLOAT_PORT",   "48",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT_LT",     "aiFLOAT_PORT",   "49",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT_LT", "aiFLOAT_PORT",   "50",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT_LT",     "aiFLOAT_PORT",   "51",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 }
 
 
