@@ -1,20 +1,22 @@
-record (calcout, $(LOCATION):LENS:_CALC_CLOSE){
-    field(INPA, "$(LOCATION):LENS:BEAM:FAULTED CPP")
-    field(CALC, "A>0?1:0")
+record(calcout, "$(LOCATION):LENS:_CALC_CLOSE"){
+    field(CALC, "(B==0 && A>0)?1:0")
+    field(INPA, "$(LOCATION):LENS:BEAM:FAULTED CPP NMS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP NMS")
     field(OOPT, "When Non-zero")
     field(DOPT, "Use CALC")
     field(OUT, "$(LOCATION):LENS:CLOSE.PROC PP")
 }
 
-record (calcout, $(LOCATION):LENS:_CALC_UNLOCK){
-    field(INPA, "$(LOCATION):LENS:BEAM:FAULTED CPP")
-    field(CALC, "A=0?1:0")
+record(calcout, "$(LOCATION):LENS:_CALC_UNLOCK"){
+    field(INPA, "$(LOCATION):LENS:BEAM:FAULTED CPP NMS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP NMS")
+    field(CALC, "(A=0 || B=1)?1:0")
     field(OOPT, "When Non-zero")
     field(DOPT, "Use CALC")
     field(OUT, "$(LOCATION):LENS:UNLOCK.PROC PP")
 }
 
-record(seq, $(LOCATION):LENS:CLOSE){
+record(seq, "$(LOCATION):LENS:CLOSE"){
     field(SELM, "All")
     field(LNK1, "$(SHUTTER):GO PP")
     field(DO1, "1")
@@ -30,4 +32,40 @@ record(seq, $(LOCATION):LENS:UNLOCK){
     field(DO1, "0")
     field(LNK2, "$(SHUTTER):GO.DISP PP")
     field(DO2, "0")
+}
+
+record(bo, "$(LOCATION):LENS:BYPASS:SET") {
+    field(DESC, "Bypass energy and shutter closing")
+    field(ZNAM, "Bypass OFF")
+    field(ONAM, "Bypass ON")
+    field(VAL, "0")
+    field(PINI, "YES")
+}
+
+record(calc, "$(LOCATION):LENS:BYPASS:_STATUS") {
+    field(CALC, "A||B")
+    field(INPA, "$(LOCATION):LENS:BYPASS:ENERGY:STATE CPP MS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:LOCK:STATE CPP MS")
+    field(TPRO, "1")
+}
+
+record(bi, "$(LOCATION):LENS:BYPASS:STATUS") {
+    field(INP, "$(LOCATION):LENS:BYPASS:_STATUS.VAL CPP MS")
+    field(ZNAM, "Bypass OFF")
+    field(ONAM, "Bypass ON")
+    field(TPRO, "1")
+}
+
+record(bi, "$(LOCATION):LENS:BYPASS:ENERGY:STATE"){
+    field(DESC, "Is energy bypassed?")
+    field(INP, "$(LOCATION):LENS:BEAM:ENERGY.B CPP MS")
+    field(ZNAM, "Bypass OFF")
+    field(ONAM, "Bypass ON")
+}
+
+record(bi, "$(LOCATION):LENS:BYPASS:LOCK:STATE"){
+    field(DESC, "Is locking blade 11 bypassed?")
+    field(INP, "$(LOCATION):LENS:_CALC_CLOSE.B CPP MS")
+    field(ZNAM, "Bypass OFF")
+    field(ONAM, "Bypass ON")
 }

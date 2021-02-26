@@ -206,5 +206,5 @@ if __name__ == "__main__":
         'tfs_radius',
         'xrt_radius',
     ]
-    tfs.wait_for_connection()
-    checkout.wait_for_connection()
+    tfs.wait_for_connection(timeout=5.0)
+    checkout.wait_for_connection(timeout=5.0)

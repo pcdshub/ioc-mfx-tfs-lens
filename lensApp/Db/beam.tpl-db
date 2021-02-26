@@ -1,8 +1,12 @@
-record(ai, "$(LOCATION):LENS:BEAM:ENERGY") {
+record(calc, "$(LOCATION):LENS:BEAM:ENERGY") {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INP,  "$(ENERGY) CPP")
+    field(CALC, "B==0?A:C")
+    field(INPA, "$(ENERGY) CPP MS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP MS")
+    # Energy override
+    field(C,    "0.0")
     field(EGU,  "eV")
 }
 
