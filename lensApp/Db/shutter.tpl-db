@@ -26,7 +26,7 @@ record(seq, "$(LOCATION):LENS:CLOSE"){
     field(DO3, "1")
 }
 
-record(seq, $(LOCATION):LENS:UNLOCK){
+record(seq, "$(LOCATION):LENS:UNLOCK"){
     field(SELM, "All")
     field(LNK1, "$(SHUTTER):IS_STUCK PP")
     field(DO1, "0")
@@ -42,10 +42,14 @@ record(bo, "$(LOCATION):LENS:BYPASS:SET") {
     field(PINI, "YES")
 }
 
+# These records determine the bypass status by checking input "B" 
+# on the energy/close/lock calc records.  It's a bit excessive, but I'm leaving
+# it in since I spent the time to get it working on the previous iteration.
 record(calc, "$(LOCATION):LENS:BYPASS:_STATUS") {
-    field(CALC, "A||B")
-    field(INPA, "$(LOCATION):LENS:BYPASS:ENERGY:STATE CPP MS")
-    field(INPB, "$(LOCATION):LENS:BYPASS:LOCK:STATE CPP MS")
+    field(CALC, "A||B||C")
+    field(INPA, "$(LOCATION):LENS:BEAM:ENERGY.B CPP MS")
+    field(INPB, "$(LOCATION):LENS:_CALC_CLOSE.B CPP MS")
+    field(INPC, "$(LOCATION):LENS:_CALC_UNLOCK.B CPP MS")
     field(TPRO, "1")
 }
 
@@ -56,16 +60,8 @@ record(bi, "$(LOCATION):LENS:BYPASS:STATUS") {
     field(TPRO, "1")
 }
 
-record(bi, "$(LOCATION):LENS:BYPASS:ENERGY:STATE"){
-    field(DESC, "Is energy bypassed?")
-    field(INP, "$(LOCATION):LENS:BEAM:ENERGY.B CPP MS")
-    field(ZNAM, "Bypass OFF")
-    field(ONAM, "Bypass ON")
-}
-
-record(bi, "$(LOCATION):LENS:BYPASS:LOCK:STATE"){
-    field(DESC, "Is locking blade 11 bypassed?")
-    field(INP, "$(LOCATION):LENS:_CALC_CLOSE.B CPP MS")
-    field(ZNAM, "Bypass OFF")
-    field(ONAM, "Bypass ON")
+record(ai, "$(LOCATION):LENS:BYPASS:ENERGY") {
+    field(DESC, "Energy to use when in bypass mode")
+    field(VAL, "0.0")
+    field(PINI, "YES")
 }

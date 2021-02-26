@@ -1,4 +1,5 @@
 import matplotlib  # isort: skip
+import time
 
 try:  # noqa
     matplotlib.use('Qt5Agg')  # noqa
@@ -206,5 +207,6 @@ if __name__ == "__main__":
         'tfs_radius',
         'xrt_radius',
     ]
+    time.sleep(1)
     tfs.wait_for_connection(timeout=5.0)
     checkout.wait_for_connection(timeout=5.0)

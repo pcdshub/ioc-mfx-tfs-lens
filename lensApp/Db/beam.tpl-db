@@ -5,8 +5,7 @@ record(calc, "$(LOCATION):LENS:BEAM:ENERGY") {
     field(CALC, "B==0?A:C")
     field(INPA, "$(ENERGY) CPP MS")
     field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP MS")
-    # Energy override
-    field(C,    "0.0")
+    field(INPC, "$(LOCATION):LENS:BYPASS:ENERGY CPP MS")
     field(EGU,  "eV")
 }
 
