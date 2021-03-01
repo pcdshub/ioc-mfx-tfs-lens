@@ -1,5 +1,6 @@
 import datetime
 import numpy as np
+import openpyxl
 import pandas as pd
 from reportlab import platypus
 from reportlab.lib import colors, pagesizes, units
@@ -80,7 +81,9 @@ builder = [
 
 
 for scan_prefix, scan_info in results.items():
-    df = pd.read_excel(f"{scan_prefix}.xlsx", engine="openpyxl")
+    excel_filename = f"{scan_prefix}.xlsx"
+    workbook = openpyxl.load_workbook(excel_filename)
+    df = pd.read_excel(excel_filename, engine="openpyxl")
     df = df[list(table_fields)]
 
     for attr, col_info in table_fields.items():
@@ -107,6 +110,9 @@ for scan_prefix, scan_info in results.items():
     builder.extend(
         [
             platypus.Paragraph(scan_info["title"], stylesheet["Heading1"]),
+            platypus.Paragraph(
+                f"Data generated: {workbook.properties.created}", stylesheet["Normal"]
+            ),
             platypus.Paragraph(to_paragraph(scan_info["info"]), stylesheet["Normal"]),
             platypus.Paragraph("Scan Information", stylesheet["Heading2"]),
             platypus.Paragraph(to_paragraph(SCAN_INFO), stylesheet["Normal"]),
