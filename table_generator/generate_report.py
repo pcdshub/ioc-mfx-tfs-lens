@@ -20,22 +20,45 @@ table_fields = {
 }
 
 
+SCAN_INFO = """
+
+Scan methodology
+
+1. Choose a few transfocator lens sets to span the effective radius range.
+2. For each of those lens sets, scan energy at regular intervals.
+3. Each marker on the plot represents one of those scan points.
+4. Record if PLC reported a fault and why.
+
+Plot information
+
+<b>No fault</b> indicates that a data point was checked but no fault reported by PLC.
+<b>Trip Low</b> and <b>Trip High</b> are values from the spreadsheet table, \
+interpolated by the PLC and reported to EPICS.
+The lines drawn around these regions and the highlighted regions are directly \
+from the spreadsheet.
+<b>Min Energy Fault</b> indicates that it does not meet minimum energy \
+requirement for a given XRT lens.
+<b>Table Fault</b> indicates a fault from the spreadsheet table disallowed \
+region.
+<b>Lens Required Fault</b> markers are clipped at the bottom of the plot.
+"""
+
 results = {
     "pre_focus_0um_lens_0": {
         "title": "No pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan performed without a pre-focus lens.",
+        "info": """bluesky scan sweep_energy_plan performed without a pre-focus lens.""" + SCAN_INFO,
     },
     "pre_focus_750um_lens_1": {
         "title": "750.000µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan.",
+        "info": "bluesky scan sweep_energy_plan with 750.000µm pre-focusing lens.." + SCAN_INFO,
     },
     "pre_focus_429um_lens_2": {
         "title": "428.571µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan.",
+        "info": "bluesky scan sweep_energy_plan with 428.571µm pre-focusing lens." + SCAN_INFO,
     },
     "pre_focus_333um_lens_3": {
         "title": "333.333µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan.",
+        "info": "bluesky scan sweep_energy_plan with 333.333µm pre-focusing lens." + SCAN_INFO,
     },
 }
 
@@ -70,7 +93,7 @@ for scan_prefix, scan_info in results.items():
     builder.extend(
         [
             platypus.Paragraph(scan_info["title"], stylesheet["title"]),
-            platypus.Paragraph(scan_info["info"], stylesheet["Normal"]),
+            platypus.Paragraph(scan_info["info"].replace("\n", "<br/>"), stylesheet["Normal"]),
             platypus.Spacer(0 * units.inch, 0.5 * units.inch),
             plot,
             platypus.PageBreakIfNotEmpty(),
