@@ -1,8 +1,13 @@
+import datetime
 import numpy as np
 import pandas as pd
 from reportlab import platypus
 from reportlab.lib import colors, pagesizes, units
 from reportlab.lib.styles import getSampleStyleSheet
+
+
+def to_paragraph(text):
+    return text.replace("\n", "<br/>")
 
 
 table_fields = {
@@ -20,17 +25,23 @@ table_fields = {
 }
 
 
+HEADER = f"""
+
+Report generated: {datetime.datetime.now()}
+
+The next 4 sections describe individual scans, without a pre-focus lens and \
+then one per pre-focus lens.
+"""
+
 SCAN_INFO = """
-
-Scan methodology
-
 1. Choose a few transfocator lens sets to span the effective radius range.
 2. For each of those lens sets, scan energy at regular intervals.
 3. Each marker on the plot represents one of those scan points.
 4. Record if PLC reported a fault and why.
+"""
 
-Plot information
 
+PLOT_INFO = """
 <b>No fault</b> indicates that a data point was checked but no fault reported by PLC.
 <b>Trip Low</b> and <b>Trip High</b> are values from the spreadsheet table, \
 interpolated by the PLC and reported to EPICS.
@@ -46,24 +57,28 @@ region.
 results = {
     "pre_focus_0um_lens_0": {
         "title": "No pre-focusing lens",
-        "info": """bluesky scan sweep_energy_plan performed without a pre-focus lens.""" + SCAN_INFO,
+        "info": """bluesky scan sweep_energy_plan performed without a pre-focus lens.""",
     },
     "pre_focus_750um_lens_1": {
         "title": "750.000µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan with 750.000µm pre-focusing lens.." + SCAN_INFO,
+        "info": "bluesky scan sweep_energy_plan with 750.000µm pre-focusing lens..",
     },
     "pre_focus_429um_lens_2": {
         "title": "428.571µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan with 428.571µm pre-focusing lens." + SCAN_INFO,
+        "info": "bluesky scan sweep_energy_plan with 428.571µm pre-focusing lens.",
     },
     "pre_focus_333um_lens_3": {
         "title": "333.333µm pre-focusing lens",
-        "info": "bluesky scan sweep_energy_plan with 333.333µm pre-focusing lens." + SCAN_INFO,
+        "info": "bluesky scan sweep_energy_plan with 333.333µm pre-focusing lens.",
     },
 }
 
 stylesheet = getSampleStyleSheet()
-builder = []
+builder = [
+    platypus.Paragraph("Report document", stylesheet["Heading1"]),
+    platypus.Paragraph(to_paragraph(HEADER), stylesheet["Normal"]),
+]
+
 
 for scan_prefix, scan_info in results.items():
     df = pd.read_excel(f"{scan_prefix}.xlsx", engine="openpyxl")
@@ -92,10 +107,14 @@ for scan_prefix, scan_info in results.items():
     plot.drawHeight = 6.67 * units.inch
     builder.extend(
         [
-            platypus.Paragraph(scan_info["title"], stylesheet["title"]),
-            platypus.Paragraph(scan_info["info"].replace("\n", "<br/>"), stylesheet["Normal"]),
+            platypus.Paragraph(scan_info["title"], stylesheet["Heading1"]),
+            platypus.Paragraph(to_paragraph(scan_info["info"]), stylesheet["Normal"]),
+            platypus.Paragraph("Scan Information", stylesheet["Heading2"]),
+            platypus.Paragraph(to_paragraph(SCAN_INFO), stylesheet["Normal"]),
             platypus.Spacer(0 * units.inch, 0.5 * units.inch),
             plot,
+            platypus.Paragraph("Plot / Table Information", stylesheet["Heading2"]),
+            platypus.Paragraph(to_paragraph(PLOT_INFO), stylesheet["Normal"]),
             platypus.PageBreakIfNotEmpty(),
             table,
             platypus.PageBreakIfNotEmpty(),
