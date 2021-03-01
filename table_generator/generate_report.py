@@ -64,14 +64,6 @@ for scan_prefix, scan_info in results.items():
     header = [col_info.get("label", attr) for attr, col_info in table_fields.items()]
     table = platypus.Table([header] + np.array(df).tolist(), repeatRows=1)
     table.setStyle(style)
-    # builder.append()
-    # Story = [Spacer(1,2*inch)]
-    # style = styles["Normal"]
-    # for i in range(100):
-    #     bogustext = ("This is Paragraph number %s.  " % i) *20
-    #     p = Paragraph(bogustext, style)
-    #     Story.append(p)
-    #     Story.append(Spacer(1,0.2*inch))
     plot = platypus.Image(f"{scan_prefix}.png")
     plot.drawWidth = 8.0 * units.inch
     plot.drawHeight = 6.67 * units.inch
