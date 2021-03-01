@@ -26,7 +26,6 @@ table_fields = {
 
 
 HEADER = f"""
-
 Report generated: {datetime.datetime.now()}
 
 The next 4 sections describe individual scans, without a pre-focus lens and \
@@ -111,15 +110,30 @@ for scan_prefix, scan_info in results.items():
             platypus.Paragraph(to_paragraph(scan_info["info"]), stylesheet["Normal"]),
             platypus.Paragraph("Scan Information", stylesheet["Heading2"]),
             platypus.Paragraph(to_paragraph(SCAN_INFO), stylesheet["Normal"]),
-            platypus.Spacer(0 * units.inch, 0.5 * units.inch),
+            platypus.PageBreakIfNotEmpty(),
             plot,
             platypus.Paragraph("Plot / Table Information", stylesheet["Heading2"]),
             platypus.Paragraph(to_paragraph(PLOT_INFO), stylesheet["Normal"]),
-            platypus.PageBreakIfNotEmpty(),
+            platypus.Paragraph(
+                f"{scan_info['title']}: Scan Data Table", stylesheet["Heading2"]
+            ),
             table,
             platypus.PageBreakIfNotEmpty(),
         ]
     )
 
-doc = platypus.SimpleDocTemplate("report.pdf", pagesize=pagesizes.letter)
-doc.build(builder)
+
+def page_footer(canvas, doc):
+    canvas.saveState()
+    canvas.setFont("Times-Roman", 9)
+    canvas.drawCentredString(
+        pagesizes.LETTER[0] / 2, 0.75 * units.inch, f"Page {doc.page}"
+    )
+    canvas.restoreState()
+
+
+doc = platypus.SimpleDocTemplate(
+    "report.pdf",
+    pagesize=pagesizes.letter,
+)
+doc.build(builder, onFirstPage=page_footer, onLaterPages=page_footer)
