@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 2172
-y 104
-w 328
-h 312
+x 591
+y 384
+w 513
+h 416
 font "helvetica-medium-r-12.0"
 ctlFont "helvetica-medium-r-12.0"
 btnFont "helvetica-medium-r-12.0"
@@ -22,22 +22,6 @@ botShadowColor index 11
 snapToGrid
 gridSize 2
 endScreenProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 2
-y 4
-w 312
-h 272
-lineColor index 14
-fill
-fillColor index 4
-lineWidth 2
-endObjectProperties
 
 # (Static Text)
 object activeXTextClass
@@ -65,8 +49,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 170
-y 44
+x 180
+y 40
 w 96
 h 14
 font "helvetica-bold-r-12.0"
@@ -85,208 +69,19 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 94
+x 14
 y 12
-w 125
+w 484
 h 16
 font "helvetica-bold-r-14.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Beam Diagnostics"
-}
-autoSize
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 14
-y 194
-w 289
-h 70
-
-beginGroup
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 13
-y 220
-w 173
-h 44
-
-beginGroup
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 116
-y 220
-w 70
-h 44
-
-beginGroup
-
-# (Text Update)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 116
-y 220
-w 70
-h 16
-controlPv "$(BEAM):BEAM:POS_FAULT"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
 fontAlign "center"
-endObjectProperties
-
-# (Text Update)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 116
-y 248
-w 70
-h 16
-controlPv "$(BEAM):BEAM:LIM_FAULT"
-fgColor index 15
-fgAlarm
-bgColor index 11
-fill
-font "courier-medium-r-10.0"
-fontAlign "center"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 13
-y 220
-w 93
-h 43
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 28
-y 249
-w 78
-h 14
-font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Limit Violated:"
+  "Lens Interlock System Diagnostics"
 }
 autoSize
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 13
-y 220
-w 93
-h 14
-font "helvetica-medium-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Positional Fault: "
-}
-autoSize
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 204
-y 230
-w 98
-h 20
-fgColor index 14
-onColor index 4
-offColor index 4
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(BEAM):BEAM:CLEAR_FAULT"
-pressValue "1"
-onLabel "Clear Faults"
-offLabel "Clear Faults"
-3d
-useEnumNumeric
-font "helvetica-bold-r-12.0"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 132
-y 194
-w 67
-h 14
-font "helvetica-bold-r-12.0"
-fgColor index 14
-bgColor index 4
-useDisplayBg
-value {
-  "Past Faults"
-}
-autoSize
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 
 # (Text Update)
@@ -316,14 +111,14 @@ minor 1
 release 1
 x 14
 y 104
-w 94
+w 93
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Min. XRT Radius"
+  "Min. TFS Radius"
 }
 autoSize
 endObjectProperties
@@ -338,7 +133,7 @@ x 32
 y 122
 w 58
 h 18
-controlPv "$(BEAM):XRT_ONLY"
+controlPv "$(BEAM):ACTIVE:LOW"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -416,7 +211,7 @@ x 32
 y 170
 w 58
 h 18
-controlPv "$(BEAM):MFX_ONLY"
+controlPv "$(BEAM):ACTIVE:HIGH"
 fgColor index 15
 fgAlarm
 bgColor index 11
@@ -569,7 +364,7 @@ major 10
 minor 0
 release 0
 x 224
-y 66
+y 63
 w 74
 h 16
 controlPv "$(BEAM):BEAM:FAULTED"
@@ -588,7 +383,7 @@ major 4
 minor 1
 release 1
 x 140
-y 67
+y 63
 w 76
 h 14
 font "helvetica-medium-r-12.0"
@@ -597,6 +392,560 @@ bgColor index 4
 useDisplayBg
 value {
   "Current State:"
+}
+autoSize
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 394
+y 236
+w 98
+h 20
+fgColor index 14
+onColor index 4
+offColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(BEAM):BEAM:CLEAR_FAULT"
+pressValue "1"
+onLabel "Clear Latched"
+offLabel "Clear Latched"
+3d
+useEnumNumeric
+font "helvetica-bold-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 20
+y 194
+w 472
+h 14
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Latched (Past) Faults"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 114
+y 244
+w 75
+h 16
+controlPv "$(BEAM):BEAM:UNKNOWN_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 22
+y 246
+w 84
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Lens Positions:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 32
+y 268
+w 73
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Radius Fault:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 114
+y 266
+w 75
+h 16
+controlPv "$(BEAM):BEAM:VIOLATED_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 114
+y 220
+w 74
+h 16
+controlPv "$(BEAM):BEAM:FAULT_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 30
+y 222
+w 76
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Fault latched:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 288
+y 244
+w 75
+h 16
+controlPv "$(BEAM):BEAM:REQ_TFS_FAULT_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 196
+y 244
+w 82
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Req. TFS fault:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 218
+y 268
+w 61
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Table fault:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 288
+y 266
+w 75
+h 16
+controlPv "$(BEAM):BEAM:TAB_FAULT_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 288
+y 218
+w 74
+h 16
+controlPv "$(BEAM):BEAM:MIN_FAULT_LT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 228
+y 218
+w 51
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Min fault:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 344
+y 40
+w 118
+h 14
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Radius Fault Details"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 398
+y 89
+w 75
+h 16
+controlPv "$(BEAM):BEAM:REQ_TFS_FAULT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 307
+y 91
+w 82
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Req. TFS fault:"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 328
+y 113
+w 61
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Table fault:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 398
+y 111
+w 75
+h 16
+controlPv "$(BEAM):BEAM:TAB_FAULT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 398
+y 63
+w 74
+h 16
+controlPv "$(BEAM):BEAM:MIN_FAULT"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 338
+y 63
+w 51
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Min fault:"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 324
+y 358
+w 96
+h 16
+controlPv "$(BEAM):BYPASS:STATUS"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 154
+y 362
+w 166
+h 16
+fgColor index 14
+bgColor index 4
+selectColor index 4
+inconsistentColor index 4
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(BEAM):BYPASS:SET"
+font "helvetica-medium-r-10.0"
+orientation "horizontal"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 302
+w 482
+h 14
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Bypass Settings"
+}
+autoSize
+endObjectProperties
+
+# (Text Entry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 156
+y 320
+w 166
+h 36
+controlPv "$(BEAM):BYPASS:ENERGY"
+fgColor index 25
+fgAlarm
+bgColor index 4
+fill
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 326
+y 330
+w 90
+h 16
+controlPv "$(BEAM):BYPASS:ENERGY"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 62
+y 330
+w 84
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Bypass energy"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 60
+y 362
+w 83
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Bypass enable"
 }
 autoSize
 endObjectProperties
