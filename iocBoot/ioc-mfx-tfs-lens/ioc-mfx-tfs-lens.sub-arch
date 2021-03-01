@@ -3,6 +3,11 @@ file lens-ioc.archive
     {IOC = "IOC:MFX:TFS:LENS"}
 }
 
+file mfx-modbus.archive
+{   
+    {LOCATION = "MFX"}
+}
+
 file beam.archive
 {
     {LOCATION = "MFX"}

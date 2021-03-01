@@ -27,6 +27,7 @@ ARCHIVE += lens.archive
 ARCHIVE += lensMotion.archive
 ARCHIVE += beam.archive
 ARCHIVE += flexiblelimit.archive
+ARCHIVE += mfx-modbus.archive
 #----------------------------------------------------
 # Create and install (or just install)
 # Autosave request files, templates, substitutions like this
