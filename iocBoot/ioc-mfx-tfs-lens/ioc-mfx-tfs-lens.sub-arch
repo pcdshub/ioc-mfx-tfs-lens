@@ -8,6 +8,11 @@ file mfx-modbus.archive
     {LOCATION = "MFX"}
 }
 
+file shutter.archive
+{   
+    {LOCATION = "MFX"}
+}
+
 file beam.archive
 {
     {LOCATION = "MFX"}
