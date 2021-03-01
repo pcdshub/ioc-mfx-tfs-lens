@@ -19,22 +19,61 @@ file "aiFloat64.template"{ pattern,
 {"MFX:LENS:", "DIA:01:RADIUS", "aiFLOAT_PORT", "24", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "DIA:02:RADIUS", "aiFLOAT_PORT", "26", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
 {"MFX:LENS:", "DIA:03:RADIUS", "aiFLOAT_PORT", "28", "FLOAT32_LE", "1", "1000", "0","I/O Intr",  "um"}
+{"MFX:LENS:", "ACTIVE:LOW",    "aiFLOAT_PORT", "30", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
+{"MFX:LENS:", "ACTIVE:HIGH",   "aiFLOAT_PORT", "32", "FLOAT32_LE", "1", "10000", "0","I/O Intr",  "um"}
+# Skip 34 (used for cycles below)
+{"MFX:LENS:", "PLC:ENERGY_RBV","aiFLOAT_PORT", "36", "FLOAT32_LE", "1", "0", "0","I/O Intr",  "eV"}
+# 38 and on are used for status bits below.  This is done to keep the float feedback and status
+# updates coherent (no race conditions between updating status vs radius/active limits).
 }
+
+file "longinInt32.template"{ pattern,
+{P,            R,                   PORT, OFFSET,  DATA_TYPE,        SCAN, UNITS   }
+# The following abuses the aiFLOAT_PORT:
+{"MFX:LENS:PLC:", "CYCLE", "aiFLOAT_PORT",  "34",  "INT32_LE", "I/O Intr", "cycles"}
+}
+
+file "longoutInt32.template"{ pattern,
+{P,            R,                   PORT, OFFSET,  DATA_TYPE,        SCAN, UNITS   }
+# The following abuses the aoFLOAT_PORT:
+{"MFX:LENS:PLC:","UPDATE_SEQ",  "aoFLOAT_PORT",  "18", "INT32_LE",    "I/O Intr", "" }
+}
+
 file "aoFloat64.template" {pattern
-{P,	R,	PORT,	OFFSET,	DATA_TYPE,	PREC,	HOPR,	LOPR,	UNITS}
-{"MFX:LENS:", "MFX_ONLY", "aoFLOAT_PORT", "0", "FLOAT32_LE", "1", "1000", "0", "um"}
-{"MFX:LENS:", "XRT_ONLY", "aoFLOAT_PORT", "2", "FLOAT32_LE", "1", "1000", "0", "um"}
+{          P,               R,           PORT, OFFSET,    DATA_TYPE, PREC,   HOPR, LOPR, UNITS}
+{"MFX:LENS:",  "NO_LENS:LOW" , "aoFLOAT_PORT",    "0", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",  "NO_LENS:HIGH", "aoFLOAT_PORT",    "2", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS1:LOW" , "aoFLOAT_PORT",    "4", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS1:HIGH", "aoFLOAT_PORT",    "6", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS2:LOW" , "aoFLOAT_PORT",    "8", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS2:HIGH", "aoFLOAT_PORT",   "10", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS3:LOW" , "aoFLOAT_PORT",   "12", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:",    "LENS3:HIGH", "aoFLOAT_PORT",   "14", "FLOAT32_LE",  "4", "1000",  "0", "um"}
+{"MFX:LENS:", "ENERGY_TO_PLC",  "aoFLOAT_PORT",  "16", "FLOAT32_LE",  "4", "100000","0", "eV"}
+# PLC update sequence (18)
 }
 
 file "bi_bit.template"{ pattern, 
-{P,               R,                    PORT,       OFFSET, ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
-{"MFX:LENS:BEAM:",  "ALIVE",     "BI_PORT",  "0",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "FAULTED",   "BI_PORT",  "1",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",       "I/O Intr"}
-{"MFX:LENS:BEAM:",  "UNKNOWN",   "BI_PORT",  "2",  "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "VIOLATED",  "BI_PORT",  "3",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "POS_FAULT", "BI_PORT",  "4",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
-{"MFX:LENS:BEAM:",  "LIM_FAULT", "BI_PORT",  "5",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{P,               R,                      PORT,         OFFSET,    ZNAM,         ONAM,               ZSV,        OSV,           SCAN}
+# Online/active status:
+{"MFX:LENS:BEAM:",  "ALIVE",         "aiFLOAT_PORT",      "38",    "Dead",       "Alive",            "MAJOR",    "NO_ALARM", "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULTED",       "aiFLOAT_PORT",      "39",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN",       "aiFLOAT_PORT",      "40",    "Known",      "Unknown",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED",      "aiFLOAT_PORT",      "41",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT",     "aiFLOAT_PORT",      "42",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT", "aiFLOAT_PORT",      "43",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT",     "aiFLOAT_PORT",      "44",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+
+# Latched faults:
+{"MFX:LENS:BEAM:",  "BEAT_FAULT_LT",    "aiFLOAT_PORT",   "45",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "FAULT_LT",         "aiFLOAT_PORT",   "46",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "UNKNOWN_LT",       "aiFLOAT_PORT",   "47",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "VIOLATED_LT",      "aiFLOAT_PORT",   "48",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "MIN_FAULT_LT",     "aiFLOAT_PORT",   "49",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "REQ_TFS_FAULT_LT", "aiFLOAT_PORT",   "50",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
+{"MFX:LENS:BEAM:",  "TAB_FAULT_LT",     "aiFLOAT_PORT",   "51",    "No Fault",   "Faulted",          "NO_ALARM", "MAJOR",    "I/O Intr"}
 }
+
 
 file "bo_bit.template" {pattern
 {P,	R,	PORT,	OFFSET,	ZNAM,	ONAM}
@@ -64,4 +103,6 @@ file "bo_bit.template" {pattern
 {"MFX:LENS:", "DIA:01:INSERTED" "BO_PORT", "40",   "Removed",	"Inserted"}
 {"MFX:LENS:", "DIA:02:INSERTED" "BO_PORT", "41",   "Removed",	"Inserted"}
 {"MFX:LENS:", "DIA:03:INSERTED" "BO_PORT", "42",   "Removed",	"Inserted"}
+# 50 is taken by the IOC heartbeat
+# 51 is taken by fault clear
 }

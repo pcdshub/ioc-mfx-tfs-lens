@@ -10,51 +10,13 @@
 #include <epicsExport.h>
 #include <recSup.h>
 #include <genSubRecord.h>
-#include <lensLimit.h>
-/* 
-    Look up a value from a pre-calculated table the low and/or high 
-        INPUTS
-            E = User input fundamental energy (eV)
-            T = Type of limit evaluation, as defined in lensLimit.h
 
-        OUTPUTS
-            L = Lower limit of the acceptable operation range
-            H = Higher limit of the acceptable operation range
-*/
-double find_limits(int l,int u, double E_list[], double L_list[],  double E)
-{
-    int m;
-    double limit;
-    while(l < u) {
-        m = (l+u) /2;
-        if( E==E_list[l] ) {
-            u = l;
-        }
-        else if( E==E_list[m] ) {
-            u = m;
-            l = m;
-        }
-        else if( E == E_list[u] ){
-            l = u;
-        }
-        else if( E < E_list[m] ) {
-            if( u == m ) break;
-                u = m;
-        }
-        else {
-            if ( l == m ) break;
-            l = m;
-        }
-    }
-    double slope = 0.;
-    if (u !=l) {
-        slope = (L_list[u]-L_list[l])/(E_list[u]-E_list[l]);
-    }
-    limit  = L_list[l] + slope*(E-E_list[l]);
-    return limit;
+#include "interlockTables.h"
 
-}
-
+const RangeTable *tables[] = {
+    &TABLE_NO_LENS, &TABLE_LENS3_333, &TABLE_LENS2_428, &TABLE_LENS1_750
+};
+const int N_TABLES = 4;
 
 long limit_gensub_init(genSubRecord *pgsub)
 {
@@ -65,29 +27,34 @@ long limit_gensub_init(genSubRecord *pgsub)
 
 long limit_gensub_process(genSubRecord *pgsub)
 {
-    double E;   /*Current beam energy for first harmonic*/
-    double L;   /*Low range of acceptable limit*/
-    
-    
+    double energy;             /*Current beam energy for first harmonic*/
+    double range_low = 0.0;    /*Low range of trip region*/
+    double range_high = 0.0;   /*High range of trip region*/
+
     /*Check status of record*/
     if( pgsub == NULL)
         return -1;
 
     /*Retrieve current beam energy (eV)*/
-    E = (*(double *)pgsub->e);
-    char* T = (char*) pgsub->t;
+    energy = (*(double *)pgsub->e);
 
-    if(strcmp(T,MFX_ONLY)==0) {
-        L = find_limits(0,126,E_MFX,MFX_LIMIT,E);
-    }
-    else if(strcmp(T,XRT_ONLY)==0) {
-        L = find_limits(0,80,E_XRT,XRT_LIMIT,E);
-    }
-    else {
-            L = 0.;
-    }
+    int table_idx;
+    const char* table_name = (const char*) pgsub->t;
+    RangeRow row;
 
-    *(double *)pgsub->vall = L;
+	for (table_idx=0; table_idx < N_TABLES; table_idx++) {
+        if (!strcmp(tables[table_idx]->table_name, table_name)) {
+            if (find_limits(&row, tables[table_idx], energy)) {
+                range_low = row.low;
+                range_high = row.high;
+            }
+            break;
+		}
+	}
+
+
+    *(double *)pgsub->vall = range_low;
+    *(double *)pgsub->valh = range_high;
 
     pgsub->udf = FALSE;
 

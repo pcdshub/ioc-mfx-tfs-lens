@@ -53,10 +53,10 @@ modbusInterposeConfig("lens-plc",0,0,0)
 #Assign Coils
 ####################
 # COIL Outputs (EPICS -> PLC) starting at 0x8000 on function code 5.
-drvModbusAsynConfigure("BO_PORT",  "lens-plc", 0, 5,  0x8000, 256,   0,  100,  "BK")
+drvModbusAsynConfigure("BO_PORT",  "lens-plc", 0, 5,  0x8000, 256,   0,  50, "BK")
 
 # COIL Inputs (PLC -> EPICS) starting at 0x8000 on function code 2.
-drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  100, "BK")
+drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  50, "BK")
 
 
 ###################
@@ -64,13 +64,13 @@ drvModbusAsynConfigure("BI_PORT",      "lens-plc", 0, 2,  0x8000, 256,    0,  10
 ####################
 # Extra PLC memory output (EPICS -> PLC) starting at 0x3000 on function code 6 (0x0064 is 100 in hex).
 # I set the modbus length to 100, that's how many 16-bit registers we are currently using, it can be longer
-drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  100,  "BK")
+drvModbusAsynConfigure("aoFLOAT_PORT",  "lens-plc", 0, 6,  0x3000, 100,   7,  50,  "BK")
 
 # FLOAT Inputs (PLC -> EPICS) starting at 0x3000 on function code 3, data type 7
-drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 100,    7,  100, "BK")
+drvModbusAsynConfigure("aiFLOAT_PORT",      "lens-plc", 0, 3,  0x3064, 125,    7,  50, "BK")
 
 # DINT aka LONG Inputs (PLC -> EPICS) starting at 0x3500 on function code 3, data type 5
-drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,  100, "BK")
+drvModbusAsynConfigure("aiLONG_PORT",      "lens-plc", 0, 3,  0x30C8, 100,    5,  50, "BK")
 
 #####################
 #Load Lenses
@@ -85,9 +85,9 @@ dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:07,Y_MOT=MFX:TFS:XF
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:08,Y_MOT=MFX:TFS:XFLS:08,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:09,Y_MOT=MFX:TFS:XFLS:09,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
 dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=TFS:10,Y_MOT=MFX:TFS:XFLS:10,Z_MOT=MFX:TFS:MMS:21.RBV,IN_STATE=IN")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:01,Y_MOT=MFX:DIA:XFLS,IN_STATE=6K70")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:02,Y_MOT=MFX:DIA:XFLS,IN_STATE=7K50")
-dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:03,Y_MOT=MFX:DIA:XFLS,IN_STATE=9K45")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:01,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=6K70")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:02,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=7K50")
+dbLoadRecords("db/lens.db", "LOCATION=$(LOCATION),LENSID=DIA:03,Y_MOT=MFX:DIA:XFLS,Z_MOT=,IN_STATE=9K45")
 
 #####################
 #Load Beam Parameters
@@ -97,8 +97,10 @@ dbLoadRecords("db/beam.db", "LOCATION=$(LOCATION), NLENS=13, ENERGY=SIOC:SYS0:ML
 ######################
 #Load Limit Parameters
 ######################
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=mfx_only, LIMIT=MFX_ONLY")
-dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TYPE=xrt_only, LIMIT=XRT_ONLY")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_NO_LENS,LIMIT=NO_LENS")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS1_750,LIMIT=LENS1")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS2_428,LIMIT=LENS2")
+dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS3_333,LIMIT=LENS3")
 dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 
 

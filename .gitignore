@@ -1,0 +1,12 @@
+*.sw[op]
+O.*
+/table_generator/TABLE_*
+dump_table
+/bin/
+/db/
+/dbd/
+/archive/
+/autosave/
+/include/
+envPaths
+.DS_Store

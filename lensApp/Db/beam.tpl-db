@@ -1,12 +1,15 @@
-record(ai, $(LOCATION):LENS:BEAM:ENERGY) {
+record(calc, "$(LOCATION):LENS:BEAM:ENERGY") {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(INP,  "$(ENERGY) CPP")
+    field(CALC, "B==0?A:C")
+    field(INPA, "$(ENERGY) CPP MS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP MS")
+    field(INPC, "$(LOCATION):LENS:BYPASS:ENERGY CPP MS")
     field(EGU,  "eV")
 }
 
-record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
+record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(DTYP, "Soft Channel")
@@ -14,10 +17,28 @@ record(ai, $(LOCATION):LENS:BEAM:REQ_ENERGY) {
     field(EGU,  "eV")
 }
 
+record(ao, "$(LOCATION):LENS:_ENERGY_TO_PLC") {
+    field(DESC, "Push energy to PLC by modbus")
+    # This record is glue for the following:
+    # $(LOCATION):LENS:BEAM:ENERGY -> $(LOCATION):LENS:ENERGY_TO_PLC -> modbus -> PLC
+    field(OMSL, "closed_loop")
+    field(DOL,  "$(LOCATION):LENS:BEAM:ENERGY CPP")
+    field(OUT,  "$(LOCATION):LENS:ENERGY_TO_PLC PP")
+    field(DTYP, "Soft Channel")
+    field(VAL,  "0.0")
+    field(EGU,  "eV")
+    field(SCAN, "Passive")
+}
 
-record(longin, $(LOCATION):LENS:BEAM:NLENS) {
+record(calc, $(LOCATION):LENS:BEAM:HEARTBEAT){
+    field(DESC, "1 Hz heartbeat")
+    field(CALC, "A=1?0:A+1")
+    field(SCAN, ".5 second")
+    field(INPA, "$(LOCATION):LENS:BEAM:HEARTBEAT")
+}
+
+record(longin, "$(LOCATION):LENS:BEAM:NLENS") {
     field(DESC, "Calculation of safety beam mode")
     field(PINI, "YES")
     field(VAL,  "$(NLENS)")
 }
-

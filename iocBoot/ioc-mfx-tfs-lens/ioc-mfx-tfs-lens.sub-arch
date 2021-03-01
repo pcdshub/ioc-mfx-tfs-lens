@@ -3,6 +3,16 @@ file lens-ioc.archive
     {IOC = "IOC:MFX:TFS:LENS"}
 }
 
+file mfx-modbus.archive
+{   
+    {LOCATION = "MFX"}
+}
+
+file shutter.archive
+{   
+    {LOCATION = "MFX"}
+}
+
 file beam.archive
 {
     {LOCATION = "MFX"}
@@ -182,21 +192,28 @@ file lensMotion.archive
 file limit.archive
 {   
     {
-        LIMIT    = "MFX_ONLY"
+        LIMIT    = "NO_LENS"
         LOCATION = "MFX"
     }
 }
 file limit.archive
 {   
     {
-        LIMIT    = "XRT_ONLY"
+        LIMIT    = "LENS1"
         LOCATION = "MFX"
     }
 }
 file limit.archive
 {   
     {
-        LIMIT    = "PREFOCUS"
+        LIMIT    = "LENS2"
+        LOCATION = "MFX"
+    }
+}
+file limit.archive
+{   
+    {
+        LIMIT    = "LENS3"
         LOCATION = "MFX"
     }
 }
