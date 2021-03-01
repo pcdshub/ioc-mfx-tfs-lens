@@ -56,19 +56,19 @@ region.
 
 results = {
     "pre_focus_0um_lens_0": {
-        "title": "No pre-focusing lens",
+        "title": "Scan 1: No pre-focusing lens",
         "info": """bluesky scan sweep_energy_plan performed without a pre-focus lens.""",
     },
     "pre_focus_750um_lens_1": {
-        "title": "750.000µm pre-focusing lens",
+        "title": "Scan 2: 750.000µm pre-focusing lens",
         "info": "bluesky scan sweep_energy_plan with 750.000µm pre-focusing lens..",
     },
     "pre_focus_429um_lens_2": {
-        "title": "428.571µm pre-focusing lens",
+        "title": "Scan 3: 428.571µm pre-focusing lens",
         "info": "bluesky scan sweep_energy_plan with 428.571µm pre-focusing lens.",
     },
     "pre_focus_333um_lens_3": {
-        "title": "333.333µm pre-focusing lens",
+        "title": "Scan 4: 333.333µm pre-focusing lens",
         "info": "bluesky scan sweep_energy_plan with 333.333µm pre-focusing lens.",
     },
 }
