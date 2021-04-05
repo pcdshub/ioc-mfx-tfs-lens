@@ -14,9 +14,7 @@ from bluesky.callbacks import LiveTable
 import transfocate
 import transfocate.checkout
 
-from config import (
-    read_spreadsheet, MIN_RADIUS, MIN_ENERGY, REQUIRES_LENS_RANGE
-)
+from config import read_spreadsheet, MIN_RADIUS, MIN_ENERGY
 
 
 def plot_sweeps():
@@ -129,20 +127,9 @@ def plot_spreadsheet_data(xrt_lens, ax, df):
         hatch='\\',
     )
 
-    req_lens_range = REQUIRES_LENS_RANGE[xrt_lens]
-    if req_lens_range is not None:
-        req_lens_low, req_lens_high = req_lens_range
-
-        ax.fill(
-            (req_lens_low, req_lens_low, req_lens_high, req_lens_high),
-            (0, MIN_RADIUS, MIN_RADIUS, 0),
-            color='red', edgecolor="None", alpha=0.2,
-            hatch='\\',
-        )
-
-    ax.set_yscale('log')
-    ax.set_ylabel('Reff')
-    ax.set_xlabel('Energy [eV]')
+    ax.set_yscale("log")
+    ax.set_ylabel("Reff")
+    ax.set_xlabel("Energy [eV]")
     return df
 
 
