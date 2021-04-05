@@ -109,7 +109,7 @@ def plot_sweep_energy(xrt_lens, dbi, ax=None):
     ax.legend(loc="upper right")
     xrt_radius, *_ = list(df.xrt_radius)
     if xrt_radius == 0.0:
-        ax.set_title(f"No pre-focusing lens")
+        ax.set_title("No pre-focusing lens")
     else:
         ax.set_title(f"Pre-focusing radius = {xrt_radius:.2f}um (Lens #{xrt_lens})")
     return xrt_radius
@@ -141,7 +141,7 @@ def plot_spreadsheet_data(xrt_lens, ax, df):
     )
 
     ax.set_yscale("log")
-    ax.set_ylabel("Reff")
+    ax.set_ylabel("Reff [um]")
     ax.set_xlabel("Energy [eV]")
     return df
 
