@@ -73,60 +73,61 @@ results = {
     },
 }
 
-stylesheet = getSampleStyleSheet()
-builder = [
-    platypus.Paragraph("Report document", stylesheet["Heading1"]),
-    platypus.Paragraph(to_paragraph(HEADER), stylesheet["Normal"]),
-]
+def _build_report():
+    stylesheet = getSampleStyleSheet()
+    builder = [
+        platypus.Paragraph("Report document", stylesheet["Heading1"]),
+        platypus.Paragraph(to_paragraph(HEADER), stylesheet["Normal"]),
+    ]
 
 
-for scan_prefix, scan_info in results.items():
-    excel_filename = f"{scan_prefix}.xlsx"
-    workbook = openpyxl.load_workbook(excel_filename)
-    df = pd.read_excel(excel_filename, engine="openpyxl")
-    df = df[list(table_fields)]
+    for scan_prefix, scan_info in results.items():
+        excel_filename = f"{scan_prefix}.xlsx"
+        workbook = openpyxl.load_workbook(excel_filename)
+        df = pd.read_excel(excel_filename, engine="openpyxl")
+        df = df[list(table_fields)]
 
-    for attr, col_info in table_fields.items():
-        precision = col_info.get("precision")
-        if precision is not None:
-            col = getattr(df, attr)
-            setattr(df, attr, [f"%.{precision}f" % item for item in col])
+        for attr, col_info in table_fields.items():
+            precision = col_info.get("precision")
+            if precision is not None:
+                col = getattr(df, attr)
+                setattr(df, attr, [f"%.{precision}f" % item for item in col])
 
-    style = platypus.TableStyle(
-        [
-            ("FACE", (0, 0), (-1, 0), "Times-Bold"),
-            ("ALIGN", (0, 0), (-1, 0), "CENTER"),
-            ("GRID", (0, 0), (-1, -1), 0.25, colors.black),
-            ("ALIGN", (1, 0), (-1, -1), "RIGHT"),
-        ]
-    )
+        style = platypus.TableStyle(
+            [
+                ("FACE", (0, 0), (-1, 0), "Times-Bold"),
+                ("ALIGN", (0, 0), (-1, 0), "CENTER"),
+                ("GRID", (0, 0), (-1, -1), 0.25, colors.black),
+                ("ALIGN", (1, 0), (-1, -1), "RIGHT"),
+            ]
+        )
 
-    header = [col_info.get("label", attr) for attr, col_info in table_fields.items()]
-    table = platypus.Table([header] + np.array(df).tolist(), repeatRows=1)
-    table.setStyle(style)
-    plot = platypus.Image(f"{scan_prefix}.png")
-    plot.drawWidth = 8.0 * units.inch
-    plot.drawHeight = 6.67 * units.inch
-    builder.extend(
-        [
-            platypus.Paragraph(scan_info["title"], stylesheet["Heading1"]),
-            platypus.Paragraph(
-                f"Data generated: {workbook.properties.created}", stylesheet["Normal"]
-            ),
-            platypus.Paragraph(to_paragraph(scan_info["info"]), stylesheet["Normal"]),
-            platypus.Paragraph("Scan Information", stylesheet["Heading2"]),
-            platypus.Paragraph(to_paragraph(SCAN_INFO), stylesheet["Normal"]),
-            platypus.PageBreakIfNotEmpty(),
-            plot,
-            platypus.Paragraph("Plot / Table Information", stylesheet["Heading2"]),
-            platypus.Paragraph(to_paragraph(PLOT_INFO), stylesheet["Normal"]),
-            platypus.Paragraph(
-                f"{scan_info['title']}: Scan Data Table", stylesheet["Heading2"]
-            ),
-            table,
-            platypus.PageBreakIfNotEmpty(),
-        ]
-    )
+        header = [col_info.get("label", attr) for attr, col_info in table_fields.items()]
+        table = platypus.Table([header] + np.array(df).tolist(), repeatRows=1)
+        table.setStyle(style)
+        plot = platypus.Image(f"{scan_prefix}.png")
+        plot.drawWidth = 8.0 * units.inch
+        plot.drawHeight = 6.67 * units.inch
+        builder.extend(
+            [
+                platypus.Paragraph(scan_info["title"], stylesheet["Heading1"]),
+                platypus.Paragraph(
+                    f"Data generated: {workbook.properties.created}", stylesheet["Normal"]
+                ),
+                platypus.Paragraph(to_paragraph(scan_info["info"]), stylesheet["Normal"]),
+                platypus.Paragraph("Scan Information", stylesheet["Heading2"]),
+                platypus.Paragraph(to_paragraph(SCAN_INFO), stylesheet["Normal"]),
+                platypus.PageBreakIfNotEmpty(),
+                plot,
+                platypus.Paragraph("Plot / Table Information", stylesheet["Heading2"]),
+                platypus.Paragraph(to_paragraph(PLOT_INFO), stylesheet["Normal"]),
+                platypus.Paragraph(
+                    f"{scan_info['title']}: Scan Data Table", stylesheet["Heading2"]
+                ),
+                table,
+                platypus.PageBreakIfNotEmpty(),
+            ]
+        )
 
 
 def page_footer(canvas, doc):
@@ -138,8 +139,18 @@ def page_footer(canvas, doc):
     canvas.restoreState()
 
 
-doc = platypus.SimpleDocTemplate(
-    "report.pdf",
-    pagesize=pagesizes.letter,
-)
-doc.build(builder, onFirstPage=page_footer, onLaterPages=page_footer)
+def generate_report(fn=None):
+    if fn is None:
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M")
+        fn = f"report_{timestamp}.pdf"
+
+    doc = platypus.SimpleDocTemplate(
+        "report.pdf",
+        pagesize=pagesizes.letter,
+    )
+    builder = _build_report()
+    doc.build(builder, onFirstPage=page_footer, onLaterPages=page_footer)
+
+
+if __name__ == "__main__":
+    generate_report()
