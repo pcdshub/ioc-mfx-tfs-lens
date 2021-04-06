@@ -1,9 +1,0 @@
-bluesky
-ophyd
-databroker
-pandas
-reportlab
-openpyxl
-
-# And of course:
-transfocate
