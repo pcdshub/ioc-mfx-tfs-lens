@@ -104,7 +104,6 @@ dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS3
 dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
 dbLoadRecords("db/heartbeat.db", "LOCATION=$(LOCATION):LENS")
 
-
 #####################
 #Load Remaining Modbus PV
 #####################

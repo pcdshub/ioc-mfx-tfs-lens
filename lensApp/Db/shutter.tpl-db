@@ -46,6 +46,18 @@ record(bo, "$(LOCATION):LENS:BYPASS:SET") {
     field(DESC, "Bypass energy and shutter closing")
     field(ZNAM, "Bypass OFF")
     field(ONAM, "Bypass ON")
+    # Don't bypass to start with, of course:
+    field(VAL, "0")
+    field(PINI, "YES")
+    field(TPRO, "1")
+}
+
+record(bo, "$(LOCATION):LENS:BYPASS:INSERTED:SET") {
+    # This is strictly for testing of the PLC without requiring lens motion.
+    field(DESC, "Bypass lens insertion/known state")
+    field(ZNAM, "Bypass OFF")
+    field(ONAM, "Bypass ON")
+    # Don't bypass to start with, of course:
     field(VAL, "0")
     field(PINI, "YES")
     field(TPRO, "1")
