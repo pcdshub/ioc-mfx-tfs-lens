@@ -131,14 +131,15 @@ def plot_spreadsheet_data(xrt_lens, ax, df):
     ax.plot(df.energy, df.trip_max, lw=1, color="black", label="")
 
     min_energy = MIN_ENERGY[xrt_lens]
-    ax.fill(
-        (0, 0, min_energy, min_energy),
-        (0, 1e4, 1e4, 0),
-        color="red",
-        edgecolor="None",
-        alpha=0.2,
-        hatch="\\",
-    )
+    if min_energy > 0.0:
+        ax.fill(
+            (0, 0, min_energy, min_energy),
+            (0, 1e4, 1e4, 0),
+            color="red",
+            edgecolor="None",
+            alpha=0.2,
+            hatch="\\",
+        )
 
     ax.set_yscale("log")
     ax.set_ylabel("Reff [um]")
@@ -209,6 +210,12 @@ if __name__ == "__main__":
         "tfs_radius",
         "xrt_radius",
     ]
-    time.sleep(1)
+
+    with open("README.md", "rt") as f:
+        print(f.read())
+
+    print("Connecting to devices...")
+
+    time.sleep(2)
     tfs.wait_for_connection(timeout=5.0)
     checkout.wait_for_connection(timeout=5.0)

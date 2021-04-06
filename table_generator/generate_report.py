@@ -55,7 +55,7 @@ region.
 """
 
 results = {
-    "pre_focus_0um_lens_0": {
+    "pre_focus_10000um_lens_0": {
         "title": "Scan 1: No pre-focusing lens",
         "info": """bluesky scan sweep_energy_plan performed without a pre-focus lens.""",
     },
@@ -129,6 +129,8 @@ def _build_report():
             ]
         )
 
+    return builder
+
 
 def page_footer(canvas, doc):
     canvas.saveState()
@@ -145,11 +147,13 @@ def generate_report(fn=None):
         fn = f"report_{timestamp}.pdf"
 
     doc = platypus.SimpleDocTemplate(
-        "report.pdf",
+        fn,
         pagesize=pagesizes.letter,
     )
     builder = _build_report()
     doc.build(builder, onFirstPage=page_footer, onLaterPages=page_footer)
+    print(f"Wrote report to {fn}")
+    return fn
 
 
 if __name__ == "__main__":
