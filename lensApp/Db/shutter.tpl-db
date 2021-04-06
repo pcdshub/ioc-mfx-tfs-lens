@@ -1,7 +1,15 @@
 record(calcout, "$(LOCATION):LENS:_CALC_CLOSE"){
-    field(CALC, "(B==0 && A>0)?1:0")
+    # Close if:
+    #   B == 0: bypass is not set
+    #   and
+    #   (A  > 0: fault indicator from PLC
+    #    or
+    #    C  > 0: PLC heartbeat failure
+    #   )
+    field(CALC, "(B==0 && (A > 0 || C > 0)) ? 1:0")
     field(INPA, "$(LOCATION):LENS:BEAM:FAULTED CPP NMS")
     field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP NMS")
+    field(INPC, "$(LOCATION):LENS:PLC:HEARTBEAT:OK CPP NMS")
     field(OOPT, "When Non-zero")
     field(DOPT, "Use CALC")
     field(OUT, "$(LOCATION):LENS:CLOSE.PROC PP")
@@ -40,6 +48,7 @@ record(bo, "$(LOCATION):LENS:BYPASS:SET") {
     field(ONAM, "Bypass ON")
     field(VAL, "0")
     field(PINI, "YES")
+    field(TPRO, "1")
 }
 
 # These records determine the bypass status by checking input "B" 
@@ -50,14 +59,12 @@ record(calc, "$(LOCATION):LENS:BYPASS:_STATUS") {
     field(INPA, "$(LOCATION):LENS:BEAM:ENERGY.B CPP MS")
     field(INPB, "$(LOCATION):LENS:_CALC_CLOSE.B CPP MS")
     field(INPC, "$(LOCATION):LENS:_CALC_UNLOCK.B CPP MS")
-    field(TPRO, "1")
 }
 
 record(bi, "$(LOCATION):LENS:BYPASS:STATUS") {
     field(INP, "$(LOCATION):LENS:BYPASS:_STATUS.VAL CPP MS")
     field(ZNAM, "Bypass OFF")
     field(ONAM, "Bypass ON")
-    field(TPRO, "1")
 }
 
 record(ai, "$(LOCATION):LENS:BYPASS:ENERGY") {

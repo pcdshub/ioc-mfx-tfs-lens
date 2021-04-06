@@ -102,6 +102,7 @@ dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS1
 dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS2_428,LIMIT=LENS2")
 dbLoadRecords("db/flexiblelimit.db","LOCATION=$(LOCATION),TABLE_NAME=TABLE_LENS3_333,LIMIT=LENS3")
 dbLoadRecords("db/monitor.db", "LOCATION=$(LOCATION)")
+dbLoadRecords("db/heartbeat.db", "LOCATION=$(LOCATION):LENS")
 
 
 #####################

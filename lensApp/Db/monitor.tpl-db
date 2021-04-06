@@ -1,3 +1,6 @@
+# This is the IOC heartbeat, sent to the PLC.
+# It's not so useful as the IOC must be running to put in the shutter in the
+# current implementation.
 record(calc, $(LOCATION):LENS:BEAM:HEARTBEAT){
     field(DESC, "1 Hz heartbeat")
     field(CALC, "A=1?0:A+1")

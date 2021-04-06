@@ -1,0 +1,46 @@
+# Checks the PLC incrementing heartbeat PV.
+# Required macros:
+#   LOCATION- PV Prefix
+#
+record(calcout, "$(LOCATION):PLC:_HB_CHK")
+{
+    field(DESC, "Heartbeat Checker")
+    field(SCAN, "5 second")
+
+    # A: Every 5 seconds, grab the heartbeat
+    field(INPA, "$(LOCATION):PLC:CYCLE NPP MS")
+
+    # B: Store the old value of the heartbeat
+    field(INPB, "0")
+
+    # C: This is the heartbeat's severity:
+    field(INPC, "$(LOCATION):PLC:CYCLE.SEVR NPP NMS")
+
+    # C > 2: -> CALC = 2
+    #   If severity of the heartbeat is set, keep it at 2 INVALID/INVALID.
+    # C < 2, A = B -> CALC = 1
+    #   Set MAJOR/NOT_RUNNING if A=B for 5 seconds.
+    # C < 2, A != B -> CALC = 0
+    #   Set NO_ALARM/
+    field(CALC, "C>2 ? 2:(A=B?1:0) ; B:=A")
+
+    # Output to the heartbeat OK record, and cause it to process:
+    field(OUT,  "$(LOCATION):PLC:HEARTBEAT:OK PP MS")
+}
+
+record(mbbi, "$(LOCATION):PLC:HEARTBEAT:OK")
+{
+    field(DESC, "PLC Heartbeat Status")
+
+    # 0 RUNNING (OK)
+    field(ZRST, "RUNNING")
+    field(ZRSV, "NO_ALARM")
+
+    # 1 NOT_RUNNING
+    field(ONST, "NOT_RUNNING")
+    field(ONSV, "MAJOR")
+
+    # 2 INVALID
+    field(TWST, "INVALID")
+    field(TWSV, "INVALID")
+}
