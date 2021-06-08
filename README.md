@@ -3,8 +3,21 @@ ioc-mfx-tfs-lens
 
 MFX transfocator lens IOC.
 
+**Warning**
+-----------
+
+This IOC code is used to interface EPICS PVs with the PLC
+``lcls-plc-mfx-be-lens-interlock``.
+
+* This PLC code is part of a safety interlock. The LCLS Safety Office needs to be
+  contacted prior to loading any changes on the PLC.
+* ``ioc-mfx-tfs-lens``, as the corresponding EPICS IOC code, requires that the
+  LCLS Safety Office be contacted prior to pushing any changes to production.
+* Attenuator 11 of ``ioc-mfx-lusiAtt`` shall not be disabled, as it is an
+  integral part of this safety interlock: it is being used as a beam shutter.
+
 Interlock system
-================
+----------------
 
 Part of the Beryllium lens interlock system, paired with
 [pcdshub/lcls-plc-mfx-be-lens-interlock](https://github.com/pcdshub/lcls-plc-mfx-be-lens-interlock)
@@ -28,9 +41,9 @@ Additional criteria:
    If the current photon energy is within this (inclusive) range and no
    lens is inserted, trip.
 
-
-Python code
-===========
+Related repositories
+--------------------
 
 Automated calculation of beryllium lens focusing optics for MFX Transfocator with ophyd in Python:
-[pcdshub/transfocate](https://github.com/pcdshub/transfocate)
+* [transfocate](https://github.com/pcdshub/transfocate)
+* [lcls-plc-mfx-be-lens-interlock](https://github.com/pcdshub/lcls-plc-mfx-be-lens-interlock)
