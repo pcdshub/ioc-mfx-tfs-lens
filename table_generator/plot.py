@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import pandas as pd
 import matplotlib
@@ -10,7 +12,6 @@ for fn in sys.argv[1:]:
         continue
     df = pd.read_csv(fn)
     df = df.set_index(df.energy)
-    print(df)
     plt.figure()
     plt.plot(df.energy, df.low)
     plt.plot(df.energy, df.high)

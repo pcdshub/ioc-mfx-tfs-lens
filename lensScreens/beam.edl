@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 591
-y 384
-w 513
-h 416
+x 786
+y 507
+w 523
+h 442
 font "helvetica-medium-r-12.0"
 ctlFont "helvetica-medium-r-12.0"
 btnFont "helvetica-medium-r-12.0"
@@ -19,8 +19,9 @@ ctlBgColor1 index 4
 ctlBgColor2 index 4
 topShadowColor index 1
 botShadowColor index 11
+showGrid
 snapToGrid
-gridSize 2
+gridSize 5
 endScreenProperties
 
 # (Static Text)
@@ -71,7 +72,7 @@ minor 1
 release 1
 x 14
 y 12
-w 484
+w 240
 h 16
 font "helvetica-bold-r-14.0"
 fontAlign "center"
@@ -428,7 +429,7 @@ minor 1
 release 1
 x 20
 y 194
-w 472
+w 130
 h 14
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -818,8 +819,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 324
-y 358
+x 155
+y 380
 w 96
 h 16
 controlPv "$(BEAM):BYPASS:STATUS"
@@ -831,27 +832,6 @@ font "courier-medium-r-10.0"
 fontAlign "center"
 endObjectProperties
 
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 154
-y 362
-w 166
-h 16
-fgColor index 14
-bgColor index 4
-selectColor index 4
-inconsistentColor index 4
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(BEAM):BYPASS:SET"
-font "helvetica-medium-r-10.0"
-orientation "horizontal"
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -860,7 +840,7 @@ minor 1
 release 1
 x 10
 y 302
-w 482
+w 99
 h 14
 font "helvetica-bold-r-12.0"
 fontAlign "center"
@@ -936,16 +916,97 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 60
-y 362
-w 83
+x 185
+y 365
+w 40
 h 14
 font "helvetica-medium-r-12.0"
 fgColor index 14
 bgColor index 4
 useDisplayBg
 value {
-  "Bypass enable"
+  "Energy"
+}
+autoSize
+endObjectProperties
+
+# (Text Update)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 260
+y 380
+w 96
+h 16
+controlPv "$(BEAM):BYPASS:INSERTED:SET"
+fgColor index 15
+fgAlarm
+bgColor index 11
+fill
+font "courier-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 285
+y 365
+w 44
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "Position"
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 70
+y 400
+w 381
+h 42
+font "helvetica-bold-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "** Both should read BYPASS OFF during normal operations. **"
+  "If you need to disable the bypass and don't know how, you may"
+  "safely reboot ioc-mfx-tfs-lens."
+}
+autoSize
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 420
+y 330
+w 16
+h 14
+font "helvetica-medium-r-12.0"
+fgColor index 14
+bgColor index 4
+useDisplayBg
+value {
+  "eV"
 }
 autoSize
 endObjectProperties

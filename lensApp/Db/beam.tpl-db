@@ -1,12 +1,35 @@
 record(calc, "$(LOCATION):LENS:BEAM:ENERGY") {
+    # This record reports either the averaged energy -or- the bypass energy.
+    # It should be used as the primary "energy" record from this IOC, in
+    # order to support the bypass features.
     field(DESC, "Energy in eV of incoming X-rays")
     field(SCAN, "Passive")
     field(PINI, "YES")
     field(CALC, "B==0?A:C")
-    field(INPA, "$(ENERGY) CPP MS")
+    field(INPA, "$(LOCATION):LENS:BEAM:AVG_ENERGY CPP MS")
     field(INPB, "$(LOCATION):LENS:BYPASS:SET CPP MS")
     field(INPC, "$(LOCATION):LENS:BYPASS:ENERGY CPP MS")
     field(EGU,  "eV")
+    field(PREC, 0)
+}
+
+record(ai, "$(LOCATION):LENS:BEAM:RAW_ENERGY") {
+    # This record simply mirrors the upstream energy.
+    field(INP, "$(ENERGY) CPP MS")
+    field(EGU, "eV")
+}
+
+record(compress, "$(LOCATION):LENS:BEAM:AVG_ENERGY") {
+    # This updates averages every 5 upstream energy changes -or- at most every
+    # 10 seconds (= .N * .SCAN seconds).
+    field(EGU, "eV")
+    field(DESC, "Averaged energy")
+    field(ALG, "Average")
+    field(INP, "$(LOCATION):LENS:BEAM:RAW_ENERGY CPP MS")
+    field(N, 5)
+    field(PREC, 0)
+    # Even without a monitor, we update every 2 seconds.
+    field(SCAN, "2 second")
 }
 
 record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
@@ -15,6 +38,7 @@ record(ai, "$(LOCATION):LENS:BEAM:REQ_ENERGY") {
     field(DTYP, "Soft Channel")
     field(PINI, "YES")
     field(EGU,  "eV")
+    field(PREC, 0)
 }
 
 record(ao, "$(LOCATION):LENS:_ENERGY_TO_PLC") {

@@ -17,6 +17,7 @@ DB += lens.db
 DB += mfx-modbus.db
 DB += monitor.db
 DB += shutter.db
+DB += heartbeat.db
 
 #----------------------------------------------------
 # Create and install (or just install)

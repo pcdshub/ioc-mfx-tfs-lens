@@ -1,15 +1,56 @@
-record(bo, $(LOCATION):LENS:$(LENSID):STATE){
+record(bo, "$(LOCATION):LENS:$(LENSID):STATE") {
     field(DESC, "Check the state of lens")
+    # STATE_CALC -> INSERTED
     field(OUT,  "$(LOCATION):LENS:$(LENSID):INSERTED CPP")
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(DOL, "$(Y_MOT):$(IN_STATE) CPP")
+    field(DOL, "$(LOCATION):LENS:$(LENSID):STATE_CALC CPP")
     field(ZNAM, "Not in")
     field(ONAM, "In")
-    field(FLNK, $(LOCATION):LENS:$(LENSID):FOCUS)
+    field(FLNK, "$(LOCATION):LENS:$(LENSID):FOCUS")
 }
 
+record(calc, "$(LOCATION):LENS:$(LENSID):STATE_CALC"){
+    # If B == 0: bypass is not set
+    #   Use Y_MOT:IN_STATE
+    field(CALC, "B==0 ? A : C")
+    field(INPA, "$(Y_MOT):$(IN_STATE) CPP MS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:INSERTED:SET CPP NMS")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):BYP:INS CPP NMS")
+    field(PINI, "YES")
+}
+
+record(bo, "$(LOCATION):LENS:$(LENSID):BYP:INS"){
+    field(DESC, "Bypass mode: insertion state")
+    field(ZNAM, "Not in")
+    field(ONAM, "In")
+    # IN to start with
+    field(VAL, "1")
+    field(PINI, "YES")
+}
+
+record(bo, "$(LOCATION):LENS:$(LENSID):BYP:KNOWN"){
+    field(DESC, "Bypass mode: known state")
+    field(ZNAM, "Not safe")
+    field(ONAM, "Safe")
+    # Not safe to start with
+    field(VAL, "0")
+    field(PINI, "YES")
+}
+
+record(calc, "$(LOCATION):LENS:$(LENSID):SAFE_CALC"){
+    # If B == 0: bypass is not set
+    #   If Y_MOT > 0 (UNKNOWN), 1
+    #   If Y_MOT == 0 (UNKNOWN), 0
+    # If B == 1: bypass is set
+    #   Use :BYP:KNOWN
+    field(CALC, "B==0 ? (A>0?1:0) : C")
+    field(INPA, "$(Y_MOT) CPP MS")
+    field(INPB, "$(LOCATION):LENS:BYPASS:INSERTED:SET CPP NMS")
+    field(INPC, "$(LOCATION):LENS:$(LENSID):BYP:KNOWN CPP NMS")
+    field(PINI, "YES")
+}
 
 record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
     field(DESC, "Unknown state of the lens")
@@ -18,7 +59,7 @@ record(bo, $(LOCATION):LENS:$(LENSID):SAFE){
     field(OMSL, "closed_loop")
     field(SCAN, "Passive")
     field(PINI, "YES")
-    field(DOL, "$(LOCATION):LENS:$(LENSID):STATE_CALC CPP")
+    field(DOL, "$(LOCATION):LENS:$(LENSID):SAFE_CALC CPP")
     field(ZNAM, "Not safe")
     field(ZSV, "MAJOR")
     field(ONAM, "Safe")
@@ -53,13 +94,6 @@ record(stringout, $(LOCATION):LENS:$(LENSID):Y_MOT) {
     field(VAL, "$(Y_MOT)")
 }
 
-
-record(calc, $(LOCATION):LENS:$(LENSID):STATE_CALC) {
-    field(SCAN, "Passive")
-    field(PINI, "YES")
-    field(INPA, "$(Y_MOT) CPP")
-    field(CALC, "A>0?1:0")
-}
 
 record(bo, $(LOCATION):LENS:$(LENSID):REMOVE) {
     field(DESC, "Remove lens from the beam")
